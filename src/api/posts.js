@@ -1,11 +1,24 @@
 import { supabase } from './supabase'
 
+const MAX_FILE_MB = 15
+const UPLOAD_TIMEOUT_MS = 30_000
+
 export const uploadMedia = async (file, authorId) => {
+  // Validar tamaño antes de intentar subir
+  if (file.size > MAX_FILE_MB * 1024 * 1024) {
+    throw new Error(`El archivo "${file.name}" supera el límite de ${MAX_FILE_MB} MB.`)
+  }
   const ext = file.name.split('.').pop().toLowerCase()
   const path = `${authorId}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
-  const { error } = await supabase.storage
+
+  // Timeout de 30s: si Storage no responde, lanza error en lugar de congelarse
+  const uploadPromise = supabase.storage
     .from('post-media')
     .upload(path, file, { cacheControl: '3600', upsert: false })
+  const timeoutPromise = new Promise((_, reject) =>
+    setTimeout(() => reject(new Error(`La subida de "${file.name}" tardó demasiado. Intenta con una conexión más estable.`)), UPLOAD_TIMEOUT_MS)
+  )
+  const { error } = await Promise.race([uploadPromise, timeoutPromise])
   if (error) throw error
   const { data: urlData } = supabase.storage.from('post-media').getPublicUrl(path)
   return { url: urlData.publicUrl, type: file.type, name: file.name, path }

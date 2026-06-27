@@ -155,8 +155,10 @@ export default function PublishBox({ onClose, onPublished }) {
       onPublished?.(post)
     } catch (err) {
       toast(safeErrorMessage(err), 'error')
+    } finally {
+      // Garantiza que el botón nunca quede bloqueado aunque haya error silencioso
+      setLoading(false)
     }
-    setLoading(false)
   }
 
   const inputCls = 'w-full px-3 py-2 rounded-2xl border border-ink-300 text-[13px] focus:outline-none focus:border-brand-600 bg-white'
