@@ -79,14 +79,14 @@ export default function FeedPage() {
         setTimeout(() => reject(new Error('La conexión tardó demasiado. Intenta de nuevo.')), 10000)
       )
       const data = await Promise.race([
-        listPosts({ cursor, limit: 20, filters: debouncedFilters, sort }),
+        listPosts({ cursor, limit: 20, filters: debouncedFilters, sort, userId: session?.user?.id }),
         timeout,
       ])
       if (append) setPosts(p => [...p, ...data])
       else setPosts(data)
       setHasMore(data.length === 20)
     } catch (e) { toast(safeErrorMessage(e), 'error') }
-  }, [debouncedFilters, sort, toast])
+  }, [debouncedFilters, sort, toast, session?.user?.id])
 
   useEffect(() => {
     let mounted = true

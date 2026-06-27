@@ -1,14 +1,27 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { getActiveBanners } from '../../api/admin'
 
+// Cache de banners: se renueva cada 5 min para no consultar en cada visita al feed
+let _bannersCache = null
+let _bannersTs = 0
+const BANNERS_TTL = 5 * 60 * 1000
+
+async function getActiveBannersCached() {
+  if (_bannersCache && Date.now() - _bannersTs < BANNERS_TTL) return _bannersCache
+  const data = await getActiveBanners()
+  _bannersCache = data
+  _bannersTs = Date.now()
+  return data
+}
+
 export default function BannerCarousel() {
-  const [banners, setBanners] = useState([])
+  const [banners, setBanners] = useState(_bannersCache || [])
   const [current, setCurrent]  = useState(0)
   const trackRef  = useRef(null)
   const timerRef  = useRef(null)
 
   useEffect(() => {
-    getActiveBanners().then(setBanners).catch(() => {})
+    getActiveBannersCached().then(setBanners).catch(() => {})
   }, [])
 
   const goTo = useCallback((idx) => {

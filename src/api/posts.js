@@ -73,18 +73,20 @@ const engagementScore = (post) => {
   return raw / Math.log2(ageHours + 2)
 }
 
-export const listPosts = async ({ cursor, limit = 20, filters = {}, sort = 'smart' } = {}) => {
+export const listPosts = async ({ cursor, limit = 20, filters = {}, sort = 'smart', userId } = {}) => {
   // Smart sort: trae el doble para tener margen de ranking sin desperdiciar el triple
   const fetchLimit = sort === 'smart' ? Math.min(limit * 2, 40) : limit
 
+  // Seleccionamos SOLO las columnas que el feed usa (antes era `*`).
+  // reaction_count y comment_count son agregados baratos. Ya NO traemos la
+  // lista completa de reacciones de cada post (antes: cientos de filas por post).
   let q = supabase
     .from('posts')
     .select(`
-      *,
+      id, author_id, title, content, category, subcategory, location, intent, media, event_date, created_at,
       profiles!posts_author_id_fkey(id, full_name, identity_mode, identity_number, city, avatar_url),
       reaction_count:reactions(count),
-      comment_count:comments(count),
-      reactions(type, user_id)
+      comment_count:comments(count)
     `)
     .order('created_at', { ascending: false })
     .limit(fetchLimit)
@@ -122,8 +124,24 @@ export const listPosts = async ({ cursor, limit = 20, filters = {}, sort = 'smar
     ...p,
     reaction_count: p.reaction_count?.[0]?.count ?? 0,
     comment_count:  p.comment_count?.[0]?.count  ?? 0,
-    reactions: p.reactions || [],
+    reactions: [],
   }))
+
+  // Una sola query para saber a cuáles de ESTOS posts reaccioné yo (en vez de
+  // traer todas las reacciones de todos). Trae solo mis filas, muy liviano.
+  if (userId && posts.length > 0) {
+    const ids = posts.map(p => p.id)
+    const { data: mine } = await supabase
+      .from('reactions')
+      .select('post_id, type')
+      .eq('user_id', userId)
+      .in('post_id', ids)
+    if (mine) {
+      const byPost = {}
+      for (const r of mine) (byPost[r.post_id] ||= []).push({ type: r.type, user_id: userId })
+      posts = posts.map(p => ({ ...p, reactions: byPost[p.id] || [] }))
+    }
+  }
 
   if (sort === 'smart' && !cursor) {
     posts = posts
