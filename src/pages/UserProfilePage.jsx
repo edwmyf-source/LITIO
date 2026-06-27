@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { ArrowLeft, MapPin, UserPlus, UserCheck, MessageCircle, Send, Loader2 } from 'lucide-react'
+import { ArrowLeft, MapPin, UserPlus, UserCheck, MessageCircle, Send, Loader2, Settings } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
 import { getPublicProfile } from '../api/profiles'
 import { getPostsByUser } from '../api/posts'
@@ -182,8 +182,8 @@ export default function UserProfilePage() {
             </div>
             {isOwnProfile ? (
               <button onClick={() => navigate('/profile')}
-                className="text-[12px] font-medium px-4 py-1.5 border border-ink-300 rounded-full text-ink-700 hover:bg-ink-50 transition-colors">
-                Editar perfil
+                className="flex items-center gap-1.5 text-[12px] font-medium px-4 py-1.5 border border-ink-300 rounded-full text-ink-700 hover:bg-ink-50 transition-colors">
+                <Settings size={13} /> Configuración
               </button>
             ) : (
               <button onClick={handleFollow} disabled={loadingFollow}

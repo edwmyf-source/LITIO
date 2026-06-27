@@ -1,65 +1,62 @@
 import { useEffect, useState } from 'react'
-import { LayoutList, MessageSquare, User, HelpCircle, Lock, LogOut, Plus, Bell, TrendingUp } from 'lucide-react'
+import { LayoutList, MessageSquare, User, HelpCircle, Lock, LogOut, Plus, Bell, Calendar } from 'lucide-react'
 import { signOut } from '../../api/auth'
 import { isAdmin } from '../../lib/constants'
-import { getTrending } from '../../api/posts'
+import { getUpcomingEvents } from '../../api/posts'
 import { publicName } from '../../lib/helpers'
 import { CATEGORY_MAP } from '../../lib/constants'
 import { useAuth } from '../../contexts/AuthContext'
 import LitioMark from '../shared/LitioMark'
 
-// Cache de tendencias: se renueva cada 5 minutos para no consultar en cada render
-let _trendingCache = null
-let _trendingTs = 0
-const TRENDING_TTL = 5 * 60 * 1000
+// Cache de eventos próximos: se renueva cada 5 minutos
+let _eventsCache = null
+let _eventsTs = 0
+const EVENTS_TTL = 5 * 60 * 1000
 
-async function getTrendingCached() {
-  if (_trendingCache && Date.now() - _trendingTs < TRENDING_TTL) return _trendingCache
-  const data = await getTrending()
-  _trendingCache = data
-  _trendingTs = Date.now()
+async function getUpcomingEventsCached() {
+  if (_eventsCache && Date.now() - _eventsTs < EVENTS_TTL) return _eventsCache
+  const data = await getUpcomingEvents()
+  _eventsCache = data
+  _eventsTs = Date.now()
   return data
 }
 
-function TrendingWidget({ navigate }) {
-  const [posts, setPosts] = useState([])
+// Formatea "2026-07-15" → "15 jul"
+function formatEventDate(dateStr) {
+  if (!dateStr) return ''
+  const d = new Date(dateStr + 'T00:00:00')
+  return d.toLocaleDateString('es-CO', { day: 'numeric', month: 'short' }).replace('.', '')
+}
+
+function UpcomingEventsWidget({ navigate }) {
+  const [events, setEvents] = useState([])
 
   useEffect(() => {
-    getTrendingCached().then(setPosts).catch(() => {})
+    getUpcomingEventsCached().then(setEvents).catch(() => {})
   }, [])
 
-  if (posts.length === 0) return null
+  if (events.length === 0) return null
 
   return (
-    <div className="mx-3 mb-3 rounded-2xl border border-white/10 bg-white/5 p-3">
-      <div className="flex items-center gap-1.5 mb-2.5">
-        <TrendingUp size={12} className="text-brand-400" />
-        <span className="text-[10px] font-semibold text-white/50 uppercase tracking-wider">Tendencias</span>
+    <div className="mx-3 mb-2 flex-shrink-0">
+      <div className="flex items-center gap-1.5 mb-1.5 px-0.5">
+        <Calendar size={11} className="text-brand-400" />
+        <span className="text-[9px] font-semibold text-white/40 uppercase tracking-wider">Próximos eventos</span>
       </div>
-      <div className="space-y-2">
-        {posts.map((p, idx) => {
-          const cat = CATEGORY_MAP[p.category]
-          const catLabel = cat?.label || ''
-          const engagement = (p.reaction_count || 0) + (p.comment_count || 0)
-          return (
-            <button key={p.id}
-              onClick={() => navigate('/feed')}
-              className="w-full text-left group"
-            >
-              <div className="flex items-start gap-1.5">
-                <span className="text-[10px] font-bold text-white/20 w-3 flex-shrink-0 mt-0.5">{idx + 1}</span>
-                <div className="flex-1 min-w-0">
-                  <p className="text-[11px] text-white/70 group-hover:text-white leading-snug truncate transition-colors">
-                    {p.title}
-                  </p>
-                  <p className="text-[9px] text-white/30 mt-0.5">
-                    {catLabel} · {engagement} interacciones
-                  </p>
-                </div>
-              </div>
-            </button>
-          )
-        })}
+      <div className="space-y-1">
+        {events.map(ev => (
+          <button key={ev.id}
+            onClick={() => navigate('/feed')}
+            className="w-full text-left group flex items-center gap-2 px-1 py-0.5 rounded-lg hover:bg-white/5 transition-colors"
+          >
+            <span className="text-[9px] font-bold text-brand-300 bg-brand-500/15 rounded px-1 py-0.5 flex-shrink-0 leading-tight whitespace-nowrap">
+              {formatEventDate(ev.event_date)}
+            </span>
+            <span className="text-[10px] text-white/55 group-hover:text-white/90 leading-tight truncate transition-colors">
+              {ev.title}
+            </span>
+          </button>
+        ))}
       </div>
     </div>
   )
@@ -67,11 +64,12 @@ function TrendingWidget({ navigate }) {
 
 export default function Sidebar({ currentPath, navigate, profile, unreadCount = 0 }) {
   const { session } = useAuth()
+  const myId = session?.user?.id
   const navItems = [
     { path: '/feed',          label: 'Feed',           icon: LayoutList },
     { path: '/chats',         label: 'Inbox',          icon: MessageSquare },
     { path: '/notifications', label: 'Notificaciones', icon: Bell, badge: unreadCount },
-    { path: '/profile',       label: 'Mi perfil',      icon: User },
+    { path: myId ? `/u/${myId}` : '/profile', label: 'Mi perfil', icon: User, match: '/u/' },
     { path: '/contact',       label: 'Soporte',        icon: HelpCircle },
   ]
   if (isAdmin(profile, session?.user?.email)) navItems.push({ path: '/admin', label: 'Admin', icon: Lock })
@@ -99,7 +97,7 @@ export default function Sidebar({ currentPath, navigate, profile, unreadCount = 
       {/* Nav */}
       <nav className="flex-1 px-3 mt-2 space-y-1 overflow-y-auto min-h-0">
         {navItems.map(item => {
-          const active = currentPath === item.path
+          const active = item.match ? currentPath.startsWith(item.match) : currentPath === item.path
           const Icon = item.icon
           return (
             <button key={item.path} onClick={() => navigate(item.path)}
@@ -118,8 +116,8 @@ export default function Sidebar({ currentPath, navigate, profile, unreadCount = 
         })}
       </nav>
 
-      {/* Tendencias — widget abajo */}
-      <TrendingWidget navigate={navigate} />
+      {/* Próximos eventos — widget compacto abajo */}
+      <UpcomingEventsWidget navigate={navigate} />
 
       {/* Salir */}
       <div className="px-3 pb-4 border-t border-white/10 pt-3 flex-shrink-0">

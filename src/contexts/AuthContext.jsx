@@ -70,8 +70,18 @@ export function AuthProvider({ children }) {
       if (mounted) { setError(e.message); setLoading(false) }
     })
 
-    const { data: sub } = supabase.auth.onAuthStateChange(async (_ev, ns) => {
+    const { data: sub } = supabase.auth.onAuthStateChange(async (event, ns) => {
       if (!mounted) return
+
+      // TOKEN_REFRESHED se dispara solo cada ~minuto. Si el usuario es el mismo,
+      // NO re-sincronizamos nada: actualizar session/profile aquí causaba un
+      // re-render en cascada de toda la app → la app se "congelaba" al minuto.
+      if (event === 'TOKEN_REFRESHED') {
+        setSession(prev => prev ?? ns)   // mantener referencia previa si ya existe
+        return
+      }
+
+      // Solo reaccionar a cambios reales: login, logout, cambio de usuario
       setSession(ns)
       try {
         await checkMFA(ns)

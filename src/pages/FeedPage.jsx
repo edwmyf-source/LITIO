@@ -107,19 +107,24 @@ export default function FeedPage() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [fetchPosts])
 
-  // Infinite scroll con IntersectionObserver
+  // Infinite scroll con IntersectionObserver — usamos refs para no recrear
+  // el observer en cada cambio de `posts` (eso causaba renders en cascada)
+  const stateRef = useRef({ posts, hasMore, loadingMore })
+  stateRef.current = { posts, hasMore, loadingMore }
+
   useEffect(() => {
     if (!sentinel.current) return
     const obs = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && hasMore && !loadingMore && posts.length > 0) {
+      const { posts: ps, hasMore: hm, loadingMore: lm } = stateRef.current
+      if (entry.isIntersecting && hm && !lm && ps.length > 0) {
         setLoadingMore(true)
-        const cursor = posts[posts.length - 1].created_at
+        const cursor = ps[ps.length - 1].created_at
         fetchPosts(cursor, true).finally(() => setLoadingMore(false))
       }
     }, { rootMargin: '300px' })
     obs.observe(sentinel.current)
     return () => obs.disconnect()
-  }, [posts, hasMore, loadingMore, fetchPosts])
+  }, [fetchPosts])
 
   // Venimos de una notificación: ir directo al post mencionado
   useEffect(() => {

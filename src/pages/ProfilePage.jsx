@@ -1,5 +1,6 @@
 import { useState, useMemo, useRef } from 'react'
-import { Eye, User, Check, Camera, Loader2, Lock, Globe, ShieldCheck } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { Eye, User, Check, Camera, Loader2, Lock, Globe, ShieldCheck, ArrowLeft } from 'lucide-react'
 import { updateProfile, uploadAvatar } from '../api/profiles'
 import { useAuth } from '../contexts/AuthContext'
 import { DEPARTAMENTOS, isAdmin } from '../lib/constants'
@@ -15,6 +16,7 @@ const labelCls = 'text-xs font-medium text-ink-900'
 
 export default function ProfilePage() {
   const { session, profile, setProfile } = useAuth()
+  const navigate = useNavigate()
   const userId = session?.user?.id || ''
   const userEmail = session?.user?.email || ''
   const defaultNumber = useMemo(() => generateIdentityNumber(userId), [userId])
@@ -129,7 +131,11 @@ export default function ProfilePage() {
 
   return (
     <div className="page-enter max-w-lg mx-auto">
-      <h2 className="font-medium text-base text-ink-900 mb-1 tracking-tight">Mi perfil</h2>
+      <button onClick={() => navigate(userId ? `/u/${userId}` : '/feed')}
+        className="flex items-center gap-1.5 text-xs text-ink-500 hover:text-ink-900 mb-3 transition-colors">
+        <ArrowLeft size={14} /> Ver mi perfil público
+      </button>
+      <h2 className="font-medium text-base text-ink-900 mb-1 tracking-tight">Configuración</h2>
       <p className="text-xs text-ink-500 mb-4">Actualiza tus datos cuando quieras.</p>
 
       {/* Card pública actual — con foto */}

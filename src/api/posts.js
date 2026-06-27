@@ -25,7 +25,7 @@ export const uploadMedia = async (file, authorId) => {
 }
 
 export const createPost = async (payload, mediaFiles = []) => {
-  const { author_id, title, content, category, subcategory, location, intent } = payload
+  const { author_id, title, content, category, subcategory, location, intent, event_date } = payload
   let media = []
   if (mediaFiles.length > 0) {
     media = await Promise.all(mediaFiles.map(f => uploadMedia(f, author_id)))
@@ -37,6 +37,7 @@ export const createPost = async (payload, mediaFiles = []) => {
       subcategory: subcategory || null,
       location:    location    || null,
       intent:      intent      || 'ofrecen',
+      event_date:  event_date  || null,
       media: media.length > 0 ? media : null,
     })
     .select().single()
@@ -46,6 +47,20 @@ export const createPost = async (payload, mediaFiles = []) => {
   }
   if (error) throw error
   return data
+}
+
+// Próximos eventos: posts con event_date futura, ordenados por fecha, máximo 3
+export const getUpcomingEvents = async () => {
+  const today = new Date().toISOString().slice(0, 10)
+  const { data, error } = await supabase
+    .from('posts')
+    .select('id, title, event_date, category, subcategory')
+    .not('event_date', 'is', null)
+    .gte('event_date', today)
+    .order('event_date', { ascending: true })
+    .limit(3)
+  if (error) return []
+  return data || []
 }
 
 // ─── SCORE DE ENGAGEMENT ────────────────────────────────────────────────────

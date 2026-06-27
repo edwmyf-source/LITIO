@@ -43,11 +43,12 @@ export default function AppLayout() {
     refreshUnread()
   }, [refreshUnread]))
 
+  const myId = session?.user?.id
   const mobileNav = [
     { id: '/feed', label: 'Feed', icon: LayoutList },
     { id: '/chats', label: 'Inbox', icon: MessageSquare },
     { id: '/notifications', label: 'Notif.', icon: Bell, badge: unreadCount },
-    { id: '/profile', label: 'Perfil', icon: User },
+    { id: myId ? `/u/${myId}` : '/profile', label: 'Perfil', icon: User, match: '/u/' },
     { id: '/contact', label: 'Soporte', icon: HelpCircle },
     ...(isAdmin(profile, session?.user?.email) ? [{ id: '/admin', label: 'Admin', icon: Lock }] : []),
   ]
@@ -75,7 +76,7 @@ export default function AppLayout() {
                 </button>
               )}
               <button onClick={() => navigate(item.id)}
-                className={`flex-1 py-3 text-center text-xs font-medium relative flex flex-col items-center gap-0.5 ${currentTab === item.id ? 'text-brand-600' : 'text-ink-900'}`}>
+                className={`flex-1 py-3 text-center text-xs font-medium relative flex flex-col items-center gap-0.5 ${(item.match ? currentTab.startsWith(item.match) : currentTab === item.id) ? 'text-brand-600' : 'text-ink-900'}`}>
                 <Icon size={19} />
                 {item.label}
                 {item.badge > 0 && (

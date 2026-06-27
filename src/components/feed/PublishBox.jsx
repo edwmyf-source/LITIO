@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { X, Send, XCircle, ImagePlus, FileText, Loader2, ShoppingBag, Wrench, Briefcase, Megaphone, MapPin } from 'lucide-react'
+import { X, Send, XCircle, ImagePlus, FileText, Loader2, ShoppingBag, Wrench, Briefcase, Megaphone, MapPin, Calendar } from 'lucide-react'
 import { createPost } from '../../api/posts'
 import { CATEGORIES, DEPARTAMENTOS } from '../../lib/constants'
 import { useAuth } from '../../contexts/AuthContext'
@@ -102,7 +102,7 @@ export default function PublishBox({ onClose, onPublished }) {
   const imageRef = useRef(null)
   const pdfRef   = useRef(null)
 
-  const [form, setForm] = useState({ category: '', subcategory: '', title: '' })
+  const [form, setForm] = useState({ category: '', subcategory: '', title: '', event_date: '' })
   const [files, setFiles] = useState([])   // [{ file, preview, kind }]
   const [loading, setLoading] = useState(false)
   const [location, setLocation] = useState(null)
@@ -149,7 +149,8 @@ export default function PublishBox({ onClose, onPublished }) {
     try {
       const post = await createPost(
         { author_id: session.user.id, title: form.title.trim(), content: '',
-          category: form.category, subcategory: form.subcategory || null, location: location || null },
+          category: form.category, subcategory: form.subcategory || null, location: location || null,
+          event_date: form.subcategory === 'Eventos' ? (form.event_date || null) : null },
         files.map(f => f.file)
       )
       onPublished?.(post)
@@ -233,7 +234,20 @@ export default function PublishBox({ onClose, onPublished }) {
           </div>
         )}
 
-        {/* Preview archivos adjuntos */}
+        {/* Fecha del evento — solo cuando la subcategoría es "Eventos" */}
+        {form.subcategory === 'Eventos' && (
+          <div>
+            <p className="text-[11px] text-ink-500 font-medium mb-1.5 flex items-center gap-1">
+              <Calendar size={12} className="text-brand-600" /> Fecha del evento
+            </p>
+            <input type="date"
+              value={form.event_date}
+              min={new Date().toISOString().slice(0, 10)}
+              onChange={e => set('event_date', e.target.value)}
+              className="w-full px-3 py-2 rounded-2xl border border-ink-300 text-[13px] focus:outline-none focus:border-brand-600 bg-white" />
+            <p className="text-[10.5px] text-ink-400 mt-1">Aparecerá en "Próximos eventos" para que la comunidad sepa qué viene.</p>
+          </div>
+        )}
         {files.length > 0 && (
           <div className="flex gap-2 flex-wrap">
             {files.map((f, idx) => (
