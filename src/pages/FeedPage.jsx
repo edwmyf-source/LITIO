@@ -19,6 +19,13 @@ import Spinner from '../components/shared/Spinner'
 import ErrorBoundary from '../components/shared/ErrorBoundary'
 import { TAB_COLOR } from '../lib/constants'
 
+// Caché en memoria del feed por defecto (sin filtros). Al volver al feed se
+// muestran los posts cacheados al instante mientras se refresca en segundo plano.
+let _feedCache = { posts: [], ts: 0 }
+const FEED_CACHE_TTL = 60 * 1000 // 1 min
+// Caché de usuarios bloqueados (no cambia seguido)
+let _blockedCache = null
+
 const SORT_OPTIONS = [
   { value: 'smart',   label: 'Relevante', icon: Sparkles },
   { value: 'recent',  label: 'Reciente',  icon: Clock },
@@ -49,8 +56,8 @@ export default function FeedPage() {
   }, [location.search, navigate])
   const toast       = useToast()
 
-  const [posts,          setPosts         ] = useState([])
-  const [loading,        setLoading       ] = useState(true)
+  const [posts,          setPosts         ] = useState(_feedCache.posts)
+  const [loading,        setLoading       ] = useState(_feedCache.posts.length === 0)
   const [loadingMore,    setLoadingMore   ] = useState(false)
   const [hasMore,        setHasMore       ] = useState(true)
   const [filters,        setFilters       ] = useState({})
@@ -59,17 +66,20 @@ export default function FeedPage() {
   const [successOpen,    setSuccessOpen   ] = useState(false)
   const [lastPublishedId,setLastPublishedId] = useState(null)
   const [contactingPost, setContactingPost] = useState(null)
-  const [blockedUsers,   setBlockedUsers  ] = useState([])
+  const [blockedUsers,   setBlockedUsers  ] = useState(_blockedCache || [])
   const sentinel = useRef(null)
 
   // Debounce búsqueda: espera 400ms antes de consultar
   const debouncedFilters = useDebounce(filters, 400)
 
-  // Cargar usuarios bloqueados al montar
+  // Cargar usuarios bloqueados al montar (con caché)
   useEffect(() => {
-    if (session?.user?.id) {
-      getBlockedUsers(session.user.id).then(setBlockedUsers).catch(() => {})
-    }
+    if (!session?.user?.id) return
+    if (_blockedCache) { setBlockedUsers(_blockedCache); return }
+    getBlockedUsers(session.user.id).then(list => {
+      _blockedCache = list
+      setBlockedUsers(list)
+    }).catch(() => {})
   }, [session?.user?.id])
 
   const fetchPosts = useCallback(async (cursor, append = false) => {
@@ -83,14 +93,22 @@ export default function FeedPage() {
         timeout,
       ])
       if (append) setPosts(p => [...p, ...data])
-      else setPosts(data)
+      else {
+        setPosts(data)
+        // Guardar en caché solo el feed por defecto (sin filtros activos)
+        const noFilters = !debouncedFilters || Object.keys(debouncedFilters).length === 0
+        if (noFilters && !cursor) _feedCache = { posts: data, ts: Date.now() }
+      }
       setHasMore(data.length === 20)
     } catch (e) { toast(safeErrorMessage(e), 'error') }
   }, [debouncedFilters, sort, toast, session?.user?.id])
 
   useEffect(() => {
     let mounted = true
-    setLoading(true)
+    // Si hay caché fresca y no hay filtros, no mostramos spinner: refrescamos en silencio
+    const noFilters = !debouncedFilters || Object.keys(debouncedFilters).length === 0
+    const cacheValid = noFilters && _feedCache.posts.length > 0 && (Date.now() - _feedCache.ts < FEED_CACHE_TTL)
+    if (!cacheValid) setLoading(true)
     fetchPosts().finally(() => { if (mounted) setLoading(false) })
     return () => { mounted = false }
   }, [fetchPosts])

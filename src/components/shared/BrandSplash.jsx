@@ -2,7 +2,8 @@ import { useEffect } from 'react'
 
 export default function BrandSplash({ onDone }) {
   useEffect(() => {
-    const t = setTimeout(onDone, 2000)
+    // Splash corto: 0.9s es suficiente para la animación sin retrasar el arranque
+    const t = setTimeout(onDone, 900)
     return () => clearTimeout(t)
   }, [onDone])
 
@@ -43,7 +44,7 @@ export default function BrandSplash({ onDone }) {
         {/* Fase 1: la palabra completa LITIO */}
         <span
           className="absolute font-extrabold text-white tracking-[0.18em]"
-          style={{ fontSize: 'clamp(34px, 9vw, 56px)', animation: 'litioWordIn 2000ms ease forwards' }}
+          style={{ fontSize: 'clamp(34px, 9vw, 56px)', animation: 'litioWordIn 900ms ease forwards' }}
         >
           LITIO
         </span>
@@ -51,20 +52,20 @@ export default function BrandSplash({ onDone }) {
         {/* Destello al desprenderse */}
         <div
           className="absolute rounded-full"
-          style={{ width: 180, height: 180, background: 'radial-gradient(circle, #8b5cf6 0%, transparent 70%)', animation: 'litioGlow 2000ms ease forwards' }}
+          style={{ width: 180, height: 180, background: 'radial-gradient(circle, #8b5cf6 0%, transparent 70%)', animation: 'litioGlow 900ms ease forwards' }}
         />
 
         {/* Fase 2: el "Li" se desprende y crece; LITIO queda escrito abajo */}
         <div className="absolute flex flex-col items-center gap-5">
           <div
             className="rounded-[28px] flex items-center justify-center shadow-2xl"
-            style={{ width: 112, height: 112, background: '#4c1d8f', animation: 'litioMarkPop 2000ms cubic-bezier(.22,.9,.25,1.1) forwards' }}
+            style={{ width: 112, height: 112, background: '#4c1d8f', animation: 'litioMarkPop 900ms cubic-bezier(.22,.9,.25,1.1) forwards' }}
           >
             <span className="text-white font-extrabold" style={{ fontSize: 48 }}>Li</span>
           </div>
           <span
             className="font-bold text-white tracking-[0.3em]"
-            style={{ fontSize: 20, animation: 'litioLabelIn 2000ms ease forwards' }}
+            style={{ fontSize: 20, animation: 'litioLabelIn 900ms ease forwards' }}
           >
             LITIO
           </span>

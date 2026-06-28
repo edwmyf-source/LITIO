@@ -56,14 +56,15 @@ export function AuthProvider({ children }) {
       if (!mounted) return
       if (se) setError(se.message)
       setSession(data.session)
+      // Liberamos loading apenas tenemos sesión: la app se muestra YA.
+      // El perfil se carga en paralelo sin bloquear el primer render.
+      clearTimeout(safetyTimer)
+      if (mounted) setLoading(false)
       try {
         await checkMFA(data.session)
         if (data.session?.user) await syncProfile(data.session.user.id)
       } catch (e) {
-        if (mounted) setError(e.message)
-      } finally {
-        clearTimeout(safetyTimer)
-        if (mounted) setLoading(false)
+        if (mounted) console.warn('Carga de perfil:', e.message)
       }
     }).catch((e) => {
       clearTimeout(safetyTimer)
