@@ -4,8 +4,6 @@ export default function BrandSplash({ onDone }) {
   const doneRef = useRef(false)
 
   useEffect(() => {
-    // La animación dura 700ms. Esperamos 900ms para que se vea completa + margen.
-    // El usuario también puede tocar para saltarla.
     const t = setTimeout(() => {
       if (!doneRef.current) { doneRef.current = true; onDone() }
     }, 3000)
@@ -17,59 +15,101 @@ export default function BrandSplash({ onDone }) {
   }
 
   return (
-    <div
-      onClick={skip}
-      style={{
-        position: 'fixed', inset: 0, zIndex: 9999,
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        background: '#1b1330', cursor: 'pointer', overflow: 'hidden',
-      }}>
-
+    <div onClick={skip} style={{
+      position:'fixed', inset:0, zIndex:9999, cursor:'pointer', overflow:'hidden',
+      background:'#1b1330', display:'flex', flexDirection:'column',
+      alignItems:'center', justifyContent:'center',
+    }}>
       <style>{`
-        @keyframes rodio-pop {
-          0%   { opacity: 0; transform: scale(0.5) rotate(-8deg); }
-          60%  { opacity: 1; transform: scale(1.1) rotate(0deg); }
-          80%  { transform: scale(0.96); }
-          100% { opacity: 1; transform: scale(1); }
+        @keyframes rh-pop {
+          0%   { opacity:0; transform:scale(0.5) rotate(-8deg); }
+          60%  { opacity:1; transform:scale(1.1) rotate(0deg); }
+          80%  { transform:scale(0.97); }
+          100% { opacity:1; transform:scale(1); }
         }
-        @keyframes rodio-label {
-          0%,50% { opacity: 0; transform: translateY(10px); }
-          100%   { opacity: 1; transform: translateY(0); }
+        @keyframes rh-label {
+          0%,55% { opacity:0; transform:translateY(10px); }
+          100%   { opacity:1; transform:translateY(0); }
         }
-        @keyframes rodio-glow {
-          0%,40%  { opacity: 0; transform: scale(0.3); }
-          65%     { opacity: 0.25; transform: scale(1); }
-          100%    { opacity: 0; transform: scale(1.4); }
+        @keyframes rh-ring {
+          0%   { opacity:0; transform:scale(0.6); }
+          60%  { opacity:1; transform:scale(1.05); }
+          100% { opacity:0.35; transform:scale(1); }
         }
-        .rodio-mark {
-          width: 100px; height: 100px;
-          background: #4c1d8f;
-          border-radius: 26px;
-          display: flex; align-items: center; justify-content: center;
-          animation: rodio-pop 700ms cubic-bezier(.22,.9,.25,1.1) both;
-          box-shadow: 0 20px 60px rgba(76,29,143,0.5);
+        @keyframes orbit1 {
+          from { transform:rotate(0deg)   translateX(72px) rotate(0deg); }
+          to   { transform:rotate(360deg) translateX(72px) rotate(-360deg); }
         }
-        .rodio-label {
-          color: white; font-weight: 800; font-size: 19px;
-          letter-spacing: 0.3em; font-family: system-ui, sans-serif;
-          animation: rodio-label 700ms ease both;
+        @keyframes orbit2 {
+          from { transform:rotate(120deg) translateX(72px) rotate(-120deg); }
+          to   { transform:rotate(480deg) translateX(72px) rotate(-480deg); }
         }
-        .rodio-glow {
-          position: absolute;
-          width: 200px; height: 200px;
-          border-radius: 50%;
-          background: radial-gradient(circle, #7c3aed 0%, transparent 70%);
-          animation: rodio-glow 700ms ease both;
-          pointer-events: none;
+        @keyframes orbit3 {
+          from { transform:rotate(240deg) translateX(72px) rotate(-240deg); }
+          to   { transform:rotate(600deg) translateX(72px) rotate(-600deg); }
         }
+        @keyframes dot-pulse {
+          0%,100% { opacity:0.35; transform:scale(0.8); }
+          50%     { opacity:1;    transform:scale(1); }
+        }
+        .rh-ring {
+          position:absolute; width:144px; height:144px; border-radius:50%;
+          border:1.5px dashed rgba(167,139,250,0.35);
+          animation: rh-ring 800ms ease both;
+        }
+        .rh-mark {
+          width:100px; height:100px; background:#4c1d8f; border-radius:26px;
+          display:flex; align-items:center; justify-content:center;
+          animation: rh-pop 700ms cubic-bezier(.22,.9,.25,1.1) both;
+          box-shadow: 0 0 0 8px rgba(76,29,143,0.25), 0 20px 60px rgba(76,29,143,0.5);
+          position:relative; z-index:2;
+        }
+        .rh-atom {
+          position:absolute; top:50%; left:50%;
+          width:12px; height:12px; margin:-6px 0 0 -6px;
+        }
+        .rh-atom .dot {
+          width:12px; height:12px; border-radius:50%;
+          background:rgba(167,139,250,0.9);
+          box-shadow:0 0 8px rgba(167,139,250,0.6);
+        }
+        .rh-atom:nth-child(2) { animation: orbit1 3.2s linear infinite; }
+        .rh-atom:nth-child(3) { animation: orbit2 3.2s linear infinite; }
+        .rh-atom:nth-child(4) { animation: orbit3 3.2s linear infinite; }
+        .rh-label {
+          color:white; font-weight:800; font-size:20px; letter-spacing:0.32em;
+          font-family:system-ui,sans-serif; margin-top:28px;
+          animation: rh-label 900ms ease both;
+        }
+        .rh-dots { display:flex; gap:8px; margin-top:20px; animation: rh-label 1100ms ease both; }
+        .rh-dots span {
+          width:7px; height:7px; border-radius:50%; background:rgba(167,139,250,0.6);
+          display:block;
+        }
+        .rh-dots span:nth-child(1) { animation: dot-pulse 1.2s ease-in-out infinite 0s; }
+        .rh-dots span:nth-child(2) { animation: dot-pulse 1.2s ease-in-out infinite 0.24s; }
+        .rh-dots span:nth-child(3) { animation: dot-pulse 1.2s ease-in-out infinite 0.48s; }
+        .rh-dots span:nth-child(4) { animation: dot-pulse 1.2s ease-in-out infinite 0.72s; }
+        .rh-dots span:nth-child(5) { animation: dot-pulse 1.2s ease-in-out infinite 0.96s; }
       `}</style>
 
-      <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20 }}>
-        <div className="rodio-glow" />
-        <div className="rodio-mark">
-          <span style={{ color: 'white', fontWeight: 800, fontSize: 44, fontFamily: 'system-ui, sans-serif' }}>Rh</span>
+      {/* Centro: anillo + partículas + logo */}
+      <div style={{ position:'relative', width:160, height:160, display:'flex', alignItems:'center', justifyContent:'center' }}>
+        <div className="rh-ring" />
+        <div className="rh-atom"><div className="dot" /></div>
+        <div className="rh-atom"><div className="dot" /></div>
+        <div className="rh-atom"><div className="dot" /></div>
+        <div className="rh-mark">
+          <span style={{ color:'white', fontWeight:800, fontSize:44, fontFamily:'system-ui,sans-serif' }}>Rh</span>
         </div>
-        <span className="rodio-label">RODIO</span>
+      </div>
+
+      {/* Nombre — perfectamente centrado bajo el logo */}
+      <div className="rh-label">RODIO</div>
+
+      {/* Pepitas de carga */}
+      <div className="rh-dots">
+        <span /><span /><span /><span /><span />
       </div>
     </div>
   )
