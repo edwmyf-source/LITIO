@@ -67,7 +67,7 @@ export default function BrandSplash({ onDone }) {
       <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20 }}>
         <div className="rodio-glow" />
         <div className="rodio-mark">
-          <span style={{ color: 'white', fontWeight: 800, fontSize: 44, fontFamily: 'system-ui, sans-serif' }}>Li</span>
+          <span style={{ color: 'white', fontWeight: 800, fontSize: 44, fontFamily: 'system-ui, sans-serif' }}>Rh</span>
         </div>
         <span className="rodio-label">RODIO</span>
       </div>
