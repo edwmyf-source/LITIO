@@ -1,10 +1,51 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Gift, Rocket, EyeOff, Lock, MessageCircle, FlaskConical } from 'lucide-react'
 import { getCommunityStats } from '../../api/stats'
 import RodioMark from '../shared/RodioMark'
 import LoginForm from './LoginForm'
 import SignupForm from './SignupForm'
 import ResetForm from './ResetForm'
+
+const TAGLINES = [
+  { line1: 'Punto de encuentro',       line2: 'de la industria química.' },
+  { line1: 'Impulsamos a conectar',    line2: 'el sector químico.' },
+  { line1: 'Compra, vende y colabora', line2: 'con la industria.' },
+  { line1: 'Tu red profesional',       line2: 'de laboratorio e industria.' },
+]
+
+function TaglineRotator() {
+  const [idx, setIdx]       = useState(0)
+  const [visible, setVisible] = useState(true)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // Fade out → cambiar texto → fade in
+      setVisible(false)
+      setTimeout(() => {
+        setIdx(i => (i + 1) % TAGLINES.length)
+        setVisible(true)
+      }, 350)
+    }, 4000)
+    return () => clearInterval(interval)
+  }, [])
+
+  const { line1, line2 } = TAGLINES[idx]
+
+  return (
+    <div className="mb-4 md:mb-6" style={{
+      opacity: visible ? 1 : 0,
+      transform: visible ? 'translateY(0)' : 'translateY(6px)',
+      transition: 'opacity 350ms ease, transform 350ms ease',
+    }}>
+      <p className="text-2xl md:text-[30px] font-extrabold leading-tight text-white mb-1">
+        {line1}
+      </p>
+      <p className="text-2xl md:text-[30px] font-extrabold leading-tight" style={{ color: '#a78bfa' }}>
+        {line2}
+      </p>
+    </div>
+  )
+}
 
 const ADVANTAGES = [
   { icon: Gift,           text: '100% gratis' },
@@ -42,15 +83,8 @@ export default function AuthScreen() {
             <span className="font-extrabold text-[26px] tracking-wide">RODIO</span>
           </div>
 
-          {/* Headline principal */}
-          <div className="mb-4 md:mb-6">
-            <p className="text-2xl md:text-[30px] font-extrabold leading-tight text-white mb-1">
-              Punto de encuentro
-            </p>
-            <p className="text-2xl md:text-[30px] font-extrabold leading-tight" style={{ color: '#a78bfa' }}>
-              de la industria química.
-            </p>
-          </div>
+          {/* Headline rotativo cada 4s */}
+          <TaglineRotator />
 
           <div className="w-10 h-[3px] bg-brand-600 rounded-full mb-4 md:mb-5"></div>
 
