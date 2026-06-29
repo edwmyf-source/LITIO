@@ -71,8 +71,15 @@ function attachGlobalListeners() {
 }
 
 // useRealtime(table, event, callback, filter?)
-// filter: string opcional con sintaxis de Supabase, ej: `user_id=eq.${uid}`
+// TEMPORAL: realtime desactivado para diagnosticar si bloquea las queries HTTP.
+// Si el feed carga con esto desactivado, el realtime era el culpable.
 export function useRealtime(table, event, callback, filter = null) {
+  const cbRef = useRef(callback)
+  cbRef.current = callback
+  // No-op temporal: no abre ningún canal
+}
+
+function _useRealtimeDisabled(table, event, callback, filter = null) {
   const cbRef = useRef(callback)
   cbRef.current = callback
 
