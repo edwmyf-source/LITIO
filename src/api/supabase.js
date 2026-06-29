@@ -11,23 +11,14 @@ export const hasSupabaseEnv = urlValid && keyValid
 export const supabase = hasSupabaseEnv
   ? createClient(url, key, {
       auth: {
-        persistSession:    true,
-        autoRefreshToken:  true,
+        persistSession:     true,
+        autoRefreshToken:   true,
         detectSessionInUrl: true,
-        // Usar localStorage en lugar de cookies: más rápido en lectura síncrona
         storage: typeof window !== 'undefined' ? window.localStorage : undefined,
-      },
-      // Fetch con keep-alive: reutiliza conexiones TCP → menos latencia en peticiones seguidas
-      global: {
-        fetch: (url, options = {}) => fetch(url, {
-          ...options,
-          keepalive: true,
-        }),
       },
       realtime: {
         params: { eventsPerSecond: 5 },
       },
-      // Pool de conexiones DB: reduce tiempo de handshake en queries
       db: {
         schema: 'public',
       },

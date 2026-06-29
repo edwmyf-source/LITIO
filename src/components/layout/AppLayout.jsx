@@ -87,9 +87,9 @@ export default function AppLayout() {
         })}
       </div>
 
-      <div className="flex-1 min-w-0 md:ml-[220px]">
+      <div className="flex-1 min-w-0 w-0 md:ml-[220px] overflow-x-hidden">
         <Topbar title={title} profile={profile} unreadCount={unreadCount} />
-        <main className="p-4 md:p-5 pb-24 md:pb-5">
+        <main className="p-3 md:p-5 pb-24 md:pb-5 overflow-x-hidden">
           <Outlet />
         </main>
       </div>

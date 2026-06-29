@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import { ToastProvider } from './components/shared/Toast'
@@ -16,12 +16,10 @@ function AppInner() {
   const [splashDone, setSplashDone] = useState(false)
   const onSplashDone = useCallback(() => setSplashDone(true), [])
 
-  // Splash y auth corren EN PARALELO.
-  // Mostramos splash mientras la app se inicializa detrás.
-  // Cuando ambas terminan (splash 3s + auth ~300ms), mostramos la app al instante.
+  // Splash corre en paralelo con auth — la app se inicializa detrás
   if (!splashDone) return <BrandSplash onDone={onSplashDone} />
 
-  // Auth ya debería estar lista (terminó mucho antes que el splash)
+  // Auth todavía cargando (solo ocurre si el splash termina antes, raro con 3s)
   if (loading) {
     return (
       <div className="fixed inset-0 flex items-center justify-center bg-ink-100">
@@ -55,6 +53,17 @@ function AppInner() {
     )
   }
 
+  // Si hay sesión pero el perfil aún no llegó, mostrar spinner breve
+  // en lugar de enviar al usuario a ProfileSetup por error
+  if (session && profile === null) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-ink-100">
+        <Spinner size={28} className="text-brand-600" />
+      </div>
+    )
+  }
+
+  // Solo enviar a setup si el perfil ya cargó y está realmente incompleto
   const profileComplete = profile?.full_name && profile?.city
   if (!profileComplete) return <ProfileSetup />
 
