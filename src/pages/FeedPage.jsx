@@ -18,10 +18,11 @@ import BannerCarousel from '../components/feed/BannerCarousel'
 import Spinner from '../components/shared/Spinner'
 import ErrorBoundary from '../components/shared/ErrorBoundary'
 import { TAB_COLOR } from '../lib/constants'
+import { preloadedFeed } from '../lib/feedPreloader'
 
-// TTL extendido a 3 min: el feed no cambia tan rápido como para refrescar cada 1 min
-let _feedCache = { posts: [], ts: 0, filters: '{}', sort: 'smart' }
+// Cache local — se inicializa desde el preloader si ya tiene datos
 const FEED_CACHE_TTL = 3 * 60 * 1000
+let _feedCache = preloadedFeed
 
 // Cache de usuarios bloqueados (raramente cambia)
 let _blockedCache = null

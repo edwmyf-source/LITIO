@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react'
 import { supabase, hasSupabaseEnv } from '../api/supabase'
 import { getProfile } from '../api/profiles'
+import { preloadFeed } from '../lib/feedPreloader'
 
 const AuthCtx = createContext(null)
 
@@ -78,6 +79,8 @@ export function AuthProvider({ children }) {
           checkMFA(data.session),
           data.session?.user ? syncProfile(data.session.user.id) : Promise.resolve(),
         ])
+        // Precarga el feed durante el splash — sin await, corre en background
+        if (data.session?.user?.id) preloadFeed(data.session.user.id)
       } catch (e) {
         if (mounted) console.warn('Carga inicial:', e.message)
       }
