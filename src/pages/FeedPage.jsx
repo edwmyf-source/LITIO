@@ -49,7 +49,7 @@ function useDebounce(value, ms) {
 }
 
 export default function FeedPage() {
-  const { session } = useAuth()
+  const { session, loading: authLoading } = useAuth()
   const navigate    = useNavigate()
   const location    = useLocation()
 
@@ -137,6 +137,11 @@ export default function FeedPage() {
 
   useEffect(() => {
     let mounted = true
+    // Esperar a que la autenticación termine de resolverse antes de pedir posts.
+    // Al recargar, si pedimos posts mientras el token aún se valida, la query
+    // se cuelga. Si hay cache, lo mostramos mientras tanto (cero espera visible).
+    if (authLoading) return
+
     const filtersKey = JSON.stringify(debouncedFilters)
     const noFilters  = filtersKey === '{}'
     const cacheValid = noFilters && sort === 'smart'
@@ -149,7 +154,7 @@ export default function FeedPage() {
     if (!cacheValid) setLoading(true)
     fetchPosts().finally(() => { if (mounted) setLoading(false) })
     return () => { mounted = false }
-  }, [fetchPosts, debouncedFilters, sort])
+  }, [fetchPosts, debouncedFilters, sort, authLoading])
 
   const [newPostsAvailable, setNewPostsAvailable] = useState(false)
   useRealtime('posts', 'INSERT', useCallback(() => {
