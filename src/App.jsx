@@ -16,10 +16,12 @@ function AppInner() {
   const [splashDone, setSplashDone] = useState(false)
   const onSplashDone = useCallback(() => setSplashDone(true), [])
 
-  // Splash y auth corren EN PARALELO: cuando el splash termina (400ms),
-  // la sesión ya está casi lista. Eliminamos el retry: AuthContext maneja eso.
+  // Splash y auth corren EN PARALELO.
+  // Mostramos splash mientras la app se inicializa detrás.
+  // Cuando ambas terminan (splash 3s + auth ~300ms), mostramos la app al instante.
   if (!splashDone) return <BrandSplash onDone={onSplashDone} />
 
+  // Auth ya debería estar lista (terminó mucho antes que el splash)
   if (loading) {
     return (
       <div className="fixed inset-0 flex items-center justify-center bg-ink-100">

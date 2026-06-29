@@ -8,7 +8,7 @@ export default function BrandSplash({ onDone }) {
     // El usuario también puede tocar para saltarla.
     const t = setTimeout(() => {
       if (!doneRef.current) { doneRef.current = true; onDone() }
-    }, 1800)
+    }, 3000)
     return () => clearTimeout(t)
   }, [onDone])
 

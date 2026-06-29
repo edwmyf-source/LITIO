@@ -57,3 +57,36 @@ body{
 /* ── WILL-CHANGE PARA ANIMACIONES ─────────────────────────────────────────── */
 /* Evita repaints en elementos que animan frecuentemente */
 .transition-colors { will-change: color, background-color; }
+
+/* ── TRANSICIONES DE PÁGINA ───────────────────────────────────────────────── */
+/* Usa opacity + translateY — corre en GPU, cero impacto en rendimiento */
+
+@keyframes page-fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes page-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Clase aplicada a cada página al montar */
+.page-enter {
+  animation: page-fade-up 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Variante más sutil para modales y paneles */
+.panel-enter {
+  animation: page-fade-in 180ms ease both;
+}
+
+/* Transición del topbar / sidebar al cambiar de sección */
+.slide-in-left {
+  animation: slide-left 200ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes slide-left {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
