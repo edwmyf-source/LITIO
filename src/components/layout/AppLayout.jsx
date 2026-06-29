@@ -9,12 +9,8 @@ import { getUnreadCount } from '../../api/notifications'
 import { useRealtime } from '../../hooks/useRealtime'
 
 const titles = {
-  '/feed': 'Feed',
-  '/chats': 'Inbox',
-  '/notifications': 'Notificaciones',
-  '/profile': 'Mi perfil',
-  '/contact': 'Soporte',
-  '/admin': 'Administración',
+  '/feed': 'Feed', '/chats': 'Inbox', '/notifications': 'Notificaciones',
+  '/profile': 'Mi perfil', '/contact': 'Soporte', '/admin': 'Administración',
 }
 
 export default function AppLayout() {
@@ -25,12 +21,11 @@ export default function AppLayout() {
 
   const currentTab = '/' + (location.pathname.split('/')[1] || 'feed')
   const title = titles[currentTab] || 'Litio'
-
   const lastFetchRef = useRef(0)
 
   const refreshUnread = useCallback(() => {
     const now = Date.now()
-    if (now - lastFetchRef.current < 30_000) return   // throttle: máx 1 vez cada 30s
+    if (now - lastFetchRef.current < 30_000) return
     lastFetchRef.current = now
     if (session?.user?.id) {
       getUnreadCount(session.user.id).then(setUnreadCount).catch(() => {})
@@ -38,18 +33,15 @@ export default function AppLayout() {
   }, [session?.user?.id])
 
   useEffect(() => { refreshUnread() }, [refreshUnread, location.pathname])
-
-  useRealtime('notifications', 'INSERT', useCallback(() => {
-    refreshUnread()
-  }, [refreshUnread]))
+  useRealtime('notifications', 'INSERT', useCallback(() => { refreshUnread() }, [refreshUnread]))
 
   const myId = session?.user?.id
   const mobileNav = [
-    { id: '/feed', label: 'Feed', icon: LayoutList },
-    { id: '/chats', label: 'Inbox', icon: MessageSquare },
+    { id: '/feed',          label: 'Feed',   icon: LayoutList },
+    { id: '/chats',         label: 'Inbox',  icon: MessageSquare },
     { id: '/notifications', label: 'Notif.', icon: Bell, badge: unreadCount },
     { id: myId ? `/u/${myId}` : '/profile', label: 'Perfil', icon: User, match: '/u/' },
-    { id: '/contact', label: 'Soporte', icon: HelpCircle },
+    { id: '/contact',       label: 'Soporte', icon: HelpCircle },
     ...(isAdmin(profile, session?.user?.email) ? [{ id: '/admin', label: 'Admin', icon: Lock }] : []),
   ]
 
@@ -59,31 +51,36 @@ export default function AppLayout() {
         <Sidebar currentPath={currentTab} navigate={navigate} profile={profile} unreadCount={unreadCount} />
       </div>
 
+      {/* Nav móvil — iconos 26px sin texto, punto activo */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-ink-300 flex items-end">
         {mobileNav.map((item, idx) => {
           const Icon = item.icon
-          // Insertar el botón flotante "+" justo en el centro del menú
+          const active = item.match ? currentTab.startsWith(item.match) : currentTab === item.id
           const insertPlus = idx === Math.floor(mobileNav.length / 2)
           return (
             <Fragment key={item.id}>
               {insertPlus && (
                 <button key="fab-plus" onClick={() => navigate('/feed?publish=1')}
                   aria-label="Nueva publicación"
-                  className="flex-1 flex justify-center -mt-5">
-                  <span className="w-12 h-12 rounded-full bg-brand-600 hover:bg-brand-700 active:scale-95 transition-all flex items-center justify-center shadow-lg shadow-brand-600/30 border-4 border-white">
-                    <Plus size={22} className="text-white" strokeWidth={2.5} />
+                  className="flex-1 flex justify-center items-end pb-3">
+                  <span className="w-[52px] h-[52px] rounded-full bg-brand-600 hover:bg-brand-700 active:scale-95 transition-all flex items-center justify-center shadow-lg shadow-brand-600/30 border-4 border-white -mb-1">
+                    <Plus size={26} className="text-white" strokeWidth={2.5} />
                   </span>
                 </button>
               )}
               <button onClick={() => navigate(item.id)}
-                className={`flex-1 py-3 text-center text-xs font-medium relative flex flex-col items-center gap-0.5 ${(item.match ? currentTab.startsWith(item.match) : currentTab === item.id) ? 'text-brand-600' : 'text-ink-900'}`}>
-                <Icon size={19} />
-                {item.label}
-                {item.badge > 0 && (
-                  <span className="absolute top-1 right-1/4 bg-danger-500 text-white text-[8px] font-bold px-1 rounded-full min-w-[14px]">
-                    {item.badge > 99 ? '99+' : item.badge}
-                  </span>
-                )}
+                className="flex-1 flex flex-col items-center justify-end pb-3 pt-2 relative gap-1"
+                aria-label={item.label}>
+                <div className="relative">
+                  <Icon size={26} className={active ? 'text-brand-600' : 'text-ink-500'} />
+                  {item.badge > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-danger-500 text-white text-[8px] font-bold px-1 rounded-full min-w-[14px] text-center leading-4">
+                      {item.badge > 99 ? '99+' : item.badge}
+                    </span>
+                  )}
+                </div>
+                {/* punto activo */}
+                <div className="w-1 h-1 rounded-full" style={{ background: active ? '#7c3aed' : 'transparent' }} />
               </button>
             </Fragment>
           )

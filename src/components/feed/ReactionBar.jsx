@@ -7,7 +7,15 @@ import { useAuth } from '../../contexts/AuthContext'
 
 const REACTION_ICONS = { thumbsup: ThumbsUp, partypopper: PartyPopper, eye: Eye, heart: Heart, sparkles: Sparkles }
 
-// Procesa array de reacciones en counts + myReactions
+const REACTION_COLORS = {
+  like:      { bg: '#ede9fe', border: '#7c3aed', icon: '#7c3aed', count: '#7c3aed' },
+  celebrate: { bg: '#fef9c3', border: '#ca8a04', icon: '#ca8a04', count: '#ca8a04' },
+  curious:   { bg: '#e0f2fe', border: '#0284c7', icon: '#0284c7', count: '#0284c7' },
+  love:      { bg: '#fce7f3', border: '#ec4899', icon: '#ec4899', count: '#ec4899' },
+  surprised: { bg: '#fef3c7', border: '#d97706', icon: '#d97706', count: '#d97706' },
+}
+const INACTIVE = { bg: '#f3f4f6', border: 'transparent', icon: '#9ca3af', count: '#9ca3af' }
+
 function parseReactions(data, userId) {
   const c = {}
   const mine = new Set()
@@ -28,14 +36,11 @@ export default function ReactionBar({ post, initialReactions = null }) {
   useEffect(() => {
     if (initialized.current) return
     initialized.current = true
-
     if (initialReactions !== null) {
-      // Datos vienen del feed — sin query extra
       const { counts: c, myReactions: m } = parseReactions(initialReactions, userId)
       setCounts(c)
       setMyReactions(m)
     } else {
-      // Fallback: fetch individual (perfil u otros contextos)
       getReactionsForPost(post.id).then(data => {
         const { counts: c, myReactions: m } = parseReactions(data, userId)
         setCounts(c)
@@ -47,65 +52,49 @@ export default function ReactionBar({ post, initialReactions = null }) {
   const handleReaction = async (type) => {
     try {
       const wasActive = myReactions.has(type)
-      // Optimistic update
-      setCounts(prev => ({
-        ...prev,
-        [type]: Math.max(0, (prev[type] || 0) + (wasActive ? -1 : 1))
-      }))
+      setCounts(prev => ({ ...prev, [type]: Math.max(0, (prev[type] || 0) + (wasActive ? -1 : 1)) }))
       setMyReactions(prev => {
         const next = new Set(prev)
         wasActive ? next.delete(type) : next.add(type)
         return next
       })
-
       const result = await toggleReaction(post.id, userId, type)
       if (result.action === 'added' && post.author_id !== userId) {
         const label = REACTIONS.find(r => r.type === type)?.label || type
         createNotification({
-          user_id: post.author_id,
-          from_user_id: userId,
+          user_id: post.author_id, from_user_id: userId,
           type: 'reaction',
           content: `reaccionó con "${label}" a tu publicación`,
           post_id: post.id,
         })
       }
-    } catch (e) {
-      console.error('Reaction error:', e)
-    }
+    } catch (e) { console.error('Reaction error:', e) }
   }
-
-  const totalCount = Object.values(counts).reduce((a, b) => a + b, 0)
-  const activeReactions = REACTIONS.filter(r => counts[r.type] > 0)
 
   return (
     <div className="mb-1.5">
-      {totalCount > 0 && (
-        <div className="flex items-center gap-1 mb-1 text-[10px] text-ink-400">
-          <span className="flex -space-x-0.5">
-            {activeReactions.slice(0, 3).map(r => {
-              const Icon = REACTION_ICONS[r.icon]
-              return <Icon key={r.type} size={12} className="text-ink-400" />
-            })}
-          </span>
-          <span>{totalCount}</span>
-        </div>
-      )}
-      <div className="flex gap-1">
+      <div className="flex gap-1.5 flex-wrap">
         {REACTIONS.map(reaction => {
           const count = counts[reaction.type] || 0
           const isActive = myReactions.has(reaction.type)
           const Icon = REACTION_ICONS[reaction.icon]
+          const clr = isActive ? REACTION_COLORS[reaction.type] || INACTIVE : INACTIVE
           return (
             <button key={reaction.type}
               onClick={() => handleReaction(reaction.type)}
-              className={`flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] font-medium transition-all ${
-                isActive
-                  ? 'bg-brand-500/15 border border-brand-500/30'
-                  : 'bg-ink-100/60 hover:bg-slate-50 border border-transparent'
-              }`}
-              title={reaction.label}>
-              <Icon size={13} className={isActive ? 'text-brand-600' : 'text-ink-400'} />
-              {count > 0 && <span className="text-ink-600 text-[10px]">{count}</span>}
+              title={reaction.label}
+              className="flex items-center gap-1.5 rounded-full transition-all"
+              style={{
+                padding: '5px 10px',
+                background: clr.bg,
+                border: `1.5px solid ${clr.border}`,
+              }}>
+              <Icon size={20} style={{ color: clr.icon, flexShrink: 0 }} />
+              {count > 0 && (
+                <span style={{ fontSize: 12, fontWeight: 600, color: clr.count, lineHeight: 1 }}>
+                  {count}
+                </span>
+              )}
             </button>
           )
         })}

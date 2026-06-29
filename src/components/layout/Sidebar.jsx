@@ -8,7 +8,6 @@ import { CATEGORY_MAP } from '../../lib/constants'
 import { useAuth } from '../../contexts/AuthContext'
 import LitioMark from '../shared/LitioMark'
 
-// Cache de eventos próximos: se renueva cada 5 minutos
 let _eventsCache = null
 let _eventsTs = 0
 const EVENTS_TTL = 5 * 60 * 1000
@@ -16,12 +15,10 @@ const EVENTS_TTL = 5 * 60 * 1000
 async function getUpcomingEventsCached() {
   if (_eventsCache && Date.now() - _eventsTs < EVENTS_TTL) return _eventsCache
   const data = await getUpcomingEvents()
-  _eventsCache = data
-  _eventsTs = Date.now()
+  _eventsCache = data; _eventsTs = Date.now()
   return data
 }
 
-// Formatea "2026-07-15" → "15 jul"
 function formatEventDate(dateStr) {
   if (!dateStr) return ''
   const d = new Date(dateStr + 'T00:00:00')
@@ -30,13 +27,8 @@ function formatEventDate(dateStr) {
 
 function UpcomingEventsWidget({ navigate }) {
   const [events, setEvents] = useState([])
-
-  useEffect(() => {
-    getUpcomingEventsCached().then(setEvents).catch(() => {})
-  }, [])
-
+  useEffect(() => { getUpcomingEventsCached().then(setEvents).catch(() => {}) }, [])
   if (events.length === 0) return null
-
   return (
     <div className="mx-3 mb-2 flex-shrink-0">
       <div className="flex items-center gap-1.5 mb-1.5 px-0.5">
@@ -45,10 +37,8 @@ function UpcomingEventsWidget({ navigate }) {
       </div>
       <div className="space-y-1">
         {events.map(ev => (
-          <button key={ev.id}
-            onClick={() => navigate('/feed')}
-            className="w-full text-left group flex items-center gap-2 px-1 py-0.5 rounded-lg hover:bg-white/5 transition-colors"
-          >
+          <button key={ev.id} onClick={() => navigate('/feed')}
+            className="w-full text-left group flex items-center gap-2 px-1 py-0.5 rounded-lg hover:bg-white/5 transition-colors">
             <span className="text-[9px] font-bold text-brand-300 bg-brand-500/15 rounded px-1 py-0.5 flex-shrink-0 leading-tight whitespace-nowrap">
               {formatEventDate(ev.event_date)}
             </span>
@@ -76,13 +66,11 @@ export default function Sidebar({ currentPath, navigate, profile, unreadCount = 
 
   return (
     <aside className="fixed left-0 top-0 h-screen w-[220px] bg-gradient-to-b from-violet-950 via-[#1b1330] to-violet-950 shadow-2xl flex flex-col z-40">
-      {/* Logo */}
       <div className="flex items-center gap-3 px-5 h-16 border-b border-white/10 flex-shrink-0">
         <LitioMark size={32} />
         <span className="font-bold text-base text-white block leading-tight tracking-wide">LITIO</span>
       </div>
 
-      {/* Botón publicar */}
       <div className="px-3 mt-4 mb-2 flex-shrink-0">
         <button onClick={() => navigate('/feed?publish=1')}
           className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-brand-600 to-violet-600 hover:scale-[1.02] active:bg-brand-700 text-white text-sm font-semibold px-4 py-2.5 rounded-2xl transition-all hover:-translate-y-px hover:shadow-md active:translate-y-0 active:shadow-none">
@@ -91,18 +79,25 @@ export default function Sidebar({ currentPath, navigate, profile, unreadCount = 
         </button>
       </div>
 
-      {/* Nav */}
-      <nav className="flex-1 px-3 mt-2 space-y-1 overflow-y-auto min-h-0">
+      <nav className="flex-1 px-3 mt-2 space-y-0.5 overflow-y-auto min-h-0">
         {navItems.map(item => {
           const active = item.match ? currentPath.startsWith(item.match) : currentPath === item.path
           const Icon = item.icon
           return (
             <button key={item.path} onClick={() => navigate(item.path)}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl text-sm font-medium transition-colors ${
-                active ? 'bg-white/10 text-white' : 'text-ink-300 hover:bg-white/5'
-              }`}>
-              <Icon size={18} />
+              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl text-sm font-medium transition-all relative"
+              style={active ? {
+                background: 'linear-gradient(135deg, rgba(124,58,237,0.38), rgba(109,40,217,0.18))',
+                border: '1px solid rgba(139,92,246,0.42)',
+                color: 'white',
+              } : {
+                color: '#6b7280',
+                border: '1px solid transparent',
+              }}>
+              <Icon size={20} style={{ color: active ? '#a78bfa' : '#6b7280' }} />
               <span className="flex-1 text-left">{item.label}</span>
+              {/* punto activo */}
+              {active && <div className="w-1.5 h-1.5 rounded-full bg-violet-400" />}
               {item.badge > 0 && (
                 <span className="bg-danger-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center">
                   {item.badge > 99 ? '99+' : item.badge}
@@ -113,10 +108,8 @@ export default function Sidebar({ currentPath, navigate, profile, unreadCount = 
         })}
       </nav>
 
-      {/* Próximos eventos — widget compacto abajo */}
       <UpcomingEventsWidget navigate={navigate} />
 
-      {/* Salir */}
       <div className="px-3 pb-4 border-t border-white/10 pt-3 flex-shrink-0">
         <button onClick={signOut}
           className="w-full flex items-center gap-3 px-3 py-2 rounded-2xl text-ink-300 hover:bg-white/5 hover:text-white text-sm transition-colors">
