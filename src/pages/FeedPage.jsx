@@ -96,7 +96,7 @@ export default function FeedPage() {
   const fetchPosts = useCallback(async (cursor, append = false) => {
     try {
       const timeout = new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('La conexión tardó demasiado. Intenta de nuevo.')), 10000)
+        setTimeout(() => reject(new Error('La conexión tardó demasiado. Intenta de nuevo.')), 20000)
       )
       const data = await Promise.race([
         listPosts({ cursor, limit: 20, filters: debouncedFilters, sort, userId: session?.user?.id }),

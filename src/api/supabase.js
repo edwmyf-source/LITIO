@@ -9,15 +9,10 @@ const keyValid = !isPlaceholder(key) && key.length > 20
 
 export const hasSupabaseEnv = urlValid && keyValid
 
-// Fetch con timeout: si una request tarda más de 15s, se aborta en lugar de
-// quedar colgada para siempre (causa típica de "la app deja de cargar").
-const fetchWithTimeout = (input, init = {}) => {
-  const controller = new AbortController()
-  const timeout = setTimeout(() => controller.abort(), 15000)
-  return fetch(input, { ...init, signal: controller.signal })
-    .finally(() => clearTimeout(timeout))
-}
-
+// IMPORTANTE: NO usamos un fetch global con AbortController.
+// Eso interfería con el refresh de token y el WebSocket de realtime de Supabase,
+// causando "Algo salió mal" y sesión rota al recargar.
+// Los timeouts se manejan por query específica donde es seguro (ver FeedPage).
 export const supabase = hasSupabaseEnv
   ? createClient(url, key, {
       auth: {
@@ -26,9 +21,6 @@ export const supabase = hasSupabaseEnv
         detectSessionInUrl: true,
         storageKey:         'rodio-auth',
         storage: typeof window !== 'undefined' ? window.localStorage : undefined,
-      },
-      global: {
-        fetch: fetchWithTimeout,
       },
       realtime: {
         params: { eventsPerSecond: 5 },

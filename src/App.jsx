@@ -17,12 +17,11 @@ function AppInner() {
   const [waitedForProfile, setWaitedForProfile] = useState(false)
   const onSplashDone = useCallback(() => setSplashDone(true), [])
 
-  // Damos un margen amplio (8s) para que el perfil llegue de la red antes de
-  // asumir que el usuario es nuevo. Con el cache de localStorage, en la práctica
-  // el perfil ya está presente al instante y esto casi nunca se activa.
+  // Margen para que el perfil llegue de la red. Con cache de localStorage,
+  // normalmente el perfil ya está al instante y esto no se activa.
   useEffect(() => {
     if (!session || profile) { setWaitedForProfile(false); return }
-    const t = setTimeout(() => setWaitedForProfile(true), 8000)
+    const t = setTimeout(() => setWaitedForProfile(true), 6000)
     return () => clearTimeout(t)
   }, [session, profile])
 
