@@ -9,26 +9,23 @@ const keyValid = !isPlaceholder(key) && key.length > 20
 
 export const hasSupabaseEnv = urlValid && keyValid
 
-// IMPORTANTE: NO usamos un fetch global con AbortController.
-// Eso interfería con el refresh de token y el WebSocket de realtime de Supabase,
-// causando "Algo salió mal" y sesión rota al recargar.
-// Los timeouts se manejan por query específica donde es seguro (ver FeedPage).
 export const supabase = hasSupabaseEnv
   ? createClient(url, key, {
       auth: {
         persistSession:     true,
         autoRefreshToken:   true,
-        detectSessionInUrl: true,
+        // detectSessionInUrl en FALSE: era la causa del cuelgue al recargar.
+        // Al estar en true, el cliente intentaba parsear la URL buscando un
+        // token OAuth en cada carga, bloqueando las queries hasta resolverlo.
+        // Esta app no usa OAuth con redirect, así que no lo necesita.
+        detectSessionInUrl: false,
+        flowType:           'implicit',
         storageKey:         'rodio-auth',
         storage: typeof window !== 'undefined' ? window.localStorage : undefined,
       },
       realtime: {
         params: { eventsPerSecond: 2 },
-        // timeout más corto para que un WebSocket colgado no afecte la app
-        timeout: 10000,
       },
-      db: {
-        schema: 'public',
-      },
+      db: { schema: 'public' },
     })
   : null
