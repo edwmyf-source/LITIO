@@ -207,9 +207,16 @@ export default function ChatsPage() {
     return () => { mounted = false }
   }, [loadConversations])
 
-  useRealtime('messages', 'INSERT', useCallback(() => {
-    loadConversations()
-  }, [loadConversations]))
+  useRealtime('messages', 'INSERT', useCallback((payload) => {
+    const msg = payload?.new
+    // Solo recargar si el mensaje pertenece a una conversación donde participo
+    if (!msg) return
+    const myId = session?.user?.id
+    const inMyConvs = conversations.some(c => c.id === msg.conversation_id)
+    if (inMyConvs || msg.sender_id === myId) {
+      loadConversations()
+    }
+  }, [loadConversations, conversations, session?.user?.id]))
 
   return (
     <div className="page-enter flex bg-white border border-ink-300 rounded-2xl overflow-hidden" style={{ height: 'calc(100vh - 140px)' }}>

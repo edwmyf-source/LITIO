@@ -26,10 +26,12 @@ export default function NotificationsPage() {
   const [opening, setOpening] = useState(null)
 
   useEffect(() => {
+    let mounted = true
     getNotifications(session.user.id)
-      .then(setNotifs)
+      .then(data => { if (mounted) setNotifs(data) })
       .catch(() => {})
-      .finally(() => setLoading(false))
+      .finally(() => { if (mounted) setLoading(false) })
+    return () => { mounted = false }
   }, [session.user.id])
 
   const handleMarkAll = async () => {

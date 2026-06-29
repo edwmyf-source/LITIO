@@ -152,6 +152,26 @@ export function AuthProvider({ children }) {
     return () => { mounted = false; sub.subscription.unsubscribe() }
   }, [syncProfile, checkMFA])
 
+  // Al volver a la pestaña tras inactividad, verificar que la sesión siga viva.
+  // Si el token expiró mientras la app estaba en background (común en móvil),
+  // Supabase lo renueva aquí — evitando que las queries fallen con 401.
+  useEffect(() => {
+    if (!hasSupabaseEnv) return
+    const onVisible = async () => {
+      if (document.visibilityState !== 'visible') return
+      try {
+        const { data, error: se } = await supabase.auth.getSession()
+        if (se) return
+        // Si la sesión sigue válida pero el perfil se perdió, recargarlo
+        if (data.session?.user && !profile) {
+          syncProfile(data.session.user.id)
+        }
+      } catch {}
+    }
+    document.addEventListener('visibilitychange', onVisible)
+    return () => document.removeEventListener('visibilitychange', onVisible)
+  }, [profile, syncProfile])
+
   return (
     <AuthCtx.Provider value={{ session, profile, setProfile: setProfileCached, refreshProfile, loading, error, mfaRequired, setMfaRequired }}>
       {children}
