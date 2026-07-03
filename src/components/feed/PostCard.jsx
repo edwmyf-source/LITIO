@@ -145,7 +145,11 @@ export default memo(function PostCard({ post, onContact, contactingId, blockedUs
               {name}
             </button>
             <div className="flex items-center gap-1.5 flex-shrink-0">
-              {catLabel && (
+              {post.subcategory === 'Novedades' ? (
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 leading-none flex items-center gap-0.5">
+                  ⚡ NOVEDAD
+                </span>
+              ) : catLabel && (
                 <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-brand-500/10 text-brand-700 leading-none">
                   {catLabel}
                 </span>

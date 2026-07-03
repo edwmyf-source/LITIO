@@ -91,17 +91,19 @@ export const DEPARTAMENTOS_ORDERED = [
 
 // Tabs del marketplace
 export const MARKETPLACE_TABS = [
-  { value: 'todo',      label: 'TODO',     color: '#7c3aed', bg: '#ede9fe' },
-  { value: 'novedades', label: 'INFO',     color: '#16a34a', bg: '#dcfce7', categories: ['informacion'] },
-  { value: 'tienda',    label: 'TIENDA',   color: '#0369a1', bg: '#dbeafe', categories: ['productos', 'servicios'] },
-  { value: 'vacantes',  label: 'VACANTES', color: '#ea580c', bg: '#ffedd5', categories: ['empleos'] },
+  { value: 'todo',      label: 'TODO',      color: '#7c3aed', bg: '#ede9fe' },
+  { value: 'novedades', label: 'INFO',      color: '#16a34a', bg: '#dcfce7', categories: ['informacion'] },
+  { value: 'lanzamientos', label: 'NOVEDADES', color: '#d97706', bg: '#fef3c7', categories: ['informacion'], subcategory: 'Novedades' },
+  { value: 'tienda',    label: 'TIENDA',    color: '#0369a1', bg: '#dbeafe', categories: ['productos', 'servicios'] },
+  { value: 'vacantes',  label: 'VACANTES',  color: '#ea580c', bg: '#ffedd5', categories: ['empleos'] },
 ]
 
 export const TAB_COLOR = {
-  todo:      { color: '#7c3aed', bg: '#ede9fe' },
-  novedades: { color: '#16a34a', bg: '#dcfce7' },
-  tienda:    { color: '#0369a1', bg: '#dbeafe' },
-  vacantes:  { color: '#ea580c', bg: '#ffedd5' },
+  todo:          { color: '#7c3aed', bg: '#ede9fe' },
+  novedades:     { color: '#16a34a', bg: '#dcfce7' },
+  lanzamientos:  { color: '#d97706', bg: '#fef3c7' },
+  tienda:        { color: '#0369a1', bg: '#dbeafe' },
+  vacantes:      { color: '#ea580c', bg: '#ffedd5' },
 }
 
 // Estructura de Tienda: intent → categoría → subcategorías

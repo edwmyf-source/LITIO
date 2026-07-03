@@ -34,7 +34,7 @@ export default function FilterBar({ filters, setFilters }) {
 
   const setTab = (t) => {
     const tabDef = MARKETPLACE_TABS.find(x => x.value === t)
-    setFilters({ tab: t, categories: tabDef?.categories || [] })
+    setFilters({ tab: t, categories: tabDef?.categories || [], subcategory: tabDef?.subcategory || '' })
     setSearchOpen(false)
   }
 
