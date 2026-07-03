@@ -628,11 +628,9 @@ function FAQ({ pregunta, respuesta }) {
 // ═══════════════════════════════════════════════════════════════════════════════
 const SECCIONES = [
   { id: 'laboral',     icon: '💼', label: 'Laboral' },
-  { id: 'quimico',    icon: '🧪', label: 'Químico' },
   { id: 'formulacion', icon: '⚗️', label: 'Formulación' },
 ]
 const TABS_LAB  = [{ id: 'mensual', label: 'Mensual' }, { id: 'anual', label: 'Anual' }]
-const TABS_QUI  = [{ id: 'diluciones', label: 'Diluciones' }, { id: 'conversion', label: 'Unidades' }, { id: 'pureza', label: 'Pureza' }, { id: 'ph', label: 'pH / Buffer' }]
 
 export default function HerramientasPage() {
   const [sec, setSec] = useState('laboral')

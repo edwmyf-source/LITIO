@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { LayoutList, MessageSquare, User, HelpCircle, Lock, LogOut, Plus, Bell, Calendar, Wrench } from 'lucide-react'
+import { LayoutList, MessageSquare, User, HelpCircle, Lock, LogOut, Plus, Bell, Calendar, Wrench, FlaskConical } from 'lucide-react'
 import { signOut } from '../../api/auth'
 import { isAdmin } from '../../lib/constants'
 import { getUpcomingEvents } from '../../api/posts'
@@ -36,6 +36,7 @@ export default function Sidebar({ currentPath, navigate, profile, unreadCount = 
     { path: '/notifications', label: 'Notificaciones', icon: Bell, badge: unreadCount },
     { path: myId ? `/u/${myId}` : '/profile', label: 'Mi perfil', icon: User, match: '/u/' },
     { path: '/herramientas',  label: 'Herramientas',   icon: Wrench },
+    { path: '/quimica',       label: '¿Cuánto sabes?', icon: FlaskConical },
     { path: '/contact',       label: 'Soporte',        icon: HelpCircle },
   ]
   if (isAdmin(profile, session?.user?.email)) navItems.push({ path: '/admin', label: 'Admin', icon: Lock })

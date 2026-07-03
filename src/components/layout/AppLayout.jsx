@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { LayoutList, MessageSquare, Bell, User, HelpCircle, Lock, Plus, Calculator, LogOut, ChevronRight } from 'lucide-react'
+import { LayoutList, MessageSquare, Bell, User, HelpCircle, Lock, Plus, Calculator, LogOut, ChevronRight, FlaskConical } from 'lucide-react'
 import Sidebar from './Sidebar'
 import Topbar from './Topbar'
 import { useAuth } from '../../contexts/AuthContext'
@@ -14,6 +14,7 @@ const titles = {
   '/feed': 'Feed', '/chats': 'Inbox', '/notifications': 'Notificaciones',
   '/profile': 'Mi perfil', '/contact': 'Soporte', '/admin': 'Administración',
   '/herramientas': 'Herramientas',
+  '/quimica': '¿Cuánto sabes de química?',
 }
 
 export default function AppLayout() {
@@ -74,6 +75,7 @@ export default function AppLayout() {
 
   const profileMenuItems = [
     { label: 'Mi perfil', icon: User, path: myId ? `/u/${myId}` : '/profile' },
+    { label: '¿Cuánto sabes?', icon: FlaskConical, path: '/quimica' },
     { label: 'Soporte', icon: HelpCircle, path: '/contact' },
     ...(isAdmin(profile, session?.user?.email) ? [{ label: 'Admin', icon: Lock, path: '/admin' }] : []),
   ]
