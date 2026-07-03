@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Calculator, TrendingUp, Info, ChevronDown, ChevronUp } from 'lucide-react'
 
-// ─── Constantes 2025 ──────────────────────────────────────────────────────────
-const SMMLV_DEFAULT = 1_423_500  // SMMLV 2025 Colombia
+// ─── Constantes 2026 ──────────────────────────────────────────────────────────
+const SMMLV_DEFAULT = 1_750_905  // SMMLV 2026 Colombia (Decreto 0159 feb 2026)
 const ARL_PCTS = { 1: 0.00522, 2: 0.01044, 3: 0.02436, 4: 0.04350, 5: 0.06960 }
 const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
 
@@ -102,7 +102,7 @@ function TabMensual() {
             className="w-full border border-neutral-200 rounded-xl px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-brand-400" />
         </div>
         <div>
-          <label className="block text-xs font-semibold text-neutral-600 mb-1">SMMLV 2025</label>
+          <label className="block text-xs font-semibold text-neutral-600 mb-1">SMMLV 2026</label>
           <input value={sm} onChange={e => setSm(formatInput(e.target.value))}
             placeholder={cop(SMMLV_DEFAULT)} inputMode="numeric"
             className="w-full border border-neutral-200 rounded-xl px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-brand-400" />
@@ -206,7 +206,7 @@ function TabAnual() {
     <div className="space-y-5">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-semibold text-neutral-600 mb-1">SMMLV 2025</label>
+          <label className="block text-xs font-semibold text-neutral-600 mb-1">SMMLV 2026</label>
           <input value={sm} onChange={e => setSm(formatInput(e.target.value))}
             placeholder={cop(SMMLV_DEFAULT)} inputMode="numeric"
             className="w-full border border-neutral-200 rounded-xl px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-brand-400" />
@@ -375,7 +375,7 @@ export default function HerramientasPage() {
       <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex gap-3">
         <Info size={16} className="text-amber-600 flex-shrink-0 mt-0.5" />
         <p className="text-xs text-amber-800 leading-relaxed">
-          Los cálculos usan las tarifas 2025 vigentes en Colombia: salud 12.5% IBC (contratista) / 4% (empleado),
+          Los cálculos usan las tarifas 2026 vigentes en Colombia: SMMLV $1.750.905 (Decreto 0159/2026). Salud 12.5% IBC (contratista) / 4% (empleado),
           pensión 12.5% / 4%, ARL según clase de riesgo, y Fondo de Solidaridad Pensional para IBC ≥ 4 SMMLV.
           El contrato laboral incluye prima, cesantías, intereses de cesantías y vacaciones proporcionales.
         </p>
