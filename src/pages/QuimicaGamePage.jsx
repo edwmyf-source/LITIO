@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { supabase } from '../api/supabase'
+import { useAuth } from '../contexts/AuthContext'
 
 // ─── 15 PERSONAJES ────────────────────────────────────────────────────────────
 const PERSONAJES = [
@@ -522,11 +524,36 @@ function PantallaFinal({ stats, onReiniciar }) {
 // PÁGINA PRINCIPAL
 // ═══════════════════════════════════════════════════════════════════════════════
 export default function QuimicaGamePage() {
+  const { session } = useAuth()
   const [pantalla, setPantalla] = useState('inicio')
   const [statsFinales, setStatsFinales] = useState(null)
 
+  async function guardarResultado(pts, per) {
+    if (!session?.user?.id) return
+    try {
+      const { data: current } = await supabase
+        .from('profiles')
+        .select('quimica_pts')
+        .eq('id', session.user.id)
+        .single()
+      // Solo guardar si supera el récord anterior
+      if (!current || pts > (current.quimica_pts || 0)) {
+        await supabase.from('profiles').update({
+          quimica_pts: pts,
+          quimica_personaje: per.emoji,
+          quimica_nombre: per.nombre,
+        }).eq('id', session.user.id)
+      }
+    } catch (e) { console.error('Error guardando resultado:', e) }
+  }
+
   function iniciar() { setPantalla('juego') }
-  function gameOver(stats) { setStatsFinales(stats); setPantalla('final') }
+  function gameOver(stats) {
+    setStatsFinales(stats)
+    setPantalla('final')
+    const per = getPersonaje(stats.puntos)
+    guardarResultado(stats.puntos, per)
+  }
   function reiniciar() { setPantalla('juego') }
 
   return (

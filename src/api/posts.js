@@ -76,7 +76,7 @@ export const listPosts = async ({ cursor, limit = 20, filters = {}, sort = 'smar
 
   const buildSelect = (withEventDate) => `
       id, author_id, title, content, category, subcategory, location, intent, media, created_at${withEventDate ? ', event_date' : ''},
-      profiles!posts_author_id_fkey(id, full_name, identity_mode, identity_number, city, avatar_url),
+      profiles!posts_author_id_fkey(id, full_name, identity_mode, identity_number, city, avatar_url, quimica_personaje, quimica_nombre),
       reaction_count:reactions(count),
       comment_count:comments(count)
     `
@@ -191,7 +191,7 @@ export const getPostsByUser = async (userId, { limit = 20, cursor } = {}) => {
     .from('posts')
     .select(`
       *,
-      profiles!posts_author_id_fkey(id, full_name, identity_mode, identity_number, city, avatar_url),
+      profiles!posts_author_id_fkey(id, full_name, identity_mode, identity_number, city, avatar_url, quimica_personaje, quimica_nombre),
       reaction_count:reactions(count),
       comment_count:comments(count)
     `)
@@ -211,7 +211,7 @@ export const getPostsByUser = async (userId, { limit = 20, cursor } = {}) => {
 export const getPostById = async (id) => {
   const { data, error } = await supabase
     .from('posts')
-    .select(`*, profiles!posts_author_id_fkey(id, full_name, identity_mode, identity_number, city, avatar_url)`)
+    .select(`*, profiles!posts_author_id_fkey(id, full_name, identity_mode, identity_number, city, avatar_url, quimica_personaje, quimica_nombre)`)
     .eq('id', id).single()
   if (error) throw error
   return data

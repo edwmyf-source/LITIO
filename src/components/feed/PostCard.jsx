@@ -140,10 +140,17 @@ export default memo(function PostCard({ post, onContact, contactingId, blockedUs
         </button>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-1">
-            <button onClick={goToProfile}
-              className="text-[15px] font-semibold leading-snug text-left hover:underline block" style={{color:"#1e3a5f"}}>
-              {name}
-            </button>
+            <div className="flex items-center gap-1.5 min-w-0">
+              <button onClick={goToProfile}
+                className="text-[15px] font-semibold leading-snug text-left hover:underline block truncate" style={{color:"#0d1b3e"}}>
+                {name}
+              </button>
+              {prof.quimica_personaje && (
+                <span title={prof.quimica_nombre || ''} className="text-base leading-none flex-shrink-0 cursor-default">
+                  {prof.quimica_personaje}
+                </span>
+              )}
+            </div>
             <div className="flex items-center gap-1.5 flex-shrink-0">
               {post.subcategory === 'Novedades' ? (
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 leading-none flex items-center gap-0.5">
@@ -159,14 +166,14 @@ export default memo(function PostCard({ post, onContact, contactingId, blockedUs
             </div>
           </div>
           {prof.city && (
-            <p className="text-[12px] leading-tight mt-0.5" style={{color:"#6b9fd4"}}>{prof.city}</p>
+            <p className="text-[12px] leading-tight mt-0.5" style={{color:"#9fa8da"}}>{prof.city}</p>
           )}
-          <p className="text-[11px] mt-0.5" style={{color:"#93c5fd"}}>{timeAgo(post.created_at)}</p>
+          <p className="text-[11px] mt-0.5" style={{color:"#c5cae9"}}>{timeAgo(post.created_at)}</p>
         </div>
       </div>
 
       {/* Texto muro — un solo bloque, tipografía uniforme */}
-      <p className="text-[14px] leading-relaxed mb-3 whitespace-pre-wrap break-words line-clamp-5" style={{color:"#1e3a5f"}}>
+      <p className="text-[14px] leading-relaxed mb-3 whitespace-pre-wrap break-words line-clamp-5" style={{color:"#37474f"}}>
         {wallText}
       </p>
 
