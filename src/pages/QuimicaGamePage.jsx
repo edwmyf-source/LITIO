@@ -21,6 +21,15 @@ const PERSONAJES = [
   { id: 14, min: 4600, emoji: '⚡', nombre: 'Albert Einsteinium',     desc: 'E=mc². Y sabe exactamente por qué.' },
 ]
 
+function shuffle(arr) {
+  const a = [...arr]
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]]
+  }
+  return a
+}
+
 function getPersonaje(pts) {
   let p = PERSONAJES[0]
   for (const per of PERSONAJES) { if (pts >= per.min) p = per }
