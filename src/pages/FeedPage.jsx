@@ -83,6 +83,7 @@ export default function FeedPage() {
   const [lastPublishedId,setLastPublishedId] = useState(null)
   const [contactingPost, setContactingPost] = useState(null)
   const [blockedUsers,   setBlockedUsers  ] = useState(_blockedCache || [])
+  const [communityStats, setCommunityStats] = useState({ connections: 0, requests: 0, activeThisWeek: 0 })
   const sentinel = useRef(null)
 
   const debouncedFilters = useDebounce(filters, 400)
@@ -95,6 +96,10 @@ export default function FeedPage() {
       setBlockedUsers(list)
     }).catch(() => {})
   }, [session?.user?.id])
+
+  useEffect(() => {
+    getCommunityStats().then(setCommunityStats).catch(() => {})
+  }, [])
 
   const fetchPosts = useCallback(async (cursor, append = false) => {
     // Reintento automático: si la primera llamada falla (típico tras recargar
