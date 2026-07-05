@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, memo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { MessageCircle, Loader2, FileText, MoreHorizontal, Flag, UserX, Send } from 'lucide-react'
+import { MessageCircle, Loader2, FileText, MoreHorizontal, Flag, UserX, Send, ThumbsUp, Share2 } from 'lucide-react'
 import { timeAgo, publicName } from '../../lib/helpers'
 import { CATEGORY_MAP } from '../../lib/constants'
 import { useAuth } from '../../contexts/AuthContext'
@@ -180,20 +180,43 @@ export default memo(function PostCard({ post, onContact, contactingId, blockedUs
       <MediaGallery media={media} />
       <ReactionBar post={post} initialReactions={post.reactions ?? null} />
 
-      {/* Footer */}
-      <div className="flex items-center justify-between pt-2 mt-1 border-t border-ink-100">
-        <button onClick={() => setShowComments(!showComments)}
-          className="flex items-center gap-1 text-[11px] text-ink-500 hover:text-ink-700 font-medium">
-          <MessageCircle size={13} />
-          {showComments ? 'Ocultar' : 'Comentar'}
-          {(post.comment_count > 0) && <span className="text-[10px] text-ink-400">({post.comment_count})</span>}
-        </button>
-        {!isMine && (
-          <button onClick={() => onContact?.(post)} disabled={isContacting}
-            className="flex items-center gap-1 text-[11px] text-white font-medium px-2.5 py-1 rounded-lg disabled:opacity-60 transition-all" style={{ background: accentColor }}>
-            {isContacting ? <><Loader2 size={11} className="animate-spin" /> Abriendo...</> : <><Send size={11} /> Contactar</>}
+      {/* Footer estilo LinkedIn */}
+      <div className="pt-2 mt-1" style={{ borderTop: '1px solid #e0e0e0' }}>
+        <div className="flex items-center justify-between mb-1">
+          {post.reactions_count > 0 && (
+            <span className="text-[10px]" style={{ color: '#666' }}>👍❤️ {post.reactions_count} reacciones</span>
+          )}
+          {post.comment_count > 0 && (
+            <span className="text-[10px] ml-auto cursor-pointer hover:underline" style={{ color: '#666' }}
+              onClick={() => setShowComments(!showComments)}>
+              {post.comment_count} comentario{post.comment_count !== 1 ? 's' : ''}
+            </span>
+          )}
+        </div>
+        <div className="flex items-center" style={{ borderTop: '1px solid #e0e0e0', paddingTop: '2px' }}>
+          <button className="flex flex-1 items-center justify-center gap-1.5 py-2 rounded-lg text-[11px] font-semibold transition-colors hover:bg-gray-50"
+            style={{ color: '#666' }}>
+            <ThumbsUp size={14} /> Me gusta
           </button>
-        )}
+          <button onClick={() => setShowComments(!showComments)}
+            className="flex flex-1 items-center justify-center gap-1.5 py-2 rounded-lg text-[11px] font-semibold transition-colors hover:bg-gray-50"
+            style={{ color: '#666' }}>
+            <MessageCircle size={14} /> Comentar
+          </button>
+          <button className="flex flex-1 items-center justify-center gap-1.5 py-2 rounded-lg text-[11px] font-semibold transition-colors hover:bg-gray-50"
+            style={{ color: '#666' }}>
+            <Share2 size={14} /> Compartir
+          </button>
+          {!isMine && (
+            <button onClick={() => onContact?.(post)} disabled={isContacting}
+              className="flex flex-1 items-center justify-center gap-1.5 py-2 rounded-lg text-[11px] font-semibold transition-colors disabled:opacity-60 hover:bg-gray-50"
+              style={{ color: isContacting ? '#999' : '#1a237e' }}>
+              {isContacting
+                ? <><Loader2 size={14} className="animate-spin" /> Abriendo...</>
+                : <><Send size={14} /> Contactar</>}
+            </button>
+          )}
+        </div>
       </div>
 
       <CommentSection post={post} isOpen={showComments} />

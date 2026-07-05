@@ -1,4 +1,4 @@
-import { Bell, Search, Plus, LayoutList, MessageSquare, Calculator, FlaskConical, User, HelpCircle, Lock, LogOut, ChevronDown } from 'lucide-react'
+import { Bell, Search, Plus, Pencil, LayoutList, MessageSquare, Calculator, FlaskConical, User, HelpCircle, Lock, LogOut, ChevronDown } from 'lucide-react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useState, useRef, useEffect } from 'react'
 import { signOut } from '../../api/auth'
@@ -137,9 +137,9 @@ export default function Topbar({ profile, unreadCount = 0, session }) {
 
         {/* Botón publicar */}
         <button onClick={() => navigate('/feed')}
-          className="flex items-center gap-1.5 px-4 py-2 rounded-full text-white text-xs font-bold transition-all flex-shrink-0"
-          style={{ background: '#1a237e', boxShadow: '0 2px 8px rgba(26,35,126,0.3)' }}>
-          <Plus size={14} />
+          className="flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all flex-shrink-0 hover:bg-blue-50"
+          style={{ background: '#fff', border: '1.5px solid #1a237e', color: '#1a237e' }}>
+          <Pencil size={13} />
           Publicar
         </button>
 

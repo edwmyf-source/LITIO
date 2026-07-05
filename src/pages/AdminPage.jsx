@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from 'react'
 import { ChevronLeft, ChevronRight, TrendingUp, ShieldAlert, CheckCircle, Trash2, Ban, Image, Plus, X } from 'lucide-react'
+import { supabase } from '../api/supabase'
 import { adminGetUsers, adminGetPosts, adminGetBanners, adminUpsertBanner, adminDeleteBanner, uploadBannerImage } from '../api/admin'
 import { getAdminStats } from '../api/stats'
 import { adminGetReports, adminResolveReport, adminRemovePost, adminBanUser } from '../api/moderation'
 import Spinner from '../components/shared/Spinner'
 
-const tabs = ['Métricas', 'Usuarios', 'Publicaciones', 'Banners', 'Reportes']
+const tabs = ['Métricas', 'Usuarios', 'Publicaciones', 'Banners', 'Widgets feed', 'Reportes']
 const PAGE_SIZE = 50
 
 function MetricsTab() {
@@ -352,6 +353,155 @@ function BannersTab() {
   )
 }
 
+function WidgetsTab() {
+  const [widgets, setWidgets] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
+  const [editId, setEditId] = useState(null)
+  const [form, setForm] = useState({ titulo: '', imagen_emoji: '🧪', imagen_gradient: 'linear-gradient(135deg,#0d1b3e,#1a237e)', btn_url: '', btn_texto: 'Más información', btn_color: '#e8eaf6', btn_text_color: '#1a237e', orden: 0, activo: true })
+
+  const loadWidgets = () => {
+    setLoading(true)
+    supabase.from('feed_widgets').select('*').order('orden')
+      .then(({ data }) => { setWidgets(data || []); setLoading(false) })
+      .catch(() => setLoading(false))
+  }
+  useState(() => { loadWidgets() }, [])
+
+  const save = async () => {
+    if (!form.titulo || !form.btn_url) return
+    setSaving(true)
+    if (editId) {
+      await supabase.from('feed_widgets').update(form).eq('id', editId)
+    } else {
+      await supabase.from('feed_widgets').insert(form)
+    }
+    setSaving(false)
+    setEditId(null)
+    setForm({ titulo: '', imagen_emoji: '🧪', imagen_gradient: 'linear-gradient(135deg,#0d1b3e,#1a237e)', btn_url: '', btn_texto: 'Más información', btn_color: '#e8eaf6', btn_text_color: '#1a237e', orden: widgets.length, activo: true })
+    loadWidgets()
+  }
+
+  const remove = async (id) => {
+    if (!confirm('¿Eliminar este widget?')) return
+    await supabase.from('feed_widgets').delete().eq('id', id)
+    loadWidgets()
+  }
+
+  const edit = (w) => {
+    setEditId(w.id)
+    setForm({ titulo: w.titulo, imagen_emoji: w.imagen_emoji, imagen_gradient: w.imagen_gradient, btn_url: w.btn_url, btn_texto: w.btn_texto, btn_color: w.btn_color, btn_text_color: w.btn_text_color, orden: w.orden, activo: w.activo })
+  }
+
+  const GRADIENTS = [
+    'linear-gradient(135deg,#0d1b3e,#1a237e)',
+    'linear-gradient(135deg,#1b5e20,#43a047)',
+    'linear-gradient(135deg,#4a148c,#7b1fa2)',
+    'linear-gradient(135deg,#880e4f,#c2185b)',
+    'linear-gradient(135deg,#e65100,#f57f17)',
+    'linear-gradient(135deg,#006064,#0097a7)',
+  ]
+
+  const fld = 'w-full border border-ink-200 rounded-lg px-3 py-2 text-xs text-ink-900 bg-white font-sans'
+
+  return (
+    <div className="space-y-6">
+      {/* Lista de widgets */}
+      <div className="bg-white rounded-2xl border border-ink-200 p-4">
+        <p className="text-sm font-bold text-ink-900 mb-3">Widgets activos en columna derecha del feed</p>
+        {loading ? <p className="text-xs text-ink-400">Cargando...</p> : widgets.length === 0 ? <p className="text-xs text-ink-400">No hay widgets. Crea el primero abajo.</p> : (
+          <div className="space-y-2">
+            {widgets.map(w => (
+              <div key={w.id} className="flex items-center gap-3 p-3 rounded-xl border border-ink-200">
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center text-xl flex-shrink-0" style={{ background: w.imagen_gradient }}>
+                  {w.imagen_emoji}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-semibold text-ink-900 truncate">{w.titulo}</p>
+                  <p className="text-[10px] text-ink-400 truncate">{w.btn_url}</p>
+                </div>
+                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${w.activo ? 'bg-green-100 text-green-700' : 'bg-ink-100 text-ink-500'}`}>
+                  {w.activo ? 'Activo' : 'Inactivo'}
+                </span>
+                <button onClick={() => edit(w)} className="text-[10px] font-medium px-2 py-1 rounded-lg bg-ink-50 text-ink-700 hover:bg-blue-50">Editar</button>
+                <button onClick={() => remove(w.id)} className="text-[10px] font-medium px-2 py-1 rounded-lg bg-red-50 text-red-600 hover:bg-red-100">Eliminar</button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Formulario */}
+      <div className="bg-white rounded-2xl border border-ink-200 p-4">
+        <p className="text-sm font-bold text-ink-900 mb-4">{editId ? '✏️ Editar widget' : '➕ Nuevo widget'}</p>
+        <div className="space-y-3">
+          <div>
+            <label className="text-[10px] font-semibold text-ink-600 mb-1 block">Título del widget</label>
+            <input className={fld} value={form.titulo} onChange={e => setForm(f => ({...f, titulo: e.target.value}))} placeholder="Ej: Congreso Nacional de Química 2026" />
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="text-[10px] font-semibold text-ink-600 mb-1 block">Emoji de la imagen</label>
+              <input className={fld} value={form.imagen_emoji} onChange={e => setForm(f => ({...f, imagen_emoji: e.target.value}))} placeholder="🧪" />
+            </div>
+            <div>
+              <label className="text-[10px] font-semibold text-ink-600 mb-1 block">Orden (1 = primero)</label>
+              <input type="number" className={fld} value={form.orden} onChange={e => setForm(f => ({...f, orden: Number(e.target.value)}))} />
+            </div>
+          </div>
+          <div>
+            <label className="text-[10px] font-semibold text-ink-600 mb-2 block">Color de fondo de imagen</label>
+            <div className="flex gap-2 flex-wrap">
+              {GRADIENTS.map(g => (
+                <button key={g} onClick={() => setForm(f => ({...f, imagen_gradient: g}))}
+                  className="w-8 h-8 rounded-lg border-2 transition-all"
+                  style={{ background: g, borderColor: form.imagen_gradient === g ? '#0d1b3e' : 'transparent' }} />
+              ))}
+            </div>
+          </div>
+          <div>
+            <label className="text-[10px] font-semibold text-ink-600 mb-1 block">URL del botón (página, WhatsApp, email, etc.)</label>
+            <input className={fld} value={form.btn_url} onChange={e => setForm(f => ({...f, btn_url: e.target.value}))} placeholder="https://... o wa.me/+57... o mailto:..." />
+            <p className="text-[9px] text-ink-400 mt-1">Acepta cualquier URL: web, WhatsApp (wa.me), correo (mailto:), Instagram, etc.</p>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="text-[10px] font-semibold text-ink-600 mb-1 block">Texto del botón</label>
+              <input className={fld} value={form.btn_texto} onChange={e => setForm(f => ({...f, btn_texto: e.target.value}))} placeholder="Más información" />
+            </div>
+            <div>
+              <label className="text-[10px] font-semibold text-ink-600 mb-1 block">Vista previa del botón</label>
+              <div className="flex items-center h-9">
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-3 py-1.5 rounded-md"
+                  style={{ background: form.btn_color, color: form.btn_text_color }}>
+                  {form.btn_texto || 'Más información'}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <input type="checkbox" id="wactivo" checked={form.activo} onChange={e => setForm(f => ({...f, activo: e.target.checked}))} style={{ accentColor: '#1a237e' }} />
+            <label htmlFor="wactivo" className="text-xs text-ink-600">Publicar (visible para todos los usuarios)</label>
+          </div>
+          <div className="flex gap-2 pt-1">
+            {editId && (
+              <button onClick={() => { setEditId(null); setForm({ titulo: '', imagen_emoji: '🧪', imagen_gradient: GRADIENTS[0], btn_url: '', btn_texto: 'Más información', btn_color: '#e8eaf6', btn_text_color: '#1a237e', orden: 0, activo: true }) }}
+                className="px-4 py-2 rounded-xl text-xs font-medium bg-ink-100 text-ink-700">
+                Cancelar
+              </button>
+            )}
+            <button onClick={save} disabled={saving || !form.titulo || !form.btn_url}
+              className="px-5 py-2 rounded-xl text-xs font-bold text-white disabled:opacity-50"
+              style={{ background: '#1a237e' }}>
+              {saving ? 'Guardando...' : editId ? 'Guardar cambios' : 'Crear widget'}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function AdminPage() {
   const [tab, setTab] = useState(0)
 
@@ -368,7 +518,7 @@ export default function AdminPage() {
           </button>
         ))}
       </div>
-      {tab === 0 ? <MetricsTab /> : tab === 3 ? <BannersTab /> : tab === 4 ? <ModerationTab /> : <DataTable tab={tab} />}
+      {tab === 0 ? <MetricsTab /> : tab === 3 ? <BannersTab /> : tab === 4 ? <WidgetsTab /> : tab === 5 ? <ModerationTab /> : <DataTable tab={tab} />}
     </div>
   )
 }

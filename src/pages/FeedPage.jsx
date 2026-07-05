@@ -19,6 +19,7 @@ import Spinner from '../components/shared/Spinner'
 import ErrorBoundary from '../components/shared/ErrorBoundary'
 import { TAB_COLOR } from '../lib/constants'
 import { getCommunityStats } from '../api/stats'
+import FeedWidgets from '../components/feed/FeedWidgets'
 import { publicName } from '../lib/helpers'
 import UserAvatar from '../components/shared/UserAvatar'
 import { preloadedFeed } from '../lib/feedPreloader'
@@ -396,68 +397,9 @@ export default function FeedPage() {
           )}
         </div>
 
-        {/* ── Columna derecha (sticky) ── */}
-        <div className="w-52 flex-shrink-0 space-y-3" style={{ position: 'sticky', top: 72 }}>
-
-          {/* Banner patrocinado — configurable por admin */}
-          <div className="bg-white rounded-xl border border-ink-200 shadow-sm overflow-hidden">
-            <p className="text-[8px] font-medium px-3 pt-2" style={{ color: '#9fa8da', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Patrocinado</p>
-            <div className="mx-3 mb-2 rounded-lg flex flex-col items-center justify-center p-4" style={{ background: 'linear-gradient(135deg, #0d1b3e 0%, #3949ab 100%)', minHeight: 70 }}>
-              <p className="text-xs font-bold text-white text-center leading-tight">Congreso Nacional de Química</p>
-              <p className="text-[9px] mt-1 text-center" style={{ color: '#9fa8da' }}>Bogotá · 15-17 Ago 2026</p>
-            </div>
-            <div className="px-3 pb-3">
-              <p className="text-[10px] mb-2 leading-snug" style={{ color: '#37474f' }}>Inscríbete antes del 31 Jul y obtén 20% de descuento.</p>
-              <button className="w-full py-1.5 rounded-lg text-[10px] font-semibold" style={{ background: '#f0f2f8', border: '0.5px solid #e8eaef', color: '#0d1b3e' }}>
-                Ver información →
-              </button>
-            </div>
-          </div>
-
-          {/* Destacadas esta semana */}
-          <div className="bg-white rounded-xl border border-ink-200 shadow-sm p-3">
-            <p className="text-[11px] font-bold mb-2" style={{ color: '#0d1b3e' }}>🔥 Destacadas esta semana</p>
-            <div className="space-y-2.5">
-              {posts.slice(0, 3).map(p => {
-                const pName = p.profiles?.full_name || 'Usuario'
-                const pInit = pName.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase()
-                const pText = (p.wall_text || p.content || '').slice(0, 55)
-                return (
-                  <div key={p.id} className="flex gap-2 items-start">
-                    <div className="w-6 h-6 rounded-full flex items-center justify-center text-[8px] font-bold text-white flex-shrink-0" style={{ background: '#1a237e' }}>
-                      {pInit}
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-semibold leading-tight" style={{ color: '#0d1b3e' }}>{pName}</p>
-                      <p className="text-[9px] leading-snug" style={{ color: '#9fa8da' }}>{pText}...</p>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-
-          {/* Espacio publicitario libre — admin */}
-          <div className="rounded-xl p-4 text-center" style={{ border: '1.5px dashed #c5cae9', background: '#fafbff' }}>
-            <p className="text-lg mb-1">📣</p>
-            <p className="text-[10px] font-bold mb-1" style={{ color: '#0d1b3e' }}>Espacio publicitario</p>
-            <p className="text-[9px] leading-snug" style={{ color: '#9fa8da' }}>Configurable desde el panel de administración</p>
-          </div>
-
-          {/* Próximo evento destacado */}
-          <div className="bg-white rounded-xl border border-ink-200 shadow-sm p-3">
-            <p className="text-[11px] font-bold mb-2" style={{ color: '#0d1b3e' }}>📅 Próximo evento</p>
-            <div className="rounded-lg p-3 text-center" style={{ background: '#e8eaf6' }}>
-              <p className="text-2xl font-black leading-none" style={{ color: '#1a237e' }}>12</p>
-              <p className="text-[9px] uppercase font-medium" style={{ color: '#9fa8da' }}>Julio 2026</p>
-              <p className="text-[10px] font-semibold mt-1 leading-tight" style={{ color: '#0d1b3e' }}>Expoquímica Bogotá</p>
-              <p className="text-[9px]" style={{ color: '#9fa8da' }}>Corferias · Presencial</p>
-            </div>
-            <button className="w-full mt-2 py-1.5 rounded-lg text-[10px] font-bold text-white" style={{ background: '#1a237e' }}>
-              Ver detalle →
-            </button>
-          </div>
-
+        {/* ── Columna derecha — widgets configurables por admin ── */}
+        <div className="w-52 flex-shrink-0" style={{ position: 'sticky', top: 72 }}>
+          <FeedWidgets />
         </div>
       </div>
 
