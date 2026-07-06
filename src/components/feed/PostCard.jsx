@@ -136,7 +136,7 @@ export default memo(function PostCard({ post, onContact, contactingId, blockedUs
       {/* Header */}
       <div className="flex items-start gap-3 mb-3">
         <button onClick={goToProfile} aria-label={`Ver perfil de ${name}`} className="flex-shrink-0">
-          <UserAvatar seed={prof.id || name} avatarUrl={prof.avatar_url} size={48} />
+          <UserAvatar seed={prof.id || name} avatarUrl={prof.avatar_url} size={40} />
         </button>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-1">
