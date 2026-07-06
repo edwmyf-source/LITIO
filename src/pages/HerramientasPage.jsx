@@ -81,9 +81,7 @@ function TabMensual() {
   }
 
   const actual = res ? (res.tipo === 'servicios' ? res.s : res.l) : null
-  const otro = res ? (res.tipo === 'servicios' ? res.l : res.s) : null
   const nombreActual = res?.tipo === 'servicios' ? 'honorario' : 'salario'
-  const nombreOtro = res?.tipo === 'servicios' ? 'salario' : 'honorario'
 
   return (
     <div className="space-y-3">
@@ -91,8 +89,8 @@ function TabMensual() {
         <div>
           <label className="block text-xs font-semibold mb-0.5" style={{ color: '#1e3a5f' }}>Tipo de contrato</label>
           <select value={tipo} onChange={e => setTipo(e.target.value)} className="w-full border border-blue-100 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-blue-400">
-            <option value="laboral">Contrato laboral</option>
             <option value="servicios">Prestación servicios</option>
+            <option value="laboral">Contrato laboral</option>
           </select>
         </div>
         <div>
@@ -132,8 +130,10 @@ function TabMensual() {
 
           <div className="rounded-2xl p-4" style={{ background: '#eff6ff', border: '1px solid #bfdbfe' }}>
             <p className="text-xs" style={{ color: '#1e3a5f', lineHeight: 1.5 }}>
-              Para ganar lo mismo neto que con tu {nombreActual} de <strong>{cop0(actual.ing)}</strong>,
-              necesitarías cobrar un {nombreOtro} bruto de
+              {res.tipo === 'servicios'
+                ? <>Tus honorarios de <strong>{cop0(actual.ing)}</strong> equivalen aproximadamente a un contrato laboral por</>
+                : <>Tu salario de <strong>{cop0(actual.ing)}</strong> equivale aproximadamente a unos honorarios por</>}
+              {' '}al mes
             </p>
             <p className="text-2xl font-black mt-1" style={{ color: '#1d4ed8' }}>{cop0(res.eq)}</p>
           </div>
@@ -161,6 +161,11 @@ function TabAnual() {
 
   return (
     <div className="space-y-3">
+      <div className="rounded-xl p-3" style={{ background: '#eff6ff', border: '1px solid #bfdbfe' }}>
+        <p className="text-xs" style={{ color: '#1e3a5f', lineHeight: 1.5 }}>
+          Ingresa tus honorarios mensuales del año para calcular a cuánto equivaldría un contrato laboral anual con el mismo neto.
+        </p>
+      </div>
       <div>
         <label className="block text-xs font-semibold mb-0.5" style={{ color: '#1e3a5f' }}>Clase de riesgo ARL</label>
         <select value={arl} onChange={e => setArl(e.target.value)} className="w-full border border-blue-100 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-blue-400">
@@ -183,7 +188,7 @@ function TabAnual() {
       <button onClick={calcular} className="w-full text-white font-bold py-2 rounded-xl transition text-sm" style={{ background: '#2563eb' }}>Calcular</button>
       {res && (
         <div className="grid grid-cols-2 gap-2">
-          {[['Neto anual', cop0(res.total), '#eff6ff', '#1d4ed8'], ['Promedio mensual', cop0(res.promedio), '#eff6ff', '#1d4ed8'], ['Salario equiv.', cop0(res.salEq), '#f5f3ff', '#6d28d9']].map(([l, v, bg, c]) => (
+          {[['Neto anual', cop0(res.total), '#eff6ff', '#1d4ed8'], ['Promedio mensual', cop0(res.promedio), '#eff6ff', '#1d4ed8'], ['Equivale a salario', cop0(res.salEq), '#f5f3ff', '#6d28d9']].map(([l, v, bg, c]) => (
             <div key={l} className="rounded-xl p-2.5 text-center border border-blue-100" style={{ background: bg }}>
               <p className="text-[10px] font-semibold mb-0.5" style={{ color: c, opacity: 0.7 }}>{l}</p>
               <p className="text-base font-black" style={{ color: c }}>{v}</p>
@@ -641,14 +646,14 @@ const TABS_LAB = [{ id: 'mensual', label: 'Mensual' }, { id: 'anual', label: 'An
 export default function HerramientasPage() {
   const [tabLab, setTabLab] = useState('mensual')
 
-  const titulo = { mensual: 'Salario vs honorario', anual: 'Ingresos anuales' }
+  const titulo = { mensual: 'Comparación mensual', anual: 'Comparación anual' }
 
   return (
     <div className="max-w-2xl mx-auto px-3 py-4 space-y-4">
       {/* Header */}
       <div className="flex items-center gap-2">
         <Calculator size={20} style={{ color: '#2563eb' }} />
-        <h1 className="text-lg font-black" style={{ color: '#1e3a5f' }}>Herramientas</h1>
+        <h1 className="text-lg font-black" style={{ color: '#1e3a5f' }}>Honorarios vs salario</h1>
       </div>
 
       {/* Card calculadora */}
