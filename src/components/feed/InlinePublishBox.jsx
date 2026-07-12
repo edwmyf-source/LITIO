@@ -32,7 +32,7 @@ const detectDepartamento = async () => {
         try {
           const res = await fetch(
             `https://nominatim.openstreetmap.org/reverse?lat=${coords.latitude}&lon=${coords.longitude}&format=json&accept-language=es`,
-            { headers: { 'User-Agent': 'Rodio-App/1.0' } }
+            { headers: { 'User-Agent': 'Cobalto-App/1.0' } }
           )
           const data = await res.json()
           const addr = data.address || {}

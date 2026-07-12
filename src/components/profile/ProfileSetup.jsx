@@ -124,7 +124,7 @@ export default function ProfileSetup() {
           <div className="w-8 h-8 rounded-2xl bg-brand-600 flex items-center justify-center">
             <Zap size={18} className="text-white" />
           </div>
-          <span className="font-medium text-sm">Rodio</span>
+          <span className="font-medium text-sm">Cobalto</span>
         </div>
 
         {/* ══════════════ PASO 1: TELÉFONO ══════════════ */}

@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 
 // El splash completo (3s) solo se muestra una vez por sesión del navegador.
 // En recargas (F5) dura 600ms — suficiente para tapar el arranque sin frenar al usuario.
-const SPLASH_SEEN_KEY = 'rodio-splash-seen'
+const SPLASH_SEEN_KEY = 'cobalto-splash-seen'
 
 export default function BrandSplash({ onDone }) {
   const doneRef = useRef(false)
@@ -25,7 +25,7 @@ export default function BrandSplash({ onDone }) {
   return (
     <div onClick={skip} style={{
       position:'fixed', inset:0, zIndex:9999, cursor:'pointer', overflow:'hidden',
-      background:'#1b1330', display:'flex', flexDirection:'column',
+      background:'#001A3D', display:'flex', flexDirection:'column',
       alignItems:'center', justifyContent:'center',
     }}>
       <style>{`
@@ -62,14 +62,14 @@ export default function BrandSplash({ onDone }) {
         }
         .rh-ring {
           position:absolute; width:144px; height:144px; border-radius:50%;
-          border:1.5px dashed rgba(167,139,250,0.35);
+          border:1.5px dashed rgba(47,128,237,0.35);
           animation: rh-ring 800ms ease both;
         }
         .rh-mark {
-          width:100px; height:100px; background:#4c1d8f; border-radius:26px;
+          width:100px; height:100px; background:#0047AB; border-radius:26px;
           display:flex; align-items:center; justify-content:center;
           animation: rh-pop 700ms cubic-bezier(.22,.9,.25,1.1) both;
-          box-shadow: 0 0 0 8px rgba(76,29,143,0.25), 0 20px 60px rgba(76,29,143,0.5);
+          box-shadow: 0 0 0 8px rgba(0,71,171,0.25), 0 20px 60px rgba(0,71,171,0.5);
           position:relative; z-index:2;
         }
         .rh-atom {
@@ -78,8 +78,8 @@ export default function BrandSplash({ onDone }) {
         }
         .rh-atom .dot {
           width:12px; height:12px; border-radius:50%;
-          background:rgba(167,139,250,0.9);
-          box-shadow:0 0 8px rgba(167,139,250,0.6);
+          background:rgba(47,128,237,0.9);
+          box-shadow:0 0 8px rgba(47,128,237,0.6);
         }
         .rh-atom:nth-child(2) { animation: orbit1 3.2s linear infinite; }
         .rh-atom:nth-child(3) { animation: orbit2 3.2s linear infinite; }
@@ -91,7 +91,7 @@ export default function BrandSplash({ onDone }) {
         }
         .rh-dots { display:flex; gap:8px; margin-top:20px; animation: rh-label 1100ms ease both; }
         .rh-dots span {
-          width:7px; height:7px; border-radius:50%; background:rgba(167,139,250,0.6);
+          width:7px; height:7px; border-radius:50%; background:rgba(47,128,237,0.6);
           display:block;
         }
         .rh-dots span:nth-child(1) { animation: dot-pulse 1.2s ease-in-out infinite 0s; }
@@ -108,12 +108,12 @@ export default function BrandSplash({ onDone }) {
         <div className="rh-atom"><div className="dot" /></div>
         <div className="rh-atom"><div className="dot" /></div>
         <div className="rh-mark">
-          <span style={{ color:'white', fontWeight:800, fontSize:44, fontFamily:'system-ui,sans-serif' }}>Rh</span>
+          <span style={{ color:'white', fontWeight:800, fontSize:44, fontFamily:'system-ui,sans-serif' }}>Co</span>
         </div>
       </div>
 
       {/* Nombre — perfectamente centrado bajo el logo */}
-      <div className="rh-label">RODIO</div>
+      <div className="rh-label">COBALTO</div>
 
       {/* Pepitas de carga */}
       <div className="rh-dots">

@@ -6,7 +6,7 @@ import { getUpcomingEvents } from '../../api/posts'
 import { publicName } from '../../lib/helpers'
 import { CATEGORY_MAP } from '../../lib/constants'
 import { useAuth } from '../../contexts/AuthContext'
-import RodioMark from '../shared/RodioMark'
+import CobaltoMark from '../shared/CobaltoMark'
 
 let _eventsCache = null
 let _eventsTs = 0
@@ -43,19 +43,19 @@ export default function Sidebar({ currentPath, navigate, profile, unreadCount = 
 
   return (
     <aside className="fixed left-0 top-0 h-screen w-[220px] flex flex-col z-40"
-      style={{ background: '#0d1b3e', borderRight: '0.5px solid rgba(255,255,255,0.10)' }}>
+      style={{ background: '#0047AB', borderRight: '0.5px solid rgba(255,255,255,0.10)' }}>
 
       {/* Logo */}
       <div className="px-5 pt-6 pb-4 flex items-center gap-2">
-        <RodioMark size={28} />
-        <span className="text-white font-bold text-lg tracking-tight">Rodio</span>
+        <CobaltoMark size={28} />
+        <span className="text-white font-bold text-lg tracking-tight">Cobalto</span>
       </div>
 
       {/* Publicar */}
       <div className="px-3 mb-4">
         <button onClick={() => navigate('/feed?publish=1')}
           className="w-full flex items-center justify-center gap-2 text-white text-sm font-semibold px-4 py-2.5 rounded-2xl transition-all hover:opacity-90 active:scale-95"
-          style={{ background: '#1a237e' }}>
+          style={{ background: '#2F80ED' }}>
           <Plus size={16} /> Nueva publicación
         </button>
       </div>
@@ -104,7 +104,7 @@ export default function Sidebar({ currentPath, navigate, profile, unreadCount = 
       <div className="px-3 pb-5 pt-2 border-t" style={{ borderColor: 'rgba(255,255,255,0.12)' }}>
         <div className="flex items-center gap-2.5 mb-2 px-1">
           <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
-            style={{ background: '#1a237e', color: '#fff', border: '1.5px solid rgba(255,255,255,0.2)' }}>
+            style={{ background: '#2F80ED', color: '#fff', border: '1.5px solid rgba(255,255,255,0.2)' }}>
             {initials}
           </div>
           <span className="text-sm font-medium truncate" style={{ color: 'rgba(255,255,255,0.85)' }}>{name}</span>

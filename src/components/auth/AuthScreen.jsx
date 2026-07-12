@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Gift, Rocket, EyeOff, Lock, MessageCircle, FlaskConical } from 'lucide-react'
 import { getCommunityStats } from '../../api/stats'
-import RodioMark from '../shared/RodioMark'
+import CobaltoMark from '../shared/CobaltoMark'
 import LoginForm from './LoginForm'
 import SignupForm from './SignupForm'
 import ResetForm from './ResetForm'
@@ -38,7 +38,7 @@ function TaglineRotator() {
       <p className="text-3xl md:text-[42px] font-extrabold leading-tight text-white mb-1">
         {line1}
       </p>
-      <p className="text-3xl md:text-[42px] font-extrabold leading-tight" style={{ color: '#9fa8da' }}>
+      <p className="text-3xl md:text-[42px] font-extrabold leading-tight" style={{ color: '#7EB6FF' }}>
         {line2}
       </p>
     </div>
@@ -71,20 +71,20 @@ export default function AuthScreen() {
   }, [])
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4" style={{background:"#f0f2f8"}}>
+    <div className="min-h-screen flex items-center justify-center p-4" style={{background:"#F2F7FF"}}>
       <div className="w-full max-w-4xl rounded-3xl overflow-hidden border border-white/10 flex flex-col md:flex-row shadow-2xl">
 
         {/* PANEL IZQUIERDO */}
-        <div className="text-white p-6 md:p-10 md:w-[45%] flex flex-col justify-center" style={{background:"#0d1b3e"}}>
+        <div className="text-white p-6 md:p-10 md:w-[45%] flex flex-col justify-center" style={{background:"#0047AB"}}>
           <div className="flex items-center gap-2.5 mb-5 md:mb-8">
-            <RodioMark size={46} />
-            <span className="font-extrabold text-[26px] tracking-wide">RODIO</span>
+            <CobaltoMark size={46} />
+            <span className="font-extrabold text-[26px] tracking-wide">COBALTO</span>
           </div>
 
           {/* Headline rotativo cada 4s */}
           <TaglineRotator />
 
-          <div className="w-10 h-[3px] rounded-full mb-4 md:mb-5" style={{background:"#1a237e"}}></div>
+          <div className="w-10 h-[3px] rounded-full mb-4 md:mb-5" style={{background:"#2F80ED"}}></div>
 
           {/* Métricas — solo desktop */}
           <div className="hidden md:grid grid-cols-2 gap-2.5 mb-6">
@@ -105,8 +105,8 @@ export default function AuthScreen() {
           <div key={groupIdx} className="hidden md:flex flex-col space-y-3 transition-opacity duration-500">
             {ADVANTAGE_GROUPS[groupIdx].map(({ icon: Icon, text }) => (
               <div key={text} className="flex items-center gap-2.5">
-                <Icon size={16} className="flex-shrink-0" style={{color:"#7986cb"}} />
-                <span className="text-xs" style={{ color: '#c5cae9' }}>{text}</span>
+                <Icon size={16} className="flex-shrink-0" style={{color:"#7EB6FF"}} />
+                <span className="text-xs" style={{ color: '#A7D8FF' }}>{text}</span>
               </div>
             ))}
           </div>

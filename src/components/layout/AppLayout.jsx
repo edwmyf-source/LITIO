@@ -78,7 +78,7 @@ export default function AppLayout() {
   ]
 
   return (
-    <div className="min-h-screen" style={{ minHeight: '100vh', background: '#f0f2f8' }}>
+    <div className="min-h-screen" style={{ minHeight: '100vh', background: '#F2F7FF' }}>
 
       {/* ── Topbar LinkedIn — visible solo en desktop ── */}
       <div className="hidden md:block">
@@ -92,28 +92,28 @@ export default function AppLayout() {
 
       {/* ── Nav móvil ── */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-40"
-        style={{ background: '#0d1b3e', borderTop: '0.5px solid rgba(255,255,255,0.08)' }}>
+        style={{ background: '#0047AB', borderTop: '0.5px solid rgba(255,255,255,0.08)' }}>
 
         {profileMenuOpen && (
           <div ref={menuRef} className="absolute bottom-full right-2 mb-2 rounded-2xl overflow-hidden"
-            style={{ background: '#fff', border: '0.5px solid #e8eaef', boxShadow: '0 8px 32px rgba(13,27,62,0.18)', minWidth: 200 }}>
-            <div className="px-4 py-3 border-b" style={{ borderColor: '#e8eaef' }}>
-              <p className="text-sm font-semibold" style={{ color: '#0d1b3e' }}>{name}</p>
-              <p className="text-xs" style={{ color: '#9fa8da' }}>{session?.user?.email}</p>
+            style={{ background: '#fff', border: '0.5px solid #F2F7FF', boxShadow: '0 8px 32px rgba(13,27,62,0.18)', minWidth: 200 }}>
+            <div className="px-4 py-3 border-b" style={{ borderColor: '#F2F7FF' }}>
+              <p className="text-sm font-semibold" style={{ color: '#0047AB' }}>{name}</p>
+              <p className="text-xs" style={{ color: '#7EB6FF' }}>{session?.user?.email}</p>
             </div>
             {profileMenuItems.map(item => {
               const Icon = item.icon
               return (
                 <button key={item.path} onClick={() => { navigate(item.path); setProfileMenuOpen(false) }}
                   className="w-full flex items-center gap-3 px-4 py-3 text-sm transition-colors hover:bg-blue-50"
-                  style={{ color: '#0d1b3e' }}>
-                  <Icon size={16} style={{ color: '#1a237e' }} />
+                  style={{ color: '#0047AB' }}>
+                  <Icon size={16} style={{ color: '#2F80ED' }} />
                   {item.label}
-                  <ChevronRight size={14} className="ml-auto" style={{ color: '#c5cae9' }} />
+                  <ChevronRight size={14} className="ml-auto" style={{ color: '#A7D8FF' }} />
                 </button>
               )
             })}
-            <div style={{ borderTop: '0.5px solid #e8eaef' }}>
+            <div style={{ borderTop: '0.5px solid #F2F7FF' }}>
               <button onClick={() => signOut()}
                 className="w-full flex items-center gap-3 px-4 py-3 text-sm transition-colors hover:bg-red-50"
                 style={{ color: '#dc2626' }}>
@@ -132,14 +132,14 @@ export default function AppLayout() {
               <button key={item.id} onClick={() => navigate(item.id)}
                 className="flex-1 flex flex-col items-center gap-1 pt-1" aria-label={item.label}>
                 <Icon size={24} style={{ color: active ? '#ffffff' : 'rgba(255,255,255,0.38)' }} />
-                <div className="w-1 h-1 rounded-full" style={{ background: active ? '#7986cb' : 'transparent' }} />
+                <div className="w-1 h-1 rounded-full" style={{ background: active ? '#7EB6FF' : 'transparent' }} />
               </button>
             )
           })}
           <button onClick={() => navigate('/feed?publish=1')} aria-label="Nueva publicación"
             className="flex-1 flex justify-center items-end pb-1">
             <span className="w-[58px] h-[58px] rounded-full flex items-center justify-center -mb-1 active:scale-95 transition-all"
-              style={{ background: '#1a237e', boxShadow: '0 6px 20px rgba(26,35,126,0.5)', border: '3px solid rgba(255,255,255,0.15)' }}>
+              style={{ background: '#2F80ED', boxShadow: '0 6px 20px rgba(47,128,237,0.5)', border: '3px solid rgba(255,255,255,0.15)' }}>
               <Plus size={28} color="#fff" strokeWidth={2.5} />
             </span>
           </button>
@@ -157,14 +157,14 @@ export default function AppLayout() {
                     </span>
                   )}
                 </div>
-                <div className="w-1 h-1 rounded-full" style={{ background: active ? '#7986cb' : 'transparent' }} />
+                <div className="w-1 h-1 rounded-full" style={{ background: active ? '#7EB6FF' : 'transparent' }} />
               </button>
             )
           })}
           <button onClick={() => setProfileMenuOpen(o => !o)}
             className="flex-1 flex flex-col items-center gap-1 pt-1" aria-label="Menú perfil">
             <div className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold text-white"
-              style={{ background: profileMenuOpen ? '#0d1b3e' : '#1a237e', boxShadow: profileMenuOpen ? '0 0 0 2px #7986cb' : 'none' }}>
+              style={{ background: profileMenuOpen ? '#0047AB' : '#2F80ED', boxShadow: profileMenuOpen ? '0 0 0 2px #7EB6FF' : 'none' }}>
               {initials}
             </div>
             <div className="w-1 h-1 rounded-full" style={{ background: 'transparent' }} />

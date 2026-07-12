@@ -11,7 +11,7 @@ const PERSONAJES = [
   { id: 4,  min: 350,  emoji: '📚', nombre: 'Universitario Primer Año', desc: 'Sobrevivió química general. Casi.',    color: '#4a148c', bg: '#f3e5f5' },
   { id: 5,  min: 520,  emoji: '⚗️',  nombre: 'Practicante de Lab',     desc: 'Ya no rompe pipetas. Casi nunca.',     color: '#006064', bg: '#e0f7fa' },
   { id: 6,  min: 720,  emoji: '🔬', nombre: 'Técnico Analítico',       desc: 'Lee una ficha técnica y entiende todo.', color: '#e65100', bg: '#fff8e1' },
-  { id: 7,  min: 960,  emoji: '👩‍🔬', nombre: 'Laboratorista Senior',  desc: 'Sabe cuándo la reacción va mal.',      color: '#1a237e', bg: '#e8eaf6' },
+  { id: 7,  min: 960,  emoji: '👩‍🔬', nombre: 'Laboratorista Senior',  desc: 'Sabe cuándo la reacción va mal.',      color: '#2F80ED', bg: '#F2F7FF' },
   { id: 8,  min: 1250, emoji: '🧪', nombre: 'Formulador Experto',      desc: 'Huele el reactivo y ya sabe qué es.',  color: '#880e4f', bg: '#fce4ec' },
   { id: 9,  min: 1600, emoji: '👨‍🏫', nombre: 'Profe Labortosita',      desc: 'Explica lo mismo 40 veces. Con amor.', color: '#1b5e20', bg: '#e8f5e9' },
   { id: 10, min: 2000, emoji: '🧫', nombre: 'Investigador',             desc: 'Publica papers. Nadie los lee. Importan.', color: '#0d47a1', bg: '#e3f2fd' },
@@ -389,7 +389,7 @@ function PantallaFinal({ stats, onReiniciar }) {
 
       {/* Tira de evolución con tamaños crecientes */}
       <div>
-        <p className="text-[10px] font-bold mb-3 tracking-widest" style={{ color: '#9fa8da' }}>TU EVOLUCIÓN</p>
+        <p className="text-[10px] font-bold mb-3 tracking-widest" style={{ color: '#7EB6FF' }}>TU EVOLUCIÓN</p>
         <div className="flex items-end justify-center gap-1 mb-2">
           {frames.map((f, i) => {
             const size = emojiSize(i)
@@ -419,7 +419,7 @@ function PantallaFinal({ stats, onReiniciar }) {
 
       {/* Card resultado — aparece después de la animación */}
       {showCard && (
-        <div className="w-full rounded-2xl overflow-hidden" style={{ background: '#fff', border: '0.5px solid #e8eaef' }}>
+        <div className="w-full rounded-2xl overflow-hidden" style={{ background: '#fff', border: '0.5px solid #F2F7FF' }}>
           {/* Header del personaje */}
           <div className="py-5 px-4" style={{ background: per.bg || '#e8f5e9' }}>
             <div style={{ fontSize: 72, lineHeight: 1, marginBottom: 8, filter: `drop-shadow(0 4px 16px ${per.color}40)` }}>
@@ -471,7 +471,7 @@ function PantallaFinal({ stats, onReiniciar }) {
           )}
 
           {/* Escala completa de personajes */}
-          <div className="mx-3 mb-3 rounded-xl p-3" style={{ background: '#f8f9ff', border: '0.5px solid #e8eaef' }}>
+          <div className="mx-3 mb-3 rounded-xl p-3" style={{ background: '#f8f9ff', border: '0.5px solid #F2F7FF' }}>
             <div className="grid grid-cols-5 gap-1">
               {PERSONAJES.map(p => (
                 <div key={p.id} className="flex flex-col items-center p-1 rounded-lg transition-all"
@@ -481,7 +481,7 @@ function PantallaFinal({ stats, onReiniciar }) {
                     opacity: puntos >= p.min ? 1 : 0.25
                   }}>
                   <span style={{ fontSize: 20 }}>{p.emoji}</span>
-                  <span className="text-[7px] leading-tight text-center mt-0.5" style={{ color: puntos >= p.min ? p.color : '#9fa8da' }}>
+                  <span className="text-[7px] leading-tight text-center mt-0.5" style={{ color: puntos >= p.min ? p.color : '#7EB6FF' }}>
                     {p.nombre.split(' ')[0]}
                   </span>
                 </div>
@@ -491,7 +491,7 @@ function PantallaFinal({ stats, onReiniciar }) {
 
           <div className="px-3 pb-4">
             <button onClick={onReiniciar} className="w-full py-3 rounded-xl text-white font-black text-sm active:scale-95 transition-all"
-              style={{ background: '#1a237e', boxShadow: '0 4px 16px rgba(26,35,126,0.35)' }}>
+              style={{ background: '#2F80ED', boxShadow: '0 4px 16px rgba(47,128,237,0.35)' }}>
               🔄 Jugar de nuevo
             </button>
           </div>
@@ -539,7 +539,7 @@ export default function QuimicaGamePage() {
 
   return (
     <div className="max-w-lg mx-auto" style={{ paddingBottom: 100 }}>
-      <div className="rounded-2xl overflow-hidden shadow-sm mx-3 mt-3" style={{ background: '#ffffff', border: '0.5px solid #e8eaef' }}>
+      <div className="rounded-2xl overflow-hidden shadow-sm mx-3 mt-3" style={{ background: '#ffffff', border: '0.5px solid #F2F7FF' }}>
         {pantalla === 'inicio' && <PantallaInicio onStart={iniciar} />}
         {pantalla === 'juego' && <JuegoPrincipal key={Date.now()} onGameOver={gameOver} />}
         {pantalla === 'final' && statsFinales && <PantallaFinal stats={statsFinales} onReiniciar={reiniciar} />}
