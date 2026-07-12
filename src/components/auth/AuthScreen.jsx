@@ -75,7 +75,7 @@ export default function AuthScreen() {
       <div className="w-full max-w-4xl rounded-3xl overflow-hidden border border-white/10 flex flex-col md:flex-row shadow-2xl">
 
         {/* PANEL IZQUIERDO */}
-        <div className="text-white p-6 md:p-10 md:w-[45%] flex flex-col justify-center" style={{background:"#0047AB"}}>
+        <div className="text-white p-6 md:p-10 md:w-[45%] flex flex-col justify-center" style={{background:"#001A3D"}}>
           <div className="flex items-center gap-2.5 mb-5 md:mb-8">
             <CobaltoMark size={46} />
             <span className="font-extrabold text-[26px] tracking-wide">COBALTO</span>

@@ -174,18 +174,18 @@ export default memo(function PostCard({ post, onContact, contactingId, blockedUs
   const goToProfile = () => navigate(`/u/${post.author_id}`)
 
   return (
-    <div className="px-4 pt-3 pb-2" style={{background:"#ffffff"}} id={`post-${post.id}`}>
+    <div className="px-4 pt-2.5 pb-1.5" style={{background:"#ffffff"}} id={`post-${post.id}`}>
 
       {/* Header */}
-      <div className="flex items-start gap-3 mb-2">
+      <div className="flex items-start gap-2.5 mb-1.5">
         <button onClick={goToProfile} aria-label={`Ver perfil de ${name}`} className="flex-shrink-0">
-          <UserAvatar seed={prof.id || name} avatarUrl={prof.avatar_url} size={40} />
+          <UserAvatar seed={prof.id || name} avatarUrl={prof.avatar_url} size={36} />
         </button>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-1">
             <div className="flex items-center gap-1.5 min-w-0">
               <button onClick={goToProfile}
-                className="text-[15px] font-semibold leading-snug text-left hover:underline block truncate" style={{color:"#0047AB"}}>
+                className="text-[15px] font-semibold leading-snug text-left hover:underline block truncate" style={{color:"#001A3D"}}>
                 {name}
               </button>
               {prof.quimica_personaje && (
@@ -208,15 +208,16 @@ export default memo(function PostCard({ post, onContact, contactingId, blockedUs
               {!isMine && <PostMenu post={post} onReport={() => setReportOpen(true)} />}
             </div>
           </div>
-          {prof.city && (
-            <p className="text-[12px] leading-tight mt-0.5" style={{color:"#7EB6FF"}}>{prof.city}</p>
-          )}
-          <p className="text-[11px] mt-0.5" style={{color:"#A7D8FF"}}>{timeAgo(post.created_at)}</p>
+          <p className="text-[11px] leading-tight mt-px truncate">
+            {prof.city && <span style={{color:"#7EB6FF"}}>{prof.city}</span>}
+            {prof.city && <span style={{color:"#A7D8FF"}}> · </span>}
+            <span style={{color:"#A7D8FF"}}>{timeAgo(post.created_at)}</span>
+          </p>
         </div>
       </div>
 
       {/* Texto muro — un solo bloque, tipografía uniforme */}
-      <p className="text-[14px] leading-relaxed mb-2 whitespace-pre-wrap break-words line-clamp-5" style={{color:"#37474f"}}>
+      <p className="text-[14px] leading-snug mb-1.5 whitespace-pre-wrap break-words line-clamp-5" style={{color:"#37474f"}}>
         {wallText}
       </p>
 
@@ -226,22 +227,22 @@ export default memo(function PostCard({ post, onContact, contactingId, blockedUs
       <div className="pt-1.5 mt-1" style={{ borderTop: '1px solid #e0e0e0' }}>
         <div className="flex items-center" style={{ paddingTop: '1px' }}>
           <button onClick={handleLike}
-            className="flex flex-1 items-center justify-center gap-1.5 py-1.5 rounded-lg text-[11px] font-semibold transition-colors hover:bg-gray-50"
+            className="flex flex-1 items-center justify-center gap-1.5 py-1 rounded-lg text-[11px] font-semibold transition-colors hover:bg-gray-50"
             style={{ color: liked ? '#1d4ed8' : '#666' }}>
             <ThumbsUp size={14} fill={liked ? '#1d4ed8' : 'none'} /> Me gusta
           </button>
           <button onClick={() => setShowComments(!showComments)}
-            className="flex flex-1 items-center justify-center gap-1.5 py-1.5 rounded-lg text-[11px] font-semibold transition-colors hover:bg-gray-50"
+            className="flex flex-1 items-center justify-center gap-1.5 py-1 rounded-lg text-[11px] font-semibold transition-colors hover:bg-gray-50"
             style={{ color: '#666' }}>
             <MessageCircle size={14} /> Comentar
           </button>
-          <button className="flex flex-1 items-center justify-center gap-1.5 py-1.5 rounded-lg text-[11px] font-semibold transition-colors hover:bg-gray-50"
+          <button className="flex flex-1 items-center justify-center gap-1.5 py-1 rounded-lg text-[11px] font-semibold transition-colors hover:bg-gray-50"
             style={{ color: '#666' }}>
             <Share2 size={14} /> Compartir
           </button>
           {!isMine && (
             <button onClick={() => onContact?.(post)} disabled={isContacting}
-              className="flex flex-1 items-center justify-center gap-1.5 py-1.5 rounded-lg text-[11px] font-semibold transition-colors disabled:opacity-60 hover:bg-gray-50"
+              className="flex flex-1 items-center justify-center gap-1.5 py-1 rounded-lg text-[11px] font-semibold transition-colors disabled:opacity-60 hover:bg-gray-50"
               style={{ color: isContacting ? '#999' : '#2F80ED' }}>
               {isContacting
                 ? <><Loader2 size={14} className="animate-spin" /> Abriendo...</>

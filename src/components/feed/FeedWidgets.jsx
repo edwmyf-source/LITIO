@@ -30,7 +30,7 @@ export default function FeedWidgets() {
               className="w-full object-cover" style={{ aspectRatio: '1/1' }} />
           ) : (
             <div className="w-full flex flex-col items-center justify-center gap-2"
-              style={{ aspectRatio: '1/1', background: w.imagen_gradient || 'linear-gradient(135deg,#0047AB,#2F80ED)' }}>
+              style={{ aspectRatio: '1/1', background: w.imagen_gradient || 'linear-gradient(135deg,#001A3D,#2F80ED)' }}>
               <span style={{ fontSize: 52 }}>{w.imagen_emoji || '🧪'}</span>
             </div>
           )}

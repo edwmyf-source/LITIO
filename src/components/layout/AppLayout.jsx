@@ -92,13 +92,13 @@ export default function AppLayout() {
 
       {/* ── Nav móvil ── */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-40"
-        style={{ background: '#0047AB', borderTop: '0.5px solid rgba(255,255,255,0.08)' }}>
+        style={{ background: '#001A3D', borderTop: '0.5px solid rgba(255,255,255,0.08)' }}>
 
         {profileMenuOpen && (
           <div ref={menuRef} className="absolute bottom-full right-2 mb-2 rounded-2xl overflow-hidden"
             style={{ background: '#fff', border: '0.5px solid #F2F7FF', boxShadow: '0 8px 32px rgba(13,27,62,0.18)', minWidth: 200 }}>
             <div className="px-4 py-3 border-b" style={{ borderColor: '#F2F7FF' }}>
-              <p className="text-sm font-semibold" style={{ color: '#0047AB' }}>{name}</p>
+              <p className="text-sm font-semibold" style={{ color: '#001A3D' }}>{name}</p>
               <p className="text-xs" style={{ color: '#7EB6FF' }}>{session?.user?.email}</p>
             </div>
             {profileMenuItems.map(item => {
@@ -106,7 +106,7 @@ export default function AppLayout() {
               return (
                 <button key={item.path} onClick={() => { navigate(item.path); setProfileMenuOpen(false) }}
                   className="w-full flex items-center gap-3 px-4 py-3 text-sm transition-colors hover:bg-blue-50"
-                  style={{ color: '#0047AB' }}>
+                  style={{ color: '#001A3D' }}>
                   <Icon size={16} style={{ color: '#2F80ED' }} />
                   {item.label}
                   <ChevronRight size={14} className="ml-auto" style={{ color: '#A7D8FF' }} />
@@ -164,7 +164,7 @@ export default function AppLayout() {
           <button onClick={() => setProfileMenuOpen(o => !o)}
             className="flex-1 flex flex-col items-center gap-1 pt-1" aria-label="Menú perfil">
             <div className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold text-white"
-              style={{ background: profileMenuOpen ? '#0047AB' : '#2F80ED', boxShadow: profileMenuOpen ? '0 0 0 2px #7EB6FF' : 'none' }}>
+              style={{ background: profileMenuOpen ? '#001A3D' : '#2F80ED', boxShadow: profileMenuOpen ? '0 0 0 2px #7EB6FF' : 'none' }}>
               {initials}
             </div>
             <div className="w-1 h-1 rounded-full" style={{ background: 'transparent' }} />

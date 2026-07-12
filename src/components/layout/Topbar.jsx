@@ -45,10 +45,10 @@ export default function Topbar({ profile, unreadCount = 0, session }) {
 
         {/* Logo */}
         <button onClick={() => navigate('/feed')} className="flex items-center gap-2 flex-shrink-0">
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: '#0047AB' }}>
+          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: '#001A3D' }}>
             <FlaskConical size={16} color="#7EB6FF" />
           </div>
-          <span className="text-base font-bold hidden lg:block" style={{ color: '#0047AB', letterSpacing: '.5px' }}>Cobalto</span>
+          <span className="text-base font-bold hidden lg:block" style={{ color: '#001A3D', letterSpacing: '.5px' }}>Cobalto</span>
         </button>
 
         {/* Buscador */}
@@ -67,16 +67,16 @@ export default function Topbar({ profile, unreadCount = 0, session }) {
             return (
               <button key={id} onClick={() => navigate(id)}
                 className="relative flex flex-col items-center justify-center gap-0.5 px-4 transition-colors border-b-2 hover:bg-gray-50"
-                style={{ borderBottomColor: active ? '#0047AB' : 'transparent', minWidth: 56 }}>
+                style={{ borderBottomColor: active ? '#001A3D' : 'transparent', minWidth: 56 }}>
                 <div className="relative">
-                  <Icon size={18} color={active ? '#0047AB' : '#7EB6FF'} />
+                  <Icon size={18} color={active ? '#001A3D' : '#7EB6FF'} />
                   {badge > 0 && (
                     <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[8px] font-bold px-1 rounded-full min-w-[14px] text-center leading-tight">
                       {badge > 99 ? '99+' : badge}
                     </span>
                   )}
                 </div>
-                <span className="text-[10px] font-medium" style={{ color: active ? '#0047AB' : '#7EB6FF' }}>
+                <span className="text-[10px] font-medium" style={{ color: active ? '#001A3D' : '#7EB6FF' }}>
                   {label}
                 </span>
               </button>
@@ -106,7 +106,7 @@ export default function Topbar({ profile, unreadCount = 0, session }) {
             <div className="absolute right-0 top-full mt-1 rounded-xl overflow-hidden z-50"
               style={{ background: '#fff', border: '0.5px solid #F2F7FF', boxShadow: '0 8px 32px rgba(13,27,62,0.18)', minWidth: 200 }}>
               <div className="px-4 py-3 border-b" style={{ borderColor: '#F2F7FF' }}>
-                <p className="text-sm font-bold" style={{ color: '#0047AB' }}>{name}</p>
+                <p className="text-sm font-bold" style={{ color: '#001A3D' }}>{name}</p>
                 <p className="text-xs" style={{ color: '#7EB6FF' }}>{session?.user?.email}</p>
                 {profile?.quimica_personaje && (
                   <div className="flex items-center gap-1.5 mt-1.5 px-2 py-1 rounded-lg" style={{ background: '#F2F7FF' }}>
@@ -118,7 +118,7 @@ export default function Topbar({ profile, unreadCount = 0, session }) {
               {menuItems.map(({ label, Icon, path }) => (
                 <button key={path} onClick={() => navigate(path)}
                   className="w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors hover:bg-blue-50"
-                  style={{ color: '#0047AB' }}>
+                  style={{ color: '#001A3D' }}>
                   <Icon size={15} style={{ color: '#2F80ED' }} />
                   {label}
                 </button>

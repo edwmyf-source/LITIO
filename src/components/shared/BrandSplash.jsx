@@ -66,10 +66,10 @@ export default function BrandSplash({ onDone }) {
           animation: rh-ring 800ms ease both;
         }
         .rh-mark {
-          width:100px; height:100px; background:#0047AB; border-radius:26px;
+          width:100px; height:100px; background:#2F80ED; border-radius:26px;
           display:flex; align-items:center; justify-content:center;
           animation: rh-pop 700ms cubic-bezier(.22,.9,.25,1.1) both;
-          box-shadow: 0 0 0 8px rgba(0,71,171,0.25), 0 20px 60px rgba(0,71,171,0.5);
+          box-shadow: 0 0 0 8px rgba(0,26,61,0.25), 0 20px 60px rgba(0,26,61,0.5);
           position:relative; z-index:2;
         }
         .rh-atom {

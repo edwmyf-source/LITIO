@@ -43,7 +43,7 @@ export default function Sidebar({ currentPath, navigate, profile, unreadCount = 
 
   return (
     <aside className="fixed left-0 top-0 h-screen w-[220px] flex flex-col z-40"
-      style={{ background: '#0047AB', borderRight: '0.5px solid rgba(255,255,255,0.10)' }}>
+      style={{ background: '#001A3D', borderRight: '0.5px solid rgba(255,255,255,0.10)' }}>
 
       {/* Logo */}
       <div className="px-5 pt-6 pb-4 flex items-center gap-2">

@@ -278,7 +278,7 @@ export default function FeedPage() {
 
           {/* Mini perfil */}
           <div className="bg-white rounded-xl overflow-hidden border border-ink-200 shadow-sm">
-            <div className="h-12 w-full" style={{ background: 'linear-gradient(135deg, #0047AB 0%, #2F80ED 100%)' }} />
+            <div className="h-12 w-full" style={{ background: 'linear-gradient(135deg, #001A3D 0%, #2F80ED 100%)' }} />
             <div className="px-3 pb-3 -mt-6">
               <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-base mb-2 shadow-sm overflow-hidden"
                 style={{ border: '3px solid white', background: '#2F80ED' }}>
@@ -286,7 +286,7 @@ export default function FeedPage() {
                   ? <img src={profile.avatar_url} className="w-12 h-12 object-cover" alt={name} />
                   : <span>{initials}</span>}
               </div>
-              <p className="font-bold text-sm leading-tight" style={{ color: '#0047AB' }}>{name}</p>
+              <p className="font-bold text-sm leading-tight" style={{ color: '#001A3D' }}>{name}</p>
               {profile?.city && <p className="text-[11px] mt-0.5" style={{ color: '#7EB6FF' }}>{profile.city}</p>}
               {profile?.quimica_personaje && (
                 <div className="flex items-center gap-1.5 mt-2 px-2 py-1 rounded-lg" style={{ background: '#F2F7FF' }}>
@@ -314,7 +314,7 @@ export default function FeedPage() {
                 <span key={e} style={{ fontSize: 10 + i*3, opacity: i === a.length-2 ? 1 : 0.35 + i*0.1 }}>{e}</span>
               ))}
             </div>
-            <p className="text-[11px] font-bold mb-0.5" style={{ color: '#0047AB' }}>🏅 Gana tu insignia</p>
+            <p className="text-[11px] font-bold mb-0.5" style={{ color: '#001A3D' }}>🏅 Gana tu insignia</p>
             <p className="text-[10px] mb-2" style={{ color: '#7EB6FF' }}>Tu rango aparece en tus posts</p>
             <button onClick={() => navigate('/quimica')}
               className="w-full py-1.5 rounded-lg text-[11px] font-bold text-white"
@@ -325,7 +325,7 @@ export default function FeedPage() {
 
           {/* Próximos eventos */}
           <div className="bg-white rounded-xl border border-ink-200 shadow-sm">
-            <p className="text-[11px] font-bold px-3 pt-3 pb-1" style={{ color: '#0047AB' }}>📅 Próximos eventos</p>
+            <p className="text-[11px] font-bold px-3 pt-3 pb-1" style={{ color: '#001A3D' }}>📅 Próximos eventos</p>
             <div className="px-3 pb-3 space-y-2">
               {[
                 { day: '12', mon: 'Jul', name: 'Expoquímica Bogotá', loc: 'Corferias · Presencial' },
@@ -338,7 +338,7 @@ export default function FeedPage() {
                     <p className="text-[8px] uppercase" style={{ color: '#7EB6FF' }}>{ev.mon}</p>
                   </div>
                   <div>
-                    <p className="text-[10px] font-semibold leading-tight" style={{ color: '#0047AB' }}>{ev.name}</p>
+                    <p className="text-[10px] font-semibold leading-tight" style={{ color: '#001A3D' }}>{ev.name}</p>
                     <p className="text-[9px]" style={{ color: '#7EB6FF' }}>{ev.loc}</p>
                   </div>
                 </div>
@@ -379,7 +379,7 @@ export default function FeedPage() {
             <div className="space-y-3">{[1,2,3].map(i => <div key={i} className="skeleton h-[200px]" />)}</div>
           ) : posts.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-16 text-center bg-white rounded-xl border border-ink-200">
-              <h3 className="font-medium text-base mb-1" style={{ color: '#0047AB' }}>Sin publicaciones</h3>
+              <h3 className="font-medium text-base mb-1" style={{ color: '#001A3D' }}>Sin publicaciones</h3>
               <p className="text-xs mb-3" style={{ color: '#7EB6FF' }}>No hay publicaciones que coincidan.</p>
               <button onClick={() => setPublishOpen(true)} className="text-white text-xs font-medium px-4 py-2 rounded-xl" style={{ background: '#2F80ED' }}>Crear publicación</button>
             </div>
@@ -433,7 +433,7 @@ export default function FeedPage() {
           <div className="space-y-3 px-2">{[1,2,3].map(i => <div key={i} className="skeleton h-[200px]" />)}</div>
         ) : posts.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 text-center">
-            <h3 className="font-medium text-base mb-1" style={{ color: '#0047AB' }}>Sin publicaciones</h3>
+            <h3 className="font-medium text-base mb-1" style={{ color: '#001A3D' }}>Sin publicaciones</h3>
             <p className="text-xs mb-3" style={{ color: '#7EB6FF' }}>No hay publicaciones que coincidan.</p>
             <button onClick={() => setPublishOpen(true)} className="text-white text-xs font-medium px-4 py-2 rounded-xl" style={{ background: '#2F80ED' }}>Crear publicación</button>
           </div>

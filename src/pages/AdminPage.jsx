@@ -353,7 +353,7 @@ function BannersTab() {
   )
 }
 
-const WIDGET_FORM_DEFAULT = { titulo: '', imagen_url: '', imagen_emoji: '🧪', imagen_gradient: 'linear-gradient(135deg,#0047AB,#2F80ED)', btn_url: '', btn_texto: 'Más información', btn_color: '#F2F7FF', btn_text_color: '#2F80ED', orden: 0, activo: true }
+const WIDGET_FORM_DEFAULT = { titulo: '', imagen_url: '', imagen_emoji: '🧪', imagen_gradient: 'linear-gradient(135deg,#001A3D,#2F80ED)', btn_url: '', btn_texto: 'Más información', btn_color: '#F2F7FF', btn_text_color: '#2F80ED', orden: 0, activo: true }
 
 function WidgetsTab() {
   const [widgets, setWidgets] = useState([])
@@ -414,7 +414,7 @@ function WidgetsTab() {
   }
 
   const GRADIENTS = [
-    'linear-gradient(135deg,#0047AB,#2F80ED)',
+    'linear-gradient(135deg,#001A3D,#2F80ED)',
     'linear-gradient(135deg,#1b5e20,#43a047)',
     'linear-gradient(135deg,#4a148c,#7b1fa2)',
     'linear-gradient(135deg,#880e4f,#c2185b)',
@@ -504,7 +504,7 @@ function WidgetsTab() {
               {GRADIENTS.map(g => (
                 <button key={g} onClick={() => setForm(f => ({...f, imagen_gradient: g}))}
                   className="w-8 h-8 rounded-lg border-2 transition-all"
-                  style={{ background: g, borderColor: form.imagen_gradient === g ? '#0047AB' : 'transparent' }} />
+                  style={{ background: g, borderColor: form.imagen_gradient === g ? '#001A3D' : 'transparent' }} />
               ))}
             </div>
           </div>
