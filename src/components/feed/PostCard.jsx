@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, memo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { MessageCircle, Loader2, FileText, MoreHorizontal, Flag, UserX, Send, Share2, ThumbsUp } from 'lucide-react'
+import { MessageCircle, Loader2, FileText, MoreHorizontal, Flag, UserX, Send, ThumbsUp } from 'lucide-react'
 import { timeAgo, publicName, ptsEmoji } from '../../lib/helpers'
 import { CATEGORY_MAP } from '../../lib/constants'
 import { useAuth } from '../../contexts/AuthContext'
@@ -24,7 +24,7 @@ function MediaGallery({ media }) {
         <div className={`grid gap-1 rounded-2xl overflow-hidden ${images.length === 1 ? 'grid-cols-1' : 'grid-cols-2'}`}>
           {images.slice(0, 4).map((img, idx) => (
             <div key={idx} className="relative bg-ink-100"
-              style={{ aspectRatio: images.length === 1 ? '16/9' : '1/1' }}>
+              style={images.length === 1 ? { maxHeight: 320, aspectRatio: '16/9' } : { aspectRatio: '1/1' }}>
               <img src={img.url} alt="" loading="lazy" decoding="async"
                 className="w-full h-full object-cover cursor-pointer"
                 onClick={() => window.open(img.url, '_blank')} />
@@ -38,7 +38,7 @@ function MediaGallery({ media }) {
         </div>
       )}
       {videos.map((vid, idx) => (
-        <div key={idx} className="relative rounded-2xl overflow-hidden bg-black" style={{ aspectRatio: '16/9' }}>
+        <div key={idx} className="relative rounded-2xl overflow-hidden bg-black" style={{ aspectRatio: '16/9', maxHeight: 320 }}>
           <video src={vid.url} controls className="w-full h-full object-contain" preload="none" />
         </div>
       ))}
@@ -199,11 +199,7 @@ export default memo(function PostCard({ post, onContact, contactingId, blockedUs
               )}
             </div>
             <div className="flex items-center gap-1.5 flex-shrink-0">
-              {post.subcategory === 'Novedades' ? (
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 leading-none flex items-center gap-0.5">
-                  ⚡ NOVEDAD
-                </span>
-              ) : catLabel && (
+              {catLabel && (
                 <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-brand-500/10 text-brand-700 leading-none">
                   {catLabel}
                 </span>
@@ -239,10 +235,6 @@ export default memo(function PostCard({ post, onContact, contactingId, blockedUs
             className="flex flex-1 items-center justify-center gap-1.5 py-1 rounded-lg text-[11px] font-semibold transition-colors hover:bg-gray-50"
             style={{ color: '#666' }}>
             <MessageCircle size={14} /> Comentar
-          </button>
-          <button className="flex flex-1 items-center justify-center gap-1.5 py-1 rounded-lg text-[11px] font-semibold transition-colors hover:bg-gray-50"
-            style={{ color: '#666' }}>
-            <Share2 size={14} /> Compartir
           </button>
           {!isMine && (
             <button onClick={() => onContact?.(post)} disabled={isContacting}

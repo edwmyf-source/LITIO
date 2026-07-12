@@ -93,7 +93,6 @@ export const DEPARTAMENTOS_ORDERED = [
 export const MARKETPLACE_TABS = [
   { value: 'todo',      label: 'TODO',      color: '#7c3aed', bg: '#ede9fe' },
   { value: 'novedades', label: 'INFO',      color: '#16a34a', bg: '#dcfce7', categories: ['informacion'] },
-  { value: 'lanzamientos', label: 'NOVEDADES', color: '#d97706', bg: '#fef3c7', categories: ['informacion'], subcategory: 'Novedades' },
   { value: 'tienda',    label: 'TIENDA',    color: '#0369a1', bg: '#dbeafe', categories: ['productos', 'servicios'] },
   { value: 'vacantes',  label: 'VACANTES',  color: '#ea580c', bg: '#ffedd5', categories: ['empleos'] },
 ]
@@ -101,7 +100,6 @@ export const MARKETPLACE_TABS = [
 export const TAB_COLOR = {
   todo:          { color: '#7c3aed', bg: '#ede9fe' },
   novedades:     { color: '#16a34a', bg: '#dcfce7' },
-  lanzamientos:  { color: '#d97706', bg: '#fef3c7' },
   tienda:        { color: '#0369a1', bg: '#dbeafe' },
   vacantes:      { color: '#ea580c', bg: '#ffedd5' },
 }
@@ -121,7 +119,7 @@ export const TIENDA_CATS = [
 ]
 
 // Subcategorías de Novedades
-export const NOVEDADES_SUBCATS = ['Noticias', 'Eventos', 'Normativas', 'Recursos', 'Preguntas']
+export const NOVEDADES_SUBCATS = ['Novedades', 'Noticias', 'Eventos', 'Normativas', 'Recursos', 'Preguntas']
 
 // Niveles de Vacantes
 export const VACANTES_NIVELES = ['Operativo', 'Técnico', 'Profesional', 'Coordinador', 'Gerencial']

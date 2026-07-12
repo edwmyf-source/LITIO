@@ -122,10 +122,15 @@ async function cargarPreguntasDesdeDB() {
   const porNivel = {}
   for (const row of data) {
     if (!porNivel[row.nivel]) porNivel[row.nivel] = []
+    // Normalizar tipos: opciones puede llegar como string JSON y la respuesta como texto
+    let opciones = row.opciones
+    if (typeof opciones === 'string') { try { opciones = JSON.parse(opciones) } catch { opciones = [] } }
+    if (!Array.isArray(opciones) || opciones.length === 0) continue
+    const correcta = Number(row.respuesta_correcta) || 0
     // Barajar el orden de las opciones para que la correcta no quede siempre en A
-    const idxs = shuffle(row.opciones.map((_, i) => i))
-    const ops = idxs.map(i => row.opciones[i])
-    const r = idxs.indexOf(row.respuesta_correcta)
+    const idxs = shuffle(opciones.map((_, i) => i))
+    const ops = idxs.map(i => opciones[i])
+    const r = idxs.indexOf(correcta)
     porNivel[row.nivel].push({ q: row.pregunta, ops, r })
   }
   return porNivel
