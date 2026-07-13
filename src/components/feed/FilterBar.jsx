@@ -70,20 +70,24 @@ export default function FilterBar({ filters, setFilters }) {
       {/* Tabs centrados */}
       <div className="relative flex items-center justify-center px-3 pb-1" style={{ borderTop: '1px solid #DDE7F4' }}>
         <div className="flex gap-1 pt-2 flex-wrap justify-center">
-          {MARKETPLACE_TABS.map(t => (
-            <button
-              key={t.value}
-              onClick={() => setTab(t.value)}
-              className="px-3 md:px-4 py-1.5 rounded-2xl text-[11px] md:text-[12px] font-bold transition-all"
-              style={{
-                background: tab === t.value ? t.color : 'transparent',
-                color: tab === t.value ? '#fff' : '#6b7280',
-                opacity: tab === t.value ? 1 : 0.55,
-              }}
-            >
-              {t.label}
-            </button>
-          ))}
+          {MARKETPLACE_TABS.map(t => {
+            const active = tab === t.value
+            return (
+              <button
+                key={t.value}
+                onClick={() => setTab(t.value)}
+                className="px-3 md:px-4 py-1.5 rounded-full text-[11px] md:text-[12px] font-bold transition-all"
+                style={{
+                  background: active ? '#001A3D' : '#F2F7FF',
+                  color:      active ? '#ffffff' : '#5D8BC7',
+                  border:     active ? '1.5px solid #001A3D' : '1.5px solid #CDDBEC',
+                  boxShadow:  active ? '0 2px 8px rgba(0,26,61,0.35)' : 'none',
+                }}
+              >
+                {t.label}
+              </button>
+            )
+          })}
         </div>
         {hasFilters && (
           <button

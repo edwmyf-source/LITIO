@@ -388,7 +388,7 @@ export default function FeedPage() {
               {posts.filter(p => !blockedUsers.includes(p.author_id)).map((post, idx, arr) => (
                 <div key={post.id}>
                   <PostCard post={post} onContact={handleContact} accentColor={accentColor} contactingId={contactingPost} blockedUsers={blockedUsers} />
-                  {idx < arr.length - 1 && <div style={{ background: '#ede8e2', height: '3px' }} />}
+                  {idx < arr.length - 1 && <div style={{ background: '#EDF3FB', height: '18px' }} />}
                 </div>
               ))}
               <div ref={sentinel} />
@@ -442,7 +442,7 @@ export default function FeedPage() {
             {posts.filter(p => !blockedUsers.includes(p.author_id)).map((post, idx, arr) => (
               <div key={post.id}>
                 <PostCard post={post} onContact={handleContact} accentColor={accentColor} contactingId={contactingPost} blockedUsers={blockedUsers} />
-                {idx < arr.length - 1 && <div style={{ background: '#ede8e2', height: '3px' }} />}
+                {idx < arr.length - 1 && <div style={{ background: '#EDF3FB', height: '18px' }} />}
               </div>
             ))}
             <div ref={sentinel} />
