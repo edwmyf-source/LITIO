@@ -126,7 +126,7 @@ export default function FilterBar({ filters, setFilters }) {
           {MARKETPLACE_TABS.map(t => (
             <Pill key={t.value} label={t.label}
               active={tab === t.value}
-              onClick={() => { setTab(t.value); setOpenSec(null) }} />
+              onClick={() => { setTab(t.value); setOpenSec(t.value !== 'todo' ? 'subcategoria' : null) }} />
           ))}
         </Section>
 
@@ -141,7 +141,7 @@ export default function FilterBar({ filters, setFilters }) {
             {TIENDA_CATS.map(c => (
               <Pill key={c.value} label={c.label}
                 active={filters.category === c.value}
-                onClick={() => setCat(c.value)} />
+                onClick={() => { setCat(c.value); setOpenSec('subcategoria') }} />
             ))}
             {tiendaCat && tiendaCat.subcategories.map(sub => (
               <Pill key={sub} label={sub}
@@ -161,7 +161,7 @@ export default function FilterBar({ filters, setFilters }) {
             {subOptions.map(sub => (
               <Pill key={sub} label={sub}
                 active={filters.subcategory === sub}
-                onClick={() => setSub(sub)} />
+                onClick={() => { setSub(sub); setOpenSec(null) }} />
             ))}
           </Section>
         )}
