@@ -378,7 +378,7 @@ export default function FeedPage() {
               <button onClick={() => setPublishOpen(true)} className="text-white text-xs font-medium px-4 py-2 rounded-xl" style={{ background: '#001A3D' }}>Crear publicación</button>
             </div>
           ) : (
-            <div className="rounded-xl overflow-hidden border border-ink-200" style={{ background: '#ffffff' }}>
+            <div className="space-y-0">
               {posts.filter(p => !blockedUsers.includes(p.author_id)).map((post, idx, arr) => (
                 <div key={post.id}>
                   <PostCard post={post} onContact={handleContact} accentColor={accentColor} contactingId={contactingPost} blockedUsers={blockedUsers} />
@@ -432,7 +432,7 @@ export default function FeedPage() {
             <button onClick={() => setPublishOpen(true)} className="text-white text-xs font-medium px-4 py-2 rounded-xl" style={{ background: '#001A3D' }}>Crear publicación</button>
           </div>
         ) : (
-          <div className="overflow-hidden border border-ink-200" style={{ background: '#ffffff' }}>
+          <div className="space-y-0">
             {posts.filter(p => !blockedUsers.includes(p.author_id)).map((post, idx, arr) => (
               <div key={post.id}>
                 <PostCard post={post} onContact={handleContact} accentColor={accentColor} contactingId={contactingPost} blockedUsers={blockedUsers} />
