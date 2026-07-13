@@ -1,4 +1,4 @@
-import { Search, X, ChevronDown, ChevronUp } from 'lucide-react'
+import { Search, X, ChevronDown } from 'lucide-react'
 import { useState } from 'react'
 import {
   MARKETPLACE_TABS,
@@ -32,16 +32,21 @@ function Section({ title, value, open, onToggle, children }) {
         <span className="text-[11px] font-semibold" style={{ color: '#001A3D' }}>{title}</span>
         <span className="flex items-center gap-1.5">
           {value && <span className="text-[10px] font-bold" style={{ color: '#FFB703' }}>{value}</span>}
-          {open
-            ? <ChevronUp size={13} style={{ color: '#5D8BC7' }} />
-            : <ChevronDown size={13} style={{ color: '#5D8BC7' }} />}
+          <ChevronDown size={13}
+            style={{ color: '#5D8BC7', transition: 'transform 0.3s ease', transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }} />
         </span>
       </button>
-      {open && (
-        <div className="px-3 pb-3 flex flex-wrap gap-1.5">
-          {children}
+      <div style={{
+        display: 'grid',
+        gridTemplateRows: open ? '1fr' : '0fr',
+        transition: 'grid-template-rows 0.3s cubic-bezier(0.4,0,0.2,1)',
+      }}>
+        <div style={{ overflow: 'hidden' }}>
+          <div className="px-3 pb-3 pt-1 flex flex-wrap gap-1.5">
+            {children}
+          </div>
         </div>
-      )}
+      </div>
     </div>
   )
 }
