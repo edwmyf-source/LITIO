@@ -49,7 +49,7 @@ export default function MFAVerifyForm({ onSuccess, onCancel }) {
         </div>
         <h2 className="font-medium text-lg text-ink-900 tracking-tight">Verificación en dos pasos</h2>
         <p className="text-xs text-ink-500 max-w-xs">
-          Abre Google Authenticator o Authy e ingresa el código de 6 dígitos de <strong>Litio</strong>.
+          Abre Google Authenticator o Authy e ingresa el código de 6 dígitos de <strong>Cobalto</strong>.
         </p>
       </div>
 
