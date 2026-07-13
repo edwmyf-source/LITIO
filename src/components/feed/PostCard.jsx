@@ -162,6 +162,16 @@ export default memo(function PostCard({ post, onContact, contactingId, blockedUs
   const catLabel  = catObj?.label || post.category
   const isContacting = contactingId === post.id
 
+  // Mapea categoria del post al color de su tab (borde lateral V6)
+  const CAT_TO_TAB = { productos:'tienda', servicios:'tienda', empleos:'vacantes', informacion:'novedades' }
+  const tabKey = CAT_TO_TAB[post.category] || 'todo'
+  const catAccent = {
+    todo:      '#7c3aed',
+    novedades: '#16a34a',
+    tienda:    '#0369a1',
+    vacantes:  '#ea580c',
+  }[tabKey]
+
   let media = []
   if (post.media) {
     try { media = typeof post.media === 'string' ? JSON.parse(post.media) : post.media }
@@ -174,35 +184,31 @@ export default memo(function PostCard({ post, onContact, contactingId, blockedUs
   const goToProfile = () => navigate(`/u/${post.author_id}`)
 
   return (
-    <div className="px-4 pt-2.5 pb-1.5" style={{background:"#ffffff"}} id={`post-${post.id}`}>
+    <div className="flex overflow-hidden rounded-xl" style={{ background:"#ffffff", border:'1px solid #CDDBEC' }} id={`post-${post.id}`}>
+
+      {/* Barra lateral de categoria */}
+      <div className="flex-shrink-0" style={{ width: 5, background: catAccent }} />
+
+      {/* Contenido de la publicacion */}
+      <div className="flex-1 min-w-0 px-3 pt-2.5 pb-2">
 
       {/* Header */}
       <div className="flex items-start gap-2.5 mb-1.5">
         <button onClick={goToProfile} aria-label={`Ver perfil de ${name}`} className="flex-shrink-0">
-          <UserAvatar seed={prof.id || name} avatarUrl={prof.avatar_url} size={25} />
+          <UserAvatar seed={prof.id || name} avatarUrl={prof.avatar_url} size={26} />
         </button>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-1">
-            <div className="flex items-center gap-1.5 min-w-0">
-              <button onClick={goToProfile}
-                className="text-[12px] font-semibold leading-snug text-left hover:underline block truncate" style={{color:"#001A3D"}}>
-                {name}
-              </button>
-            </div>
-            <div className="flex items-center gap-1.5 flex-shrink-0">
-              {catLabel && (
-                <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-brand-500/10 text-brand-700 leading-none">
-                  {catLabel}
-                </span>
-              )}
-              
-              {!isMine && <PostMenu post={post} onReport={() => setReportOpen(true)} />}
-            </div>
+            <button onClick={goToProfile}
+              className="text-[12px] font-semibold leading-snug text-left hover:underline block truncate" style={{color:"#001A3D"}}>
+              {name}
+            </button>
+            {!isMine && <PostMenu post={post} onReport={() => setReportOpen(true)} />}
           </div>
-          <p className="text-[11px] leading-tight mt-px truncate">
-            {prof.city && <span style={{color:"#7EB6FF"}}>{prof.city}</span>}
-            {prof.city && <span style={{color:"#A7D8FF"}}> · </span>}
-            <span style={{color:"#A7D8FF"}}>{timeAgo(post.created_at)}</span>
+          <p className="text-[10px] leading-tight mt-px truncate" style={{ color: '#5D8BC7' }}>
+            {prof.city && <>{prof.city} · </>}
+            {timeAgo(post.created_at)}
+            {catLabel && <> · <span style={{ color: catAccent, fontWeight: 700 }}>{catLabel.toUpperCase()}</span></>}
           </p>
         </div>
       </div>
@@ -214,48 +220,34 @@ export default memo(function PostCard({ post, onContact, contactingId, blockedUs
 
       <MediaGallery media={media} />
 
-      {/* Footer estilo LinkedIn */}
-      <div className="pt-1.5 mt-1" style={{ borderTop: '1px solid #e0e0e0' }}>
-        <div className="flex items-center" style={{ paddingTop: '1px' }}>
-          <button onClick={handleLike}
-            className="flex flex-1 items-center justify-center gap-1.5 py-1 rounded-lg text-[11px] font-semibold transition-colors hover:bg-gray-50"
-            style={{ color: liked ? '#1d4ed8' : '#666' }}>
-            <ThumbsUp size={14} fill={liked ? '#1d4ed8' : 'none'} /> Me gusta
+      {/* Footer V6: pills con contador integrado + CTA primario a la derecha */}
+      <div className="pt-2 mt-1 flex items-center gap-2" style={{ borderTop: '1px solid #DDE7F4' }}>
+        <button onClick={handleLike}
+          className="flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold transition-colors"
+          style={{ background: liked ? '#001A3D' : '#F2F7FF', color: liked ? '#fff' : '#001A3D' }}>
+          <ThumbsUp size={12} fill={liked ? '#fff' : 'none'} />
+          <span className="font-bold">{likeCount || 0}</span>
+        </button>
+        <button onClick={() => setShowComments(!showComments)}
+          className="flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold transition-colors"
+          style={{ background: '#F2F7FF', color: '#001A3D' }}>
+          <MessageCircle size={12} />
+          <span className="font-bold">{post.comment_count || 0}</span>
+        </button>
+        {!isMine && (
+          <button onClick={() => onContact?.(post)} disabled={isContacting}
+            className="ml-auto flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-bold text-white transition-opacity disabled:opacity-60"
+            style={{ background: '#001A3D' }}>
+            {isContacting
+              ? <><Loader2 size={12} className="animate-spin" /> ...</>
+              : <>Contactar <Send size={12} /></>}
           </button>
-          <button onClick={() => setShowComments(!showComments)}
-            className="flex flex-1 items-center justify-center gap-1.5 py-1 rounded-lg text-[11px] font-semibold transition-colors hover:bg-gray-50"
-            style={{ color: '#666' }}>
-            <MessageCircle size={14} /> Comentar
-          </button>
-          {!isMine && (
-            <button onClick={() => onContact?.(post)} disabled={isContacting}
-              className="flex flex-1 items-center justify-center gap-1.5 py-1 rounded-lg text-[11px] font-semibold transition-colors disabled:opacity-60 hover:bg-gray-50"
-              style={{ color: isContacting ? '#999' : '#001A3D' }}>
-              {isContacting
-                ? <><Loader2 size={14} className="animate-spin" /> Abriendo...</>
-                : <><Send size={14} /> Contactar</>}
-            </button>
-          )}
-        </div>
-        {(likeCount > 0 || post.comment_count > 0) && (
-          <div className="flex items-center justify-between px-1 pt-0.5">
-            {likeCount > 0 && (
-              <span className="text-[10px]" style={{ color: '#666' }}>
-                {likeCount} me gusta
-              </span>
-            )}
-            {post.comment_count > 0 && (
-              <span className="text-[10px] ml-auto cursor-pointer hover:underline" style={{ color: '#666' }}
-                onClick={() => setShowComments(!showComments)}>
-                {post.comment_count} comentario{post.comment_count !== 1 ? 's' : ''}
-              </span>
-            )}
-          </div>
         )}
       </div>
 
       <CommentSection post={post} isOpen={showComments} />
       <ReportModal post={post} open={reportOpen} onClose={() => setReportOpen(false)} />
+      </div>
     </div>
   )
 })
