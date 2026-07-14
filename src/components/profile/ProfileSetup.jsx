@@ -117,8 +117,9 @@ export default function ProfileSetup() {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink-100 overflow-y-auto">
-      <div className="bg-white rounded-3xl border border-ink-300 w-full max-w-md p-7 my-8">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-ink-100" style={{ WebkitOverflowScrolling: 'touch' }}>
+      <div className="min-h-full flex items-start justify-center p-4 py-8">
+        <div className="bg-white rounded-3xl border border-ink-300 w-full max-w-md p-7">
         {/* Logo */}
         <div className="flex items-center gap-2.5 mb-4">
           <div className="w-8 h-8 rounded-2xl bg-brand-600 flex items-center justify-center">
@@ -319,6 +320,7 @@ export default function ProfileSetup() {
             </form>
           </>
         )}
+        </div>
       </div>
     </div>
   )

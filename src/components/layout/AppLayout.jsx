@@ -125,15 +125,14 @@ export default function AppLayout() {
 
         <div className="flex items-end justify-around px-2 pt-2 pb-2 relative">
 
-          {/* Perfil (izquierda del todo) */}
-          <button onClick={() => setProfileMenuOpen(o => !o)}
-            className="flex-1 flex flex-col items-center gap-0.5 pt-1 pb-0.5" aria-label="Menú perfil">
-            <div className="w-[22px] h-[22px] rounded-full flex items-center justify-center text-[9px] font-bold"
-              style={{ background: profileMenuOpen ? '#7EB6FF' : 'rgba(255,255,255,0.15)', color: profileMenuOpen ? '#001A3D' : '#ffffff', boxShadow: profileMenuOpen ? '0 0 0 2px #7EB6FF' : 'none' }}>
-              {initials}
-            </div>
-            <span className="text-[9px] font-semibold" style={{ color: profileMenuOpen ? '#ffffff' : 'rgba(255,255,255,0.5)' }}>Perfil</span>
-          </button>
+          {/* Feed (izquierda del todo) */}
+          {(() => { const item = { id:'/feed', label:'Feed', icon: LayoutList }; const Icon = item.icon; const active = currentTab === item.id; return (
+            <button key={item.id} onClick={() => navigate(item.id)}
+              className="flex-1 flex flex-col items-center gap-0.5 pt-1 pb-0.5" aria-label={item.label}>
+              <Icon size={22} style={{ color: active ? '#ffffff' : 'rgba(255,255,255,0.5)' }} />
+              <span className="text-[9px] font-semibold" style={{ color: active ? '#ffffff' : 'rgba(255,255,255,0.5)' }}>{item.label}</span>
+            </button>
+          )})()}
 
           {/* Mensajes */}
           {(() => { const item = { id:'/chats', label:'Mensajes', icon: MessageSquare }; const Icon = item.icon; const active = currentTab === item.id; return (
@@ -169,14 +168,15 @@ export default function AppLayout() {
             </button>
           )})()}
 
-          {/* Feed (derecha del todo) */}
-          {(() => { const item = { id:'/feed', label:'Feed', icon: LayoutList }; const Icon = item.icon; const active = currentTab === item.id; return (
-            <button key={item.id} onClick={() => navigate(item.id)}
-              className="flex-1 flex flex-col items-center gap-0.5 pt-1 pb-0.5" aria-label={item.label}>
-              <Icon size={22} style={{ color: active ? '#ffffff' : 'rgba(255,255,255,0.5)' }} />
-              <span className="text-[9px] font-semibold" style={{ color: active ? '#ffffff' : 'rgba(255,255,255,0.5)' }}>{item.label}</span>
-            </button>
-          )})()}
+          {/* Perfil (derecha del todo) */}
+          <button onClick={() => setProfileMenuOpen(o => !o)}
+            className="flex-1 flex flex-col items-center gap-0.5 pt-1 pb-0.5" aria-label="Menú perfil">
+            <div className="w-[22px] h-[22px] rounded-full flex items-center justify-center text-[9px] font-bold"
+              style={{ background: profileMenuOpen ? '#7EB6FF' : 'rgba(255,255,255,0.15)', color: profileMenuOpen ? '#001A3D' : '#ffffff', boxShadow: profileMenuOpen ? '0 0 0 2px #7EB6FF' : 'none' }}>
+              {initials}
+            </div>
+            <span className="text-[9px] font-semibold" style={{ color: profileMenuOpen ? '#ffffff' : 'rgba(255,255,255,0.5)' }}>Perfil</span>
+          </button>
 
         </div>
       </div>
