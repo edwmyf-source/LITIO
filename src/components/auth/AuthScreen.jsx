@@ -54,7 +54,7 @@ function Landing({ stats, onSignup }) {
             <span style={{ color: '#3A6FAE' }}>de la industria química.</span>
           </h1>
           <p className="mt-3 text-[19px] md:text-[20px] leading-snug" style={{ color: '#5c6376' }}>
-            Conecta con profesionales, proveedores y laboratorios del sector químico en Colombia.
+            Conecta con profesionales, laboratorios y proveedores del sector químico en Colombia.
             Conecta, comparte y crece — todo en un solo lugar.
           </p>
           <button onClick={onSignup}
