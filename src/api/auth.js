@@ -13,6 +13,15 @@ export const signIn = async (email, password) => {
   return data
 }
 
+// Enlace mágico: inicia sesión solo con el email, sin escribir contraseña.
+export const signInWithMagicLink = async (email) => {
+  const { error } = await supabase.auth.signInWithOtp({
+    email,
+    options: { emailRedirectTo: window.location.origin },
+  })
+  if (error) throw error
+}
+
 export const signOut = async () => {
   clearAllCaches()
   return supabase?.auth.signOut()

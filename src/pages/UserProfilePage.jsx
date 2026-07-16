@@ -147,7 +147,7 @@ export default function UserProfilePage() {
         await followUser(myId, userId)
         setIsFollowing(true)
         setCounts(c => ({ ...c, followers: c.followers + 1 }))
-        createNotification({ user_id: userId, from_user_id: myId, type: 'message', content: 'comenzó a seguirte' })
+        createNotification({ user_id: userId, from_user_id: myId, type: 'follow', content: 'comenzó a seguirte' })
       }
     } catch (e) { toast(safeErrorMessage(e), 'error') }
     setLoadingFollow(false)
