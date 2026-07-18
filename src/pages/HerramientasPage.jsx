@@ -46,7 +46,7 @@ function buscar(objetivo, tipo, arlPct, sm) {
 // ═══════════════════════════════════════════════════════════════════════════════
 function FilaComparativa({ label, s, l, hi }) {
   const fmtCelda = (v) => {
-    if (v === 0 || v === undefined) return { txt: '0', color: '#3A6FAE' }
+    if (v === 0 || v === undefined) return { txt: '0', color: '#2A6560' }
     const signo = v > 0 ? '+ ' : '− '
     return { txt: signo + cop0(Math.abs(v)), color: v > 0 ? '#1b5e20' : '#c62828' }
   }
@@ -666,7 +666,7 @@ export default function HerramientasPage() {
       </div>
 
       {/* Card calculadora */}
-      <div className="rounded-2xl overflow-hidden shadow-sm" style={{ background: '#ffffff', border: '1px solid #CDDBEC' }}>
+      <div className="rounded-2xl overflow-hidden shadow-sm" style={{ background: '#ffffff', border: '1px solid #C5D9D5' }}>
 
         {/* Sub-tabs */}
         <div className="flex p-2 gap-1.5" style={{ background: '#eff6ff', borderBottom: '0.5px solid #bfdbfe' }}>

@@ -35,8 +35,8 @@ export default function SignupForm({ onSwitchLogin }) {
 
   const barColor =
     strength <= 2 ? '#dc2626' :
-    strength <= 3 ? '#FFB703' :
-    strength === 4 ? '#3A6FAE' : '#16a34a'
+    strength <= 3 ? '#C97B84' :
+    strength === 4 ? '#2A6560' : '#16a34a'
   const barLabel =
     isCommon ? 'Muy común, elige otra' :
     strength <= 2 ? 'Débil' :
@@ -90,7 +90,7 @@ export default function SignupForm({ onSwitchLogin }) {
         {pass && (
           <div className="mt-2">
             <div className="flex items-center gap-2 mb-1.5">
-              <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: '#EDF3FB' }}>
+              <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: '#E8F1EF' }}>
                 <div className="h-full rounded-full transition-all duration-300"
                   style={{ width: `${(strength / RULES.length) * 100}%`, background: barColor }} />
               </div>
@@ -105,8 +105,8 @@ export default function SignupForm({ onSwitchLogin }) {
                   <div key={r.id} className="flex items-center gap-1.5">
                     {ok
                       ? <Check size={11} style={{ color: '#16a34a', flexShrink: 0 }} />
-                      : <X size={11} style={{ color: '#CDDBEC', flexShrink: 0 }} />}
-                    <span className="text-[10px]" style={{ color: ok ? '#16a34a' : '#5D8BC7' }}>{r.label}</span>
+                      : <X size={11} style={{ color: '#C5D9D5', flexShrink: 0 }} />}
+                    <span className="text-[10px]" style={{ color: ok ? '#16a34a' : '#3D7570' }}>{r.label}</span>
                   </div>
                 )
               })}
