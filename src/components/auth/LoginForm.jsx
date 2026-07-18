@@ -49,14 +49,14 @@ export default function LoginForm({ onSwitchSignup, onSwitchReset }) {
   if (sent) {
     return (
       <div className="space-y-4 text-center py-4">
-        <div className="w-12 h-12 rounded-full mx-auto flex items-center justify-center" style={{ background: '#F5EFF1' }}>
-          <Mail size={22} style={{ color: '#5C1A2E' }} />
+        <div className="w-12 h-12 rounded-full mx-auto flex items-center justify-center" style={{ background: '#E8F1EF' }}>
+          <Mail size={22} style={{ color: '#134E4A' }} />
         </div>
         <div>
           <h2 className="font-semibold text-lg text-ink-900 tracking-tight">Revisa tu correo</h2>
           <p className="text-xs mt-1.5 text-ink-500 leading-relaxed">
             Enviamos un enlace de acceso a<br />
-            <span className="font-semibold" style={{ color: '#5C1A2E' }}>{email}</span>
+            <span className="font-semibold" style={{ color: '#134E4A' }}>{email}</span>
           </p>
           <p className="text-[11px] mt-2 text-ink-400">Tócalo desde este mismo dispositivo para entrar.</p>
         </div>
@@ -101,15 +101,15 @@ export default function LoginForm({ onSwitchSignup, onSwitchReset }) {
 
       {/* Cambiar entre contraseña y enlace mágico */}
       <div className="relative flex items-center gap-3 py-1">
-        <div className="flex-1 h-px" style={{ background: '#EEE3E5' }} />
-        <span className="text-[10px] font-medium" style={{ color: '#D0AEB4' }}>o</span>
-        <div className="flex-1 h-px" style={{ background: '#EEE3E5' }} />
+        <div className="flex-1 h-px" style={{ background: '#D6E6E3' }} />
+        <span className="text-[10px] font-medium" style={{ color: '#A8C4BF' }}>o</span>
+        <div className="flex-1 h-px" style={{ background: '#D6E6E3' }} />
       </div>
 
       <button type="button"
         onClick={() => { setMode(m => m === 'magic' ? 'password' : 'magic'); setError('') }}
         className="w-full flex items-center justify-center gap-2 text-[13px] font-medium py-2.5 rounded-2xl transition-colors"
-        style={{ border: '1.5px solid #E0CFD3', color: '#5C1A2E', background: '#fff' }}>
+        style={{ border: '1.5px solid #C5D9D5', color: '#134E4A', background: '#fff' }}>
         {mode === 'magic'
           ? <><KeyRound size={15} /> Entrar con contraseña</>
           : <><Mail size={15} /> Entrar solo con mi email</>}

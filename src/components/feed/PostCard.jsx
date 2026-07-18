@@ -184,10 +184,10 @@ export default memo(function PostCard({ post, onContact, contactingId, blockedUs
   const goToProfile = () => navigate(`/u/${post.author_id}`)
 
   return (
-    <div className="flex overflow-hidden rounded-xl" style={{ background:"#ffffff", border:'1px solid #E0CFD3' }} id={`post-${post.id}`}>
+    <div className="flex overflow-hidden rounded-xl" style={{ background:"#ffffff", border:'1px solid #C5D9D5' }} id={`post-${post.id}`}>
 
       {/* Barra lateral de categoria */}
-      <div className="flex-shrink-0" style={{ width: 5, background: '#5C1A2E' }} />
+      <div className="flex-shrink-0" style={{ width: 5, background: '#134E4A' }} />
 
       {/* Contenido de la publicacion */}
       <div className="flex-1 min-w-0 px-3 pt-2.5 pb-2">
@@ -200,15 +200,15 @@ export default memo(function PostCard({ post, onContact, contactingId, blockedUs
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-1">
             <button onClick={goToProfile}
-              className="text-[12px] font-semibold leading-snug text-left hover:underline block truncate" style={{color:"#5C1A2E"}}>
+              className="text-[12px] font-semibold leading-snug text-left hover:underline block truncate" style={{color:"#134E4A"}}>
               {name}
             </button>
             {!isMine && <PostMenu post={post} onReport={() => setReportOpen(true)} />}
           </div>
-          <p className="text-[10px] leading-tight mt-px truncate" style={{ color: '#B09499' }}>
+          <p className="text-[10px] leading-tight mt-px truncate" style={{ color: '#3D7570' }}>
             {prof.city && <>{prof.city} · </>}
             {timeAgo(post.created_at)}
-            {catLabel && <> · <span style={{ color: '#5C1A2E', fontWeight: 700 }}>{catLabel.toUpperCase()}</span></>}
+            {catLabel && <> · <span style={{ color: '#134E4A', fontWeight: 700 }}>{catLabel.toUpperCase()}</span></>}
           </p>
         </div>
       </div>
@@ -221,23 +221,23 @@ export default memo(function PostCard({ post, onContact, contactingId, blockedUs
       <MediaGallery media={media} />
 
       {/* Footer V6: pills con contador integrado + CTA primario a la derecha */}
-      <div className="pt-2 mt-1 flex items-center gap-2" style={{ borderTop: '1px solid #EEE3E5' }}>
+      <div className="pt-2 mt-1 flex items-center gap-2" style={{ borderTop: '1px solid #D6E6E3' }}>
         <button onClick={handleLike}
           className="flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold transition-colors"
-          style={{ background: liked ? '#5C1A2E' : '#FAF7F5', color: liked ? '#fff' : '#5C1A2E' }}>
+          style={{ background: liked ? '#134E4A' : '#F3F6F5', color: liked ? '#fff' : '#134E4A' }}>
           <ThumbsUp size={12} fill={liked ? '#fff' : 'none'} />
           <span className="font-bold">{likeCount || 0}</span>
         </button>
         <button onClick={() => setShowComments(!showComments)}
           className="flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold transition-colors"
-          style={{ background: '#FAF7F5', color: '#5C1A2E' }}>
+          style={{ background: '#F3F6F5', color: '#134E4A' }}>
           <MessageCircle size={12} />
           <span className="font-bold">{post.comment_count || 0}</span>
         </button>
         {!isMine && (
           <button onClick={() => onContact?.(post)} disabled={isContacting}
             className="ml-auto flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-bold text-white transition-opacity disabled:opacity-60"
-            style={{ background: '#5C1A2E' }}>
+            style={{ background: '#134E4A' }}>
             {isContacting
               ? <><Loader2 size={12} className="animate-spin" /> ...</>
               : <>Contactar <Send size={12} /></>}

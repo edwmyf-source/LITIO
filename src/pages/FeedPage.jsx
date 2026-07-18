@@ -277,24 +277,24 @@ export default function FeedPage() {
 
           {/* Mini perfil */}
           <div className="bg-white rounded-xl overflow-hidden border border-ink-200 shadow-sm">
-            <div className="h-12 w-full" style={{ background: 'linear-gradient(135deg, #5C1A2E 0%, #5C1A2E 100%)' }} />
+            <div className="h-12 w-full" style={{ background: 'linear-gradient(135deg, #134E4A 0%, #134E4A 100%)' }} />
             <div className="px-3 pb-3 -mt-6">
               <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-base mb-2 shadow-sm overflow-hidden"
-                style={{ border: '3px solid white', background: '#5C1A2E' }}>
+                style={{ border: '3px solid white', background: '#134E4A' }}>
                 {profile?.avatar_url
                   ? <img src={profile.avatar_url} className="w-12 h-12 object-cover" alt={name} />
                   : <span>{initials}</span>}
               </div>
-              <p className="font-bold text-sm leading-tight" style={{ color: '#5C1A2E' }}>{name}</p>
-              {profile?.city && <p className="text-[11px] mt-0.5" style={{ color: '#2F5233' }}>{profile.city}</p>}
-              <div className="mt-2 pt-2 space-y-1.5" style={{ borderTop: '1px solid #EEE3E5' }}>
+              <p className="font-bold text-sm leading-tight" style={{ color: '#134E4A' }}>{name}</p>
+              {profile?.city && <p className="text-[11px] mt-0.5" style={{ color: '#1F6E68' }}>{profile.city}</p>}
+              <div className="mt-2 pt-2 space-y-1.5" style={{ borderTop: '1px solid #D6E6E3' }}>
                 <div className="flex justify-between">
-                  <span className="text-[11px]" style={{ color: '#2F5233' }}>Publicaciones</span>
-                  <span className="text-[11px] font-bold" style={{ color: '#5C1A2E' }}>{communityStats.requests || 0}</span>
+                  <span className="text-[11px]" style={{ color: '#1F6E68' }}>Publicaciones</span>
+                  <span className="text-[11px] font-bold" style={{ color: '#134E4A' }}>{communityStats.requests || 0}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[11px]" style={{ color: '#2F5233' }}>Activos hoy</span>
-                  <span className="text-[11px] font-bold" style={{ color: '#5C1A2E' }}>{communityStats.activeThisWeek || 0}</span>
+                  <span className="text-[11px]" style={{ color: '#1F6E68' }}>Activos hoy</span>
+                  <span className="text-[11px] font-bold" style={{ color: '#134E4A' }}>{communityStats.activeThisWeek || 0}</span>
                 </div>
               </div>
             </div>
@@ -307,18 +307,18 @@ export default function FeedPage() {
                 <span key={e} style={{ fontSize: 10 + i*3, opacity: i === a.length-2 ? 1 : 0.35 + i*0.1 }}>{e}</span>
               ))}
             </div>
-            <p className="text-[11px] font-bold mb-0.5" style={{ color: '#5C1A2E' }}>🏅 Gana tu insignia</p>
-            <p className="text-[10px] mb-2" style={{ color: '#2F5233' }}>Tu rango aparece en tus posts</p>
+            <p className="text-[11px] font-bold mb-0.5" style={{ color: '#134E4A' }}>🏅 Gana tu insignia</p>
+            <p className="text-[10px] mb-2" style={{ color: '#1F6E68' }}>Tu rango aparece en tus posts</p>
             <button onClick={() => navigate('/quimica')}
               className="w-full py-1.5 rounded-lg text-[11px] font-bold text-white"
-              style={{ background: '#5C1A2E' }}>
+              style={{ background: '#134E4A' }}>
               Jugar ahora →
             </button>
           </div>
 
           {/* Próximos eventos */}
           <div className="bg-white rounded-xl border border-ink-200 shadow-sm">
-            <p className="text-[11px] font-bold px-3 pt-3 pb-1" style={{ color: '#5C1A2E' }}>📅 Próximos eventos</p>
+            <p className="text-[11px] font-bold px-3 pt-3 pb-1" style={{ color: '#134E4A' }}>📅 Próximos eventos</p>
             <div className="px-3 pb-3 space-y-2">
               {[
                 { day: '12', mon: 'Jul', name: 'Expoquímica Bogotá', loc: 'Corferias · Presencial' },
@@ -326,17 +326,17 @@ export default function FeedPage() {
                 { day: '2',  mon: 'Ago', name: 'Taller reactivos lab', loc: 'Medellín · Cupos ltdos.' },
               ].map(ev => (
                 <div key={ev.name} className="flex gap-2 items-start">
-                  <div className="w-8 flex-shrink-0 text-center rounded-md py-1" style={{ background: '#FAF7F5', border: '1px solid #E0CFD3' }}>
-                    <p className="text-sm font-bold leading-none" style={{ color: '#5C1A2E' }}>{ev.day}</p>
-                    <p className="text-[8px] uppercase" style={{ color: '#2F5233' }}>{ev.mon}</p>
+                  <div className="w-8 flex-shrink-0 text-center rounded-md py-1" style={{ background: '#F3F6F5', border: '1px solid #C5D9D5' }}>
+                    <p className="text-sm font-bold leading-none" style={{ color: '#134E4A' }}>{ev.day}</p>
+                    <p className="text-[8px] uppercase" style={{ color: '#1F6E68' }}>{ev.mon}</p>
                   </div>
                   <div>
-                    <p className="text-[10px] font-semibold leading-tight" style={{ color: '#5C1A2E' }}>{ev.name}</p>
-                    <p className="text-[9px]" style={{ color: '#2F5233' }}>{ev.loc}</p>
+                    <p className="text-[10px] font-semibold leading-tight" style={{ color: '#134E4A' }}>{ev.name}</p>
+                    <p className="text-[9px]" style={{ color: '#1F6E68' }}>{ev.loc}</p>
                   </div>
                 </div>
               ))}
-              <button className="text-[10px] font-semibold mt-1" style={{ color: '#5C1A2E' }}>Ver todos →</button>
+              <button className="text-[10px] font-semibold mt-1" style={{ color: '#134E4A' }}>Ver todos →</button>
             </div>
           </div>
 
@@ -347,14 +347,14 @@ export default function FeedPage() {
           <BannerCarousel />
           <ErrorBoundary><FilterBar filters={filters} setFilters={setFilters} /></ErrorBoundary>
           <div className="flex items-center justify-between">
-            <span className="text-[11px]" style={{ color: '#2F5233' }}>
+            <span className="text-[11px]" style={{ color: '#1F6E68' }}>
               {loading ? '...' : `${posts.filter(p => !blockedUsers.includes(p.author_id)).length} publicaciones`}
             </span>
             <div className="flex bg-white border border-ink-200 rounded-xl overflow-hidden">
               {SORT_OPTIONS.map(opt => { const Icon = opt.icon; return (
                 <button key={opt.value} onClick={() => setSort(opt.value)}
                   className={`flex items-center gap-1 px-3 py-1.5 text-[11px] font-medium transition-colors ${sort === opt.value ? 'text-white' : 'text-ink-500 hover:bg-ink-50'}`}
-                  style={sort === opt.value ? { background: '#5C1A2E' } : {}}>
+                  style={sort === opt.value ? { background: '#134E4A' } : {}}>
                   <Icon size={12} />{opt.label}
                 </button>
               )})}
@@ -363,7 +363,7 @@ export default function FeedPage() {
           {newPostsAvailable && (
             <button onClick={loadNewPosts}
               className="w-full flex items-center justify-center gap-1.5 text-white text-xs font-medium py-2 rounded-xl"
-              style={{ background: '#5C1A2E' }}>
+              style={{ background: '#134E4A' }}>
               <ArrowUp size={13} /> Nuevas publicaciones
             </button>
           )}
@@ -371,9 +371,9 @@ export default function FeedPage() {
             <div className="space-y-3">{[1,2,3].map(i => <div key={i} className="skeleton h-[200px]" />)}</div>
           ) : posts.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-16 text-center bg-white rounded-xl border border-ink-200">
-              <h3 className="font-medium text-base mb-1" style={{ color: '#5C1A2E' }}>Sin publicaciones</h3>
-              <p className="text-xs mb-3" style={{ color: '#2F5233' }}>No hay publicaciones que coincidan.</p>
-              <button onClick={() => setPublishOpen(true)} className="text-white text-xs font-medium px-4 py-2 rounded-xl" style={{ background: '#5C1A2E' }}>Crear publicación</button>
+              <h3 className="font-medium text-base mb-1" style={{ color: '#134E4A' }}>Sin publicaciones</h3>
+              <p className="text-xs mb-3" style={{ color: '#1F6E68' }}>No hay publicaciones que coincidan.</p>
+              <button onClick={() => setPublishOpen(true)} className="text-white text-xs font-medium px-4 py-2 rounded-xl" style={{ background: '#134E4A' }}>Crear publicación</button>
             </div>
           ) : (
             <div className="space-y-0">
@@ -400,14 +400,14 @@ export default function FeedPage() {
         <BannerCarousel />
         <ErrorBoundary><FilterBar filters={filters} setFilters={setFilters} /></ErrorBoundary>
         <div className="flex items-center justify-between mb-2.5 px-2">
-          <span className="text-[11px]" style={{ color: '#2F5233' }}>
+          <span className="text-[11px]" style={{ color: '#1F6E68' }}>
             {loading ? '...' : `${posts.filter(p => !blockedUsers.includes(p.author_id)).length} publicaciones`}
           </span>
           <div className="flex bg-white border border-ink-200 rounded-xl overflow-hidden">
             {SORT_OPTIONS.map(opt => { const Icon = opt.icon; return (
               <button key={opt.value} onClick={() => setSort(opt.value)}
                 className={`flex items-center gap-1 px-3 py-1.5 text-[11px] font-medium transition-colors ${sort === opt.value ? 'text-white' : 'text-ink-500 hover:bg-ink-50'}`}
-                style={sort === opt.value ? { background: '#5C1A2E' } : {}}>
+                style={sort === opt.value ? { background: '#134E4A' } : {}}>
                 <Icon size={12} />{opt.label}
               </button>
             )})}
@@ -416,7 +416,7 @@ export default function FeedPage() {
         {newPostsAvailable && (
           <button onClick={loadNewPosts}
             className="w-full flex items-center justify-center gap-1.5 text-white text-xs font-medium py-2 rounded-xl mb-2.5 mx-2"
-            style={{ background: '#5C1A2E', width: 'calc(100% - 16px)' }}>
+            style={{ background: '#134E4A', width: 'calc(100% - 16px)' }}>
             <ArrowUp size={13} /> Nuevas publicaciones
           </button>
         )}
@@ -424,9 +424,9 @@ export default function FeedPage() {
           <div className="space-y-3 px-2">{[1,2,3].map(i => <div key={i} className="skeleton h-[200px]" />)}</div>
         ) : posts.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 text-center">
-            <h3 className="font-medium text-base mb-1" style={{ color: '#5C1A2E' }}>Sin publicaciones</h3>
-            <p className="text-xs mb-3" style={{ color: '#2F5233' }}>No hay publicaciones que coincidan.</p>
-            <button onClick={() => setPublishOpen(true)} className="text-white text-xs font-medium px-4 py-2 rounded-xl" style={{ background: '#5C1A2E' }}>Crear publicación</button>
+            <h3 className="font-medium text-base mb-1" style={{ color: '#134E4A' }}>Sin publicaciones</h3>
+            <p className="text-xs mb-3" style={{ color: '#1F6E68' }}>No hay publicaciones que coincidan.</p>
+            <button onClick={() => setPublishOpen(true)} className="text-white text-xs font-medium px-4 py-2 rounded-xl" style={{ background: '#134E4A' }}>Crear publicación</button>
           </div>
         ) : (
           <div className="space-y-0">

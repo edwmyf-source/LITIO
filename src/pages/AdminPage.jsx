@@ -379,7 +379,7 @@ function BannersTab() {
   )
 }
 
-const WIDGET_FORM_DEFAULT = { titulo: '', imagen_url: '', imagen_emoji: '🧪', imagen_gradient: 'linear-gradient(135deg,#5C1A2E,#5C1A2E)', btn_url: '', btn_texto: 'Más información', btn_color: '#FAF7F5', btn_text_color: '#5C1A2E', orden: 0, activo: true }
+const WIDGET_FORM_DEFAULT = { titulo: '', imagen_url: '', imagen_emoji: '🧪', imagen_gradient: 'linear-gradient(135deg,#134E4A,#134E4A)', btn_url: '', btn_texto: 'Más información', btn_color: '#F3F6F5', btn_text_color: '#134E4A', orden: 0, activo: true }
 
 function WidgetsTab() {
   const [widgets, setWidgets] = useState([])
@@ -440,7 +440,7 @@ function WidgetsTab() {
   }
 
   const GRADIENTS = [
-    'linear-gradient(135deg,#5C1A2E,#5C1A2E)',
+    'linear-gradient(135deg,#134E4A,#134E4A)',
     'linear-gradient(135deg,#1b5e20,#43a047)',
     'linear-gradient(135deg,#4a148c,#7b1fa2)',
     'linear-gradient(135deg,#880e4f,#c2185b)',
@@ -530,7 +530,7 @@ function WidgetsTab() {
               {GRADIENTS.map(g => (
                 <button key={g} onClick={() => setForm(f => ({...f, imagen_gradient: g}))}
                   className="w-8 h-8 rounded-lg border-2 transition-all"
-                  style={{ background: g, borderColor: form.imagen_gradient === g ? '#5C1A2E' : 'transparent' }} />
+                  style={{ background: g, borderColor: form.imagen_gradient === g ? '#134E4A' : 'transparent' }} />
               ))}
             </div>
           </div>
@@ -555,7 +555,7 @@ function WidgetsTab() {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <input type="checkbox" id="wactivo" checked={form.activo} onChange={e => setForm(f => ({...f, activo: e.target.checked}))} style={{ accentColor: '#5C1A2E' }} />
+            <input type="checkbox" id="wactivo" checked={form.activo} onChange={e => setForm(f => ({...f, activo: e.target.checked}))} style={{ accentColor: '#134E4A' }} />
             <label htmlFor="wactivo" className="text-xs text-ink-600">Publicar (visible para todos los usuarios)</label>
           </div>
           <div className="flex gap-2 pt-1">
@@ -567,7 +567,7 @@ function WidgetsTab() {
             )}
             <button onClick={save} disabled={saving || !form.titulo || !form.btn_url}
               className="px-5 py-2 rounded-xl text-xs font-bold text-white disabled:opacity-50"
-              style={{ background: '#5C1A2E' }}>
+              style={{ background: '#134E4A' }}>
               {saving ? 'Guardando...' : editId ? 'Guardar cambios' : 'Crear widget'}
             </button>
           </div>
