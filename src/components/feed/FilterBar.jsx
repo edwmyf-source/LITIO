@@ -14,7 +14,7 @@ function Pill({ label, active, onClick }) {
       onClick={onClick}
       className="px-3 py-1 rounded-full text-[11px] font-semibold border transition-all flex-shrink-0"
       style={active
-        ? { background: '#134E4A', color: '#1F6E68', border: '1.5px solid #134E4A' }
+        ? { background: '#134E4A', color: '#ffffff', border: '1.5px solid #134E4A' }
         : { background: '#F3F6F5', color: '#3D7570', border: '1.5px solid #C5D9D5' }}
     >
       {label}
