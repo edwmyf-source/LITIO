@@ -145,7 +145,7 @@ export default function AppLayout() {
           <div className="flex-1 flex justify-center">
             <button onClick={() => navigate('/feed?publish=1')} aria-label="Nueva publicación"
               className="w-[68px] h-[68px] rounded-full flex items-center justify-center -mt-8 active:scale-95 transition-all"
-              style={{ background: '#2F5233', boxShadow: '0 8px 24px rgba(255,183,3,0.5), 0 2px 4px rgba(0,0,0,0.15)', border: '4px solid #5C1A2E' }}>
+              style={{ background: '#D9A5AC', boxShadow: '0 8px 24px rgba(217,165,172,0.5), 0 2px 4px rgba(0,0,0,0.15)', border: '4px solid #5C1A2E' }}>
               <Plus size={34} color="#5C1A2E" strokeWidth={3} />
             </button>
           </div>
