@@ -28,7 +28,7 @@ export const getOrCreateConversation = async (user1Id, user2Id, postId) => {
     .or(`and(user1_id.eq.${user1Id},user2_id.eq.${user2Id}),and(user1_id.eq.${user2Id},user2_id.eq.${user1Id})`)
     .maybeSingle()
 
-  if (existing) return existing
+  if (existing) return { ...existing, isNew: false }
 
   const { data, error } = await supabase
     .from('conversations')
@@ -36,7 +36,7 @@ export const getOrCreateConversation = async (user1Id, user2Id, postId) => {
     .select()
     .single()
   if (error) throw error
-  return data
+  return { ...data, isNew: true }
 }
 
 // Get messages in a conversation

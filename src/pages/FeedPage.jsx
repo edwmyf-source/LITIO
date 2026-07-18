@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { Sparkles, Clock, ArrowUp } from 'lucide-react'
 import { listPosts } from '../api/posts'
-import { getOrCreateConversation } from '../api/messages'
+import { getOrCreateConversation, sendMessage } from '../api/messages'
 import { createNotification } from '../api/notifications'
 import { getBlockedUsers } from '../api/moderation'
 import { useAuth } from '../contexts/AuthContext'
@@ -240,6 +240,14 @@ export default function FeedPage() {
     setContactingPost(post.id)
     try {
       const conv = await getOrCreateConversation(session.user.id, post.author_id, post.id)
+      if (conv.isNew) {
+        const excerpt = [post.title, post.content].filter(Boolean).join(' — ').slice(0, 120)
+        await sendMessage({
+          conversation_id: conv.id,
+          sender_id: session.user.id,
+          content: `Hola, vi tu publicación${excerpt ? ` "${excerpt}${excerpt.length >= 120 ? '…' : ''}"` : ''}`,
+        })
+      }
       if (post.author_id !== session.user.id) {
         createNotification({
           user_id: post.author_id, from_user_id: session.user.id,
