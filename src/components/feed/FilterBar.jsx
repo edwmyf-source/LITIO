@@ -79,27 +79,8 @@ export default function FilterBar({ filters, setFilters }) {
   return (
     <div className="mb-2 px-2">
 
-      {/* Buscador */}
-      <div className="relative mb-2">
-        <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2" style={{ color: '#5FA39D' }} />
-        <input
-          value={filters.search || ''}
-          onChange={e => set('search', e.target.value)}
-          placeholder="Buscar en el feed..."
-          className="w-full pl-10 pr-9 py-2 rounded-full text-[13px] focus:outline-none transition-colors"
-          style={{ background: '#ffffff', border: '1.5px solid #C5D9D5', color: '#134E4A' }}
-          onFocus={e => e.currentTarget.style.borderColor = '#134E4A'}
-          onBlur={e => e.currentTarget.style.borderColor = '#C5D9D5'}
-        />
-        {filters.search && (
-          <button onClick={() => set('search', '')} className="absolute right-3 top-1/2 -translate-y-1/2">
-            <X size={13} style={{ color: '#134E4A' }} />
-          </button>
-        )}
-      </div>
-
-      {/* Accordion D2 */}
-      <div className="rounded-xl overflow-hidden" style={{ background: '#ffffff', border: '1.5px solid #C5D9D5' }}>
+      {/* Accordion D2 (Filtros) */}
+      <div className="rounded-xl overflow-hidden mb-2" style={{ background: '#ffffff', border: '1.5px solid #C5D9D5' }}>
 
         {/* Header navy */}
         <div className="flex items-center justify-center relative px-3 py-2" style={{ background: '#134E4A' }}>
@@ -166,6 +147,25 @@ export default function FilterBar({ filters, setFilters }) {
           </Section>
         )}
 
+      </div>
+
+      {/* Buscador */}
+      <div className="relative">
+        <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2" style={{ color: '#5FA39D' }} />
+        <input
+          value={filters.search || ''}
+          onChange={e => set('search', e.target.value)}
+          placeholder="Buscar en el feed..."
+          className="w-full pl-10 pr-9 py-2 rounded-full text-[13px] focus:outline-none transition-colors"
+          style={{ background: '#ffffff', border: '1.5px solid #C5D9D5', color: '#134E4A' }}
+          onFocus={e => e.currentTarget.style.borderColor = '#134E4A'}
+          onBlur={e => e.currentTarget.style.borderColor = '#C5D9D5'}
+        />
+        {filters.search && (
+          <button onClick={() => set('search', '')} className="absolute right-3 top-1/2 -translate-y-1/2">
+            <X size={13} style={{ color: '#134E4A' }} />
+          </button>
+        )}
       </div>
     </div>
   )
