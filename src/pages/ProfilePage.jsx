@@ -11,8 +11,9 @@ import UserAvatar from '../components/shared/UserAvatar'
 import Spinner from '../components/shared/Spinner'
 import MFASetup from '../components/auth/MFASetup'
 
-const inputCls = 'w-full px-3 py-2 rounded-2xl border border-ink-300 text-[13px] focus:outline-none focus:border-brand-600'
-const labelCls = 'text-xs font-medium text-ink-900'
+const inputCls = 'w-full px-4 h-14 rounded-[18px] text-[16px] focus:outline-none transition-all'
+const inputStyle = { background: '#F8FAFC', border: '1px solid #E5E7EB', color: '#111827' }
+const labelCls = 'text-[14px] font-semibold text-[#111827] mb-1.5 block'
 
 export default function ProfilePage() {
   const { session, profile, setProfile } = useAuth()
@@ -130,16 +131,16 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="page-enter max-w-lg mx-auto">
+    <div className="page-enter max-w-lg mx-auto px-1">
       <button onClick={() => navigate(userId ? `/u/${userId}` : '/feed')}
-        className="flex items-center gap-1.5 text-xs text-ink-500 hover:text-ink-900 mb-3 transition-colors">
-        <ArrowLeft size={14} /> Ver mi perfil público
+        className="flex items-center gap-1.5 text-[14px] font-medium text-gray-500 hover:text-gray-900 mb-4 transition-colors">
+        <ArrowLeft size={16} /> Ver mi perfil público
       </button>
-      <h2 className="font-medium text-base text-ink-900 mb-1 tracking-tight">Configuración</h2>
-      <p className="text-xs text-ink-500 mb-4">Actualiza tus datos cuando quieras.</p>
+      <h2 className="font-extrabold text-[28px] text-[#111827] mb-1" style={{ letterSpacing: '-0.03em' }}>Configuración</h2>
+      <p className="text-[15px] text-gray-500 mb-6">Actualiza tus datos cuando quieras.</p>
 
       {/* Card pública actual — con foto */}
-      <div className="bg-white border border-ink-300 rounded-2xl p-4 mb-3 flex items-center gap-3">
+      <div className="bg-white rounded-3xl p-6 mb-5 flex items-center gap-4" style={{ boxShadow: '0 4px 24px rgba(17,24,39,0.05)' }}>
         {/* Foto de perfil con botón de cambiar */}
         <div className="relative flex-shrink-0">
           <UserAvatar seed={userId} avatarUrl={displayAvatar} size={52} />
@@ -180,20 +181,20 @@ export default function ProfilePage() {
         <div className="bg-white border border-ink-300 rounded-2xl p-4 space-y-3.5">
           <div>
             <div className="flex items-center justify-between mb-1"><label className={labelCls}>Nombre completo</label><PrivacyBadge variant="private" /></div>
-            <input value={form.full_name} onChange={e => set('full_name', e.target.value)} className={inputCls} placeholder="Tu nombre" />
+            <input value={form.full_name} onChange={e => set('full_name', e.target.value)} className={inputCls} style={inputStyle} placeholder="Tu nombre" />
           </div>
           <div>
             <div className="flex items-center justify-between mb-1"><label className={labelCls}>Empresa</label><PrivacyBadge variant="private" /></div>
-            <input value={form.company_name} onChange={e => set('company_name', e.target.value)} className={inputCls} placeholder="Nombre de tu empresa" />
+            <input value={form.company_name} onChange={e => set('company_name', e.target.value)} className={inputCls} style={inputStyle} placeholder="Nombre de tu empresa" />
           </div>
           <div>
             <div className="flex items-center justify-between mb-1"><label className={labelCls}>Email</label><PrivacyBadge variant="private" /></div>
-            <input type="email" value={userEmail} disabled className={`${inputCls} bg-ink-100 text-ink-500`} />
+            <input type="email" value={userEmail} disabled className={inputCls} style={{ ...inputStyle, background: '#F3F4F6', color: '#9CA3AF' }} />
             <p className="text-[11px] text-ink-500 mt-1">Tu email es 100% privado y nunca será visible.</p>
           </div>
           <div>
             <div className="flex items-center justify-between mb-1"><label className={labelCls}>Teléfono</label><PrivacyBadge variant="private" /></div>
-            <input value={form.phone} onChange={e => set('phone', e.target.value.replace(/[^0-9+ ]/g, '').slice(0, 15))} className={inputCls} placeholder="300 123 4567" />
+            <input value={form.phone} onChange={e => set('phone', e.target.value.replace(/[^0-9+ ]/g, '').slice(0, 15))} className={inputCls} style={inputStyle} placeholder="300 123 4567" />
           </div>
           <div>
             <div className="flex items-center justify-between mb-1"><label className={labelCls}>Departamento</label><PrivacyBadge variant="public" /></div>

@@ -187,36 +187,34 @@ export default function UserProfilePage() {
   const coverUrl    = profile.cover_url || null
 
   return (
-    <div className="page-enter max-w-xl mx-auto">
+    <div className="page-enter max-w-xl mx-auto px-1">
       <button onClick={() => navigate(-1)}
-        className="flex items-center gap-1.5 text-ink-500 hover:text-ink-800 text-[13px] mb-3 transition-colors">
-        <ArrowLeft size={15} /> Volver
+        className="flex items-center gap-1.5 text-gray-500 hover:text-gray-800 text-[14px] font-medium mb-4 transition-colors">
+        <ArrowLeft size={16} /> Volver
       </button>
 
-      {/* Tarjeta de perfil */}
-      <div className="rounded-2xl overflow-hidden border border-ink-200 mb-3">
+      {/* Tarjeta de perfil premium */}
+      <div className="rounded-3xl overflow-hidden mb-5" style={{ boxShadow: '0 4px 24px rgba(17,24,39,0.06)' }}>
 
-        {/* ── Portada ── */}
-        <div className="relative" style={{ height: 120 }}>
+        {/* ── Portada degradada ── */}
+        <div className="relative" style={{ height: 150 }}>
           {coverUrl
             ? <img src={coverUrl} alt="" className="w-full h-full object-cover" />
-            : <div className="w-full h-full bg-gradient-to-r from-violet-900 via-brand-600 to-violet-500" />
+            : <div className="w-full h-full" style={{ background: 'linear-gradient(160deg, #0F5C57, #0A423E)' }} />
           }
-          {/* Overlay de carga */}
           {uploadingCover && (
             <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
               <Loader2 size={24} className="text-white animate-spin" />
             </div>
           )}
-          {/* Botón cambiar portada — solo en perfil propio */}
           {isOwnProfile && (
             <>
               <button
                 onClick={() => coverInputRef.current?.click()}
                 disabled={uploadingCover}
-                className="absolute bottom-2 right-2 flex items-center gap-1.5 bg-black/50 hover:bg-black/70 text-white text-[11px] font-medium px-3 py-1.5 rounded-full transition-colors disabled:opacity-50"
+                className="absolute bottom-3 right-3 flex items-center gap-1.5 bg-black/40 hover:bg-black/60 text-white text-[12px] font-medium px-3.5 py-2 rounded-full transition-colors disabled:opacity-50 backdrop-blur-sm"
                 aria-label="Cambiar portada">
-                <Camera size={13} /> Cambiar portada
+                <Camera size={14} /> Cambiar portada
               </button>
               <input ref={coverInputRef} type="file" accept="image/*" className="hidden" onChange={handleCoverChange} />
             </>
@@ -224,31 +222,30 @@ export default function UserProfilePage() {
         </div>
 
         {/* ── Avatar + acciones ── */}
-        <div className="bg-white px-4 pb-4">
-          <div className="flex items-end justify-between -mt-8 mb-3">
-            {/* Avatar clickeable en perfil propio */}
+        <div className="bg-white px-6 pb-6">
+          <div className="flex items-end justify-between -mt-12 mb-4">
             <div className="relative flex-shrink-0">
               <div
-                className="border-[3px] border-white rounded-full"
+                className="border-4 border-white rounded-[28px] overflow-hidden"
                 onClick={isOwnProfile ? () => avatarInputRef.current?.click() : undefined}
                 style={isOwnProfile ? { cursor: 'pointer' } : {}}>
                 {uploadingAvatar ? (
-                  <div style={{ width: 64, height: 64 }}
-                    className="rounded-full bg-ink-200 flex items-center justify-center">
-                    <Loader2 size={20} className="text-brand-600 animate-spin" />
+                  <div style={{ width: 92, height: 92 }}
+                    className="rounded-[24px] bg-gray-100 flex items-center justify-center">
+                    <Loader2 size={24} className="animate-spin" style={{ color: '#0F5C57' }} />
                   </div>
                 ) : (
-                  <UserAvatar seed={profile.id} avatarUrl={profile.avatar_url} size={64} />
+                  <UserAvatar seed={profile.id} avatarUrl={profile.avatar_url} size={92} className="!rounded-[24px]" />
                 )}
               </div>
-              {/* Ícono cámara encima del avatar */}
               {isOwnProfile && (
                 <button
                   onClick={() => avatarInputRef.current?.click()}
                   disabled={uploadingAvatar}
-                  className="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-brand-600 border-2 border-white flex items-center justify-center hover:bg-brand-700 transition-colors disabled:opacity-50"
+                  className="absolute bottom-1 right-1 w-8 h-8 rounded-full border-2 border-white flex items-center justify-center transition-colors disabled:opacity-50"
+                  style={{ background: '#0F5C57' }}
                   aria-label="Cambiar foto de perfil">
-                  <Camera size={11} className="text-white" />
+                  <Camera size={14} className="text-white" />
                 </button>
               )}
               {isOwnProfile && (
@@ -258,47 +255,57 @@ export default function UserProfilePage() {
 
             {isOwnProfile ? (
               <button onClick={() => navigate('/profile')}
-                className="flex items-center gap-1.5 text-[12px] font-medium px-4 py-1.5 border border-ink-300 rounded-full text-ink-700 hover:bg-ink-50 transition-colors">
-                <Settings size={13} /> Configuración
+                className="flex items-center gap-1.5 text-[14px] font-semibold px-5 h-11 rounded-2xl text-gray-700 transition-colors active:scale-95"
+                style={{ border: '1px solid #E5E7EB', background: '#fff' }}>
+                <Settings size={16} /> Editar
               </button>
             ) : (
               <button onClick={handleFollow} disabled={loadingFollow}
-                className={`flex items-center gap-1.5 text-[12px] font-semibold px-4 py-1.5 rounded-full transition-all disabled:opacity-60 ${
-                  isFollowing
-                    ? 'border border-brand-600 text-brand-600 bg-white hover:bg-brand-50'
-                    : 'bg-brand-600 text-white hover:bg-brand-700'
-                }`}>
+                className="flex items-center gap-1.5 text-[14px] font-semibold px-6 h-11 rounded-2xl transition-all disabled:opacity-60 active:scale-95"
+                style={isFollowing
+                  ? { border: '1px solid #0F5C57', color: '#0F5C57', background: '#fff' }
+                  : { background: '#0F5C57', color: '#fff', boxShadow: '0 8px 20px rgba(15,92,87,0.28)' }}>
                 {loadingFollow
-                  ? <Spinner size={13} />
+                  ? <Spinner size={15} />
                   : isFollowing
-                    ? <><UserCheck size={13} /> Siguiendo</>
-                    : <><UserPlus size={13} /> Seguir</>
+                    ? <><UserCheck size={16} /> Siguiendo</>
+                    : <><UserPlus size={16} /> Seguir</>
                 }
               </button>
             )}
           </div>
 
-          <p className="text-[16px] font-bold text-ink-900 leading-tight">{displayName}</p>
-          {profile.company_name && <p className="text-[12px] text-ink-500 mt-0.5">{profile.company_name}</p>}
+          <p className="text-[22px] font-extrabold text-[#111827] leading-tight" style={{ letterSpacing: '-0.02em' }}>{displayName}</p>
+          {profile.company_name && <p className="text-[15px] text-gray-500 mt-0.5">{profile.company_name}</p>}
           {profile.city && (
-            <p className="flex items-center gap-1 text-[11px] text-ink-400 mt-1">
-              <MapPin size={11} /> {profile.city}
+            <p className="flex items-center gap-1 text-[14px] text-gray-400 mt-1.5">
+              <MapPin size={14} /> {profile.city}
             </p>
           )}
 
-          <div className="flex gap-5 mt-3 pt-3 border-t border-ink-100">
-            <div><span className="text-[15px] font-bold text-ink-900">{counts.followers}</span><span className="text-[11px] text-ink-400 ml-1">Seguidores</span></div>
-            <div><span className="text-[15px] font-bold text-ink-900">{counts.following}</span><span className="text-[11px] text-ink-400 ml-1">Siguiendo</span></div>
-            <div><span className="text-[15px] font-bold text-ink-900">{posts.length}</span><span className="text-[11px] text-ink-400 ml-1">Publicaciones</span></div>
+          {/* Stat cards */}
+          <div className="grid grid-cols-3 gap-3 mt-5">
+            <div className="rounded-2xl py-4 text-center" style={{ background: '#F8FAFC' }}>
+              <div className="text-[22px] font-extrabold text-[#111827]" style={{ letterSpacing: '-0.02em' }}>{posts.length}</div>
+              <div className="text-[12px] text-gray-500 mt-0.5 font-medium">Publicaciones</div>
+            </div>
+            <div className="rounded-2xl py-4 text-center" style={{ background: '#F8FAFC' }}>
+              <div className="text-[22px] font-extrabold text-[#111827]" style={{ letterSpacing: '-0.02em' }}>{counts.followers}</div>
+              <div className="text-[12px] text-gray-500 mt-0.5 font-medium">Seguidores</div>
+            </div>
+            <div className="rounded-2xl py-4 text-center" style={{ background: '#F8FAFC' }}>
+              <div className="text-[22px] font-extrabold text-[#111827]" style={{ letterSpacing: '-0.02em' }}>{counts.following}</div>
+              <div className="text-[12px] text-gray-500 mt-0.5 font-medium">Siguiendo</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <h3 className="text-[12px] font-semibold text-ink-500 uppercase tracking-wider mb-2.5">Publicaciones</h3>
+      <h3 className="text-[13px] font-bold text-gray-500 uppercase tracking-wider mb-3.5 px-1">Publicaciones</h3>
       {posts.length === 0 ? (
-        <div className="text-center py-12 text-ink-400 text-sm">Sin publicaciones aún.</div>
+        <div className="text-center py-12 text-gray-400 text-[15px]">Sin publicaciones aún.</div>
       ) : (
-        <div className="space-y-2">
+        <div className="space-y-3">
           {posts.map(post => (
             <MiniPostCard key={post.id} post={post} onContact={handleContact} contactingId={contactingPost} />
           ))}

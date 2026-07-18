@@ -227,22 +227,22 @@ function ChatThread({ conversation, userId, myProfile }) {
                     <div key={msg.id}
                       className={`flex ${isMine ? 'justify-end' : 'justify-start'}`}>
                       <div style={{ maxWidth: '75%' }}>
-                        <div className="px-3.5 py-2.5 text-[14px] leading-snug whitespace-pre-wrap break-words"
+                        <div className="px-4 py-3 text-[15px] leading-relaxed whitespace-pre-wrap break-words"
                           style={{
-                            background: isMine ? '#8FC4BE' : '#ffffff',
-                            color: '#134E4A',
+                            background: isMine ? '#0F5C57' : '#ffffff',
+                            color: isMine ? '#ffffff' : '#111827',
                             borderRadius: isMine
-                              ? isLast ? '18px 18px 4px 18px' : '18px'
-                              : isLast ? '18px 18px 18px 4px' : '18px',
-                            border: isMine ? 'none' : '1px solid #D6E6E3',
-                            boxShadow: isMine ? 'none' : '0 1px 2px rgba(0,26,61,0.05)',
-                            fontWeight: isMine ? 500 : 400,
+                              ? isLast ? '22px 22px 7px 22px' : '22px'
+                              : isLast ? '22px 22px 22px 7px' : '22px',
+                            border: isMine ? 'none' : '1px solid #F3F4F6',
+                            boxShadow: isMine ? '0 4px 12px rgba(15,92,87,0.2)' : '0 2px 10px rgba(17,24,39,0.04)',
+                            fontWeight: 400,
                           }}>
                           {msg.content}
                         </div>
                         {isLast && (
-                          <div className={`text-[10px] mt-1 ${isMine ? 'text-right pr-1' : 'pl-1'}`}
-                            style={{ color: '#A8C4BF' }}>
+                          <div className={`text-[11px] mt-1.5 ${isMine ? 'text-right pr-1' : 'pl-1'}`}
+                            style={{ color: '#9CA3AF' }}>
                             {new Date(msg.created_at).toLocaleTimeString('es-CO', { hour:'2-digit', minute:'2-digit' })}
                             {isMine && ' ✓✓'}
                           </div>
@@ -259,23 +259,23 @@ function ChatThread({ conversation, userId, myProfile }) {
       </div>
 
       {/* Input */}
-      <div className="px-3 py-3 flex-shrink-0 flex items-end gap-2"
-        style={{ background: '#ffffff', borderTop: '1px solid #D6E6E3' }}>
+      <div className="px-4 py-3 flex-shrink-0 flex items-end gap-2.5"
+        style={{ background: '#ffffff', borderTop: '1px solid #F3F4F6' }}>
         <textarea
           value={text}
           onChange={e => setText(e.target.value)}
           placeholder="Escribe un mensaje..."
           rows={1}
-          className="flex-1 px-4 py-2.5 text-[14px] resize-none focus:outline-none rounded-full"
-          style={{ background: '#F3F6F5', border: '1.5px solid #D6E6E3', color: '#134E4A',
-            maxHeight: 100, lineHeight: 1.4 }}
+          className="flex-1 px-4 py-3 text-[16px] resize-none focus:outline-none rounded-[20px]"
+          style={{ background: '#F8FAFC', border: '1px solid #E5E7EB', color: '#111827',
+            maxHeight: 110, lineHeight: 1.4 }}
           onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend() } }}
           onInput={e => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px' }}
         />
         <button onClick={handleSend} disabled={!text.trim() || sending}
-          className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-opacity disabled:opacity-40"
-          style={{ background: '#134E4A' }}>
-          {sending ? <Spinner size={14} color="#fff" /> : <Send size={16} color="#fff" />}
+          className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 transition-all active:scale-95 disabled:opacity-40"
+          style={{ background: '#0F5C57', boxShadow: '0 6px 16px rgba(15,92,87,0.3)' }}>
+          {sending ? <Spinner size={16} color="#fff" /> : <Send size={18} color="#fff" />}
         </button>
       </div>
     </div>
