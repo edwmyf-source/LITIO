@@ -136,7 +136,7 @@ export default function AppLayout() {
           {(() => { const item = { id:'/feed', label:'Feed' }; const active = currentTab === item.id; return (
             <button key={item.id} onClick={() => navigate(item.id)}
               className="flex-1 flex flex-col items-center justify-center pt-1 pb-0.5" aria-label={item.label}>
-              <span className="text-base font-semibold" style={{ color: active ? '#ffffff' : 'rgba(255,255,255,0.55)' }}>{item.label}</span>
+              <span className="text-base font-semibold" style={{ color: active ? '#ffffff' : 'rgba(255,255,255,0.8)' }}>{item.label}</span>
             </button>
           )})()}
 
@@ -153,7 +153,7 @@ export default function AppLayout() {
           <button onClick={() => setProfileMenuOpen(o => !o)}
             className="flex-1 flex flex-col items-center justify-center pt-1 pb-0.5 relative" aria-label="Menú perfil">
             <div className="relative">
-              <span className="text-base font-semibold" style={{ color: profileMenuOpen ? '#ffffff' : 'rgba(255,255,255,0.55)' }}>Perfil</span>
+              <span className="text-base font-semibold" style={{ color: profileMenuOpen ? '#ffffff' : 'rgba(255,255,255,0.8)' }}>Perfil</span>
               {unreadCount > 0 && (
                 <span className="absolute -top-1.5 -right-3 bg-red-500 text-white text-[8px] font-bold px-1 rounded-full min-w-[14px] text-center leading-4">
                   {unreadCount > 99 ? '99+' : unreadCount}
