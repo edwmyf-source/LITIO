@@ -40,22 +40,22 @@ export default function Topbar({ profile, unreadCount = 0, session }) {
 
   return (
     <header className="sticky top-0 z-40 w-full"
-      style={{ background: '#ffffff', borderBottom: '1px solid #F3F6F5' }}>
+      style={{ background: '#ffffff', borderBottom: '1px solid #F7F8FA' }}>
       <div className="max-w-5xl mx-auto h-14 flex items-center gap-4 px-4">
 
         {/* Logo */}
         <button onClick={() => navigate('/feed')} className="flex items-center gap-2 flex-shrink-0">
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: '#134E4A' }}>
-            <FlaskConical size={16} color="#5FA39D" />
+          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: '#0047AB' }}>
+            <FlaskConical size={16} color="#8B8E92" />
           </div>
-          <span className="text-base font-bold hidden lg:block" style={{ color: '#134E4A', letterSpacing: '.5px' }}>Cobalto</span>
+          <span className="text-base font-bold hidden lg:block" style={{ color: '#0047AB', letterSpacing: '.5px' }}>Cobalto</span>
         </button>
 
         {/* Buscador */}
         <div className="flex items-center gap-2 px-3 py-2 rounded-lg flex-1 max-w-xs"
-          style={{ background: '#F3F6F5', border: '1px solid #C5D9D5' }}>
-          <Search size={14} color="#5FA39D" />
-          <span className="text-xs" style={{ color: '#2A6560' }}>Buscar en Cobalto...</span>
+          style={{ background: '#F7F8FA', border: '1px solid #C2C5C8' }}>
+          <Search size={14} color="#8B8E92" />
+          <span className="text-xs" style={{ color: '#2563C7' }}>Buscar en Cobalto...</span>
         </div>
 
         <div className="flex-1" />
@@ -67,16 +67,16 @@ export default function Topbar({ profile, unreadCount = 0, session }) {
             return (
               <button key={id} onClick={() => navigate(id)}
                 className="relative flex flex-col items-center justify-center gap-0.5 px-4 transition-colors border-b-2 hover:bg-gray-50"
-                style={{ borderBottomColor: active ? '#134E4A' : 'transparent', minWidth: 56 }}>
+                style={{ borderBottomColor: active ? '#0047AB' : 'transparent', minWidth: 56 }}>
                 <div className="relative">
-                  <Icon size={18} color={active ? '#134E4A' : '#5FA39D'} />
+                  <Icon size={18} color={active ? '#0047AB' : '#8B8E92'} />
                   {badge > 0 && (
                     <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[8px] font-bold px-1 rounded-full min-w-[14px] text-center leading-tight">
                       {badge > 99 ? '99+' : badge}
                     </span>
                   )}
                 </div>
-                <span className="text-[10px] font-medium" style={{ color: active ? '#134E4A' : '#5FA39D' }}>
+                <span className="text-[10px] font-medium" style={{ color: active ? '#0047AB' : '#8B8E92' }}>
                   {label}
                 </span>
               </button>
@@ -85,39 +85,39 @@ export default function Topbar({ profile, unreadCount = 0, session }) {
         </nav>
 
         {/* Divider */}
-        <div className="w-px h-7 flex-shrink-0" style={{ background: '#C5D9D5' }} />
+        <div className="w-px h-7 flex-shrink-0" style={{ background: '#C2C5C8' }} />
 
         {/* Avatar + dropdown */}
         <div className="relative flex-shrink-0" ref={menuRef}>
           <button onClick={() => setMenuOpen(o => !o)}
             className="flex flex-col items-center gap-0.5 px-2 py-1 rounded-lg transition-colors hover:bg-gray-50">
             <div className="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold"
-              style={{ background: '#134E4A' }}>
+              style={{ background: '#0047AB' }}>
               {profile?.avatar_url
                 ? <img src={profile.avatar_url} className="w-7 h-7 rounded-full object-cover" alt={name} />
                 : initials}
             </div>
-            <span className="text-[10px] font-medium flex items-center gap-0.5" style={{ color: '#2A6560' }}>
+            <span className="text-[10px] font-medium flex items-center gap-0.5" style={{ color: '#2563C7' }}>
               Yo <ChevronDown size={10} />
             </span>
           </button>
 
           {menuOpen && (
             <div className="absolute right-0 top-full mt-1 rounded-xl overflow-hidden z-50"
-              style={{ background: '#fff', border: '1px solid #C5D9D5', boxShadow: '0 8px 32px rgba(13,27,62,0.18)', minWidth: 200 }}>
-              <div className="px-4 py-3 border-b" style={{ borderColor: '#D6E6E3' }}>
-                <p className="text-sm font-bold" style={{ color: '#134E4A' }}>{name}</p>
-                <p className="text-xs" style={{ color: '#2A6560' }}>{session?.user?.email}</p>
+              style={{ background: '#fff', border: '1px solid #C2C5C8', boxShadow: '0 8px 32px rgba(13,27,62,0.18)', minWidth: 200 }}>
+              <div className="px-4 py-3 border-b" style={{ borderColor: '#D5D7DA' }}>
+                <p className="text-sm font-bold" style={{ color: '#0047AB' }}>{name}</p>
+                <p className="text-xs" style={{ color: '#2563C7' }}>{session?.user?.email}</p>
               </div>
               {menuItems.map(({ label, Icon, path }) => (
                 <button key={path} onClick={() => navigate(path)}
                   className="w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors hover:bg-blue-50"
-                  style={{ color: '#134E4A' }}>
-                  <Icon size={15} style={{ color: '#134E4A' }} />
+                  style={{ color: '#0047AB' }}>
+                  <Icon size={15} style={{ color: '#0047AB' }} />
                   {label}
                 </button>
               ))}
-              <div style={{ borderTop: '1px solid #D6E6E3' }}>
+              <div style={{ borderTop: '1px solid #D5D7DA' }}>
                 <button onClick={() => signOut()}
                   className="w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors hover:bg-red-50"
                   style={{ color: '#dc2626' }}>
@@ -132,7 +132,7 @@ export default function Topbar({ profile, unreadCount = 0, session }) {
         {/* Botón publicar */}
         <button onClick={() => navigate('/feed')}
           className="flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all flex-shrink-0 hover:bg-blue-50"
-          style={{ background: '#fff', border: '1.5px solid #134E4A', color: '#134E4A' }}>
+          style={{ background: '#fff', border: '1.5px solid #0047AB', color: '#0047AB' }}>
           <Pencil size={13} />
           Publicar
         </button>

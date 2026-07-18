@@ -3,7 +3,7 @@ export default function CobaltoMark({ size = 32, rounded = 'rounded-2xl' }) {
   return (
     <div
       className={`${rounded} flex items-center justify-center flex-shrink-0 select-none`}
-      style={{ width: size, height: size, background: '#134E4A' }}
+      style={{ width: size, height: size, background: '#0047AB' }}
     >
       <span style={{ fontSize: size * 0.46 }} className="text-white font-bold leading-none">Co</span>
     </div>

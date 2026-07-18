@@ -77,7 +77,7 @@ export default function AppLayout() {
   ]
 
   return (
-    <div className="min-h-screen" style={{ minHeight: '100vh', background: '#F3F6F5' }}>
+    <div className="min-h-screen" style={{ minHeight: '100vh', background: '#F7F8FA' }}>
 
       {/* ── Topbar LinkedIn — visible solo en desktop ── */}
       <div className="hidden md:block">
@@ -91,28 +91,28 @@ export default function AppLayout() {
 
       {/* ── Nav móvil ── */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-40"
-        style={{ background: '#134E4A', borderTop: '0.5px solid rgba(255,255,255,0.08)' }}>
+        style={{ background: '#0047AB', borderTop: '0.5px solid rgba(255,255,255,0.08)' }}>
 
         {profileMenuOpen && (
           <div ref={menuRef} className="absolute bottom-full right-2 mb-2 rounded-2xl overflow-hidden"
-            style={{ background: '#fff', border: '1px solid #C5D9D5', boxShadow: '0 8px 32px rgba(13,27,62,0.18)', minWidth: 200 }}>
-            <div className="px-4 py-3 border-b" style={{ borderColor: '#D6E6E3' }}>
-              <p className="text-sm font-semibold" style={{ color: '#134E4A' }}>{name}</p>
-              <p className="text-xs" style={{ color: '#2A6560' }}>{session?.user?.email}</p>
+            style={{ background: '#fff', border: '1px solid #C2C5C8', boxShadow: '0 8px 32px rgba(13,27,62,0.18)', minWidth: 200 }}>
+            <div className="px-4 py-3 border-b" style={{ borderColor: '#D5D7DA' }}>
+              <p className="text-sm font-semibold" style={{ color: '#0047AB' }}>{name}</p>
+              <p className="text-xs" style={{ color: '#2563C7' }}>{session?.user?.email}</p>
             </div>
             {profileMenuItems.map(item => {
               const Icon = item.icon
               return (
                 <button key={item.path} onClick={() => { navigate(item.path); setProfileMenuOpen(false) }}
                   className="w-full flex items-center gap-3 px-4 py-3 text-sm transition-colors hover:bg-blue-50"
-                  style={{ color: '#134E4A' }}>
-                  <Icon size={16} style={{ color: '#134E4A' }} />
+                  style={{ color: '#0047AB' }}>
+                  <Icon size={16} style={{ color: '#0047AB' }} />
                   {item.label}
-                  <ChevronRight size={14} className="ml-auto" style={{ color: '#3D7570' }} />
+                  <ChevronRight size={14} className="ml-auto" style={{ color: '#6E7276' }} />
                 </button>
               )
             })}
-            <div style={{ borderTop: '1px solid #D6E6E3' }}>
+            <div style={{ borderTop: '1px solid #D5D7DA' }}>
               <button onClick={() => signOut()}
                 className="w-full flex items-center gap-3 px-4 py-3 text-sm transition-colors hover:bg-red-50"
                 style={{ color: '#dc2626' }}>
@@ -147,8 +147,8 @@ export default function AppLayout() {
           <div className="flex-1 flex justify-center">
             <button onClick={() => navigate('/feed?publish=1')} aria-label="Nueva publicación"
               className="w-[68px] h-[68px] rounded-full flex items-center justify-center -mt-8 active:scale-95 transition-all"
-              style={{ background: '#C97B84', boxShadow: '0 8px 24px rgba(255,183,3,0.5), 0 2px 4px rgba(0,0,0,0.15)', border: '4px solid #134E4A' }}>
-              <Plus size={34} color="#134E4A" strokeWidth={3} />
+              style={{ background: '#26282B', boxShadow: '0 8px 24px rgba(255,183,3,0.5), 0 2px 4px rgba(0,0,0,0.15)', border: '4px solid #0047AB' }}>
+              <Plus size={34} color="#0047AB" strokeWidth={3} />
             </button>
           </div>
 
@@ -172,7 +172,7 @@ export default function AppLayout() {
           <button onClick={() => setProfileMenuOpen(o => !o)}
             className="flex-1 flex flex-col items-center gap-0.5 pt-1 pb-0.5" aria-label="Menú perfil">
             <div className="w-[22px] h-[22px] rounded-full flex items-center justify-center text-[9px] font-bold"
-              style={{ background: profileMenuOpen ? '#5FA39D' : 'rgba(255,255,255,0.15)', color: profileMenuOpen ? '#134E4A' : '#ffffff', boxShadow: profileMenuOpen ? '0 0 0 2px #5FA39D' : 'none' }}>
+              style={{ background: profileMenuOpen ? '#8B8E92' : 'rgba(255,255,255,0.15)', color: profileMenuOpen ? '#0047AB' : '#ffffff', boxShadow: profileMenuOpen ? '0 0 0 2px #8B8E92' : 'none' }}>
               {initials}
             </div>
             <span className="text-[9px] font-semibold" style={{ color: profileMenuOpen ? '#ffffff' : 'rgba(255,255,255,0.5)' }}>Perfil</span>

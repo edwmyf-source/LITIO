@@ -25,7 +25,7 @@ export default function BrandSplash({ onDone }) {
   return (
     <div onClick={skip} style={{
       position:'fixed', inset:0, zIndex:9999, cursor:'pointer', overflow:'hidden',
-      background:'#134E4A', display:'flex', flexDirection:'column',
+      background:'#0047AB', display:'flex', flexDirection:'column',
       alignItems:'center', justifyContent:'center',
     }}>
       <style>{`
@@ -52,8 +52,8 @@ export default function BrandSplash({ onDone }) {
         .cbo-core {
           position:absolute; top:50%; left:50%;
           width:72px; height:72px; margin:-36px 0 0 -36px;
-          background:#134E4A;
-          border:2px solid #5FA39D;
+          background:#0047AB;
+          border:2px solid #8B8E92;
           border-radius:50%;
           display:flex; align-items:center; justify-content:center;
           color:#fff; font-weight:800; font-size:30px;
@@ -75,11 +75,11 @@ export default function BrandSplash({ onDone }) {
           transform-origin: 0 50%;
         }
         .cbo-p1 .cbo-e { animation: cbo-spin 1.6s linear infinite; }
-        .cbo-p1 .cbo-e::before { background:linear-gradient(90deg, transparent, #5FA39D); }
+        .cbo-p1 .cbo-e::before { background:linear-gradient(90deg, transparent, #8B8E92); }
         .cbo-p2 .cbo-e { animation: cbo-spin 2.0s linear infinite; }
-        .cbo-p2 .cbo-e::before { background:linear-gradient(90deg, transparent, #C97B84); }
+        .cbo-p2 .cbo-e::before { background:linear-gradient(90deg, transparent, #26282B); }
         .cbo-p3 .cbo-e { animation: cbo-spin 2.4s linear infinite -0.5s; }
-        .cbo-p3 .cbo-e::before { background:linear-gradient(90deg, transparent, #8FC4BE); }
+        .cbo-p3 .cbo-e::before { background:linear-gradient(90deg, transparent, #B8BABD); }
 
         .cbo-brand {
           color:#fff; font-weight:800; font-size:26px;
@@ -93,18 +93,18 @@ export default function BrandSplash({ onDone }) {
         .cbo-load {
           display:flex; align-items:center; gap:6px;
           margin-top:22px;
-          color:#5FA39D; font-size:12px; letter-spacing:0.18em;
+          color:#8B8E92; font-size:12px; letter-spacing:0.18em;
           font-family: system-ui, -apple-system, sans-serif;
           font-weight:500;
         }
         .cbo-load em {
           width:6px; height:6px; border-radius:50%;
-          background:#5FA39D; display:inline-block;
+          background:#8B8E92; display:inline-block;
           animation: cbo-dot 1.2s ease-in-out infinite;
         }
         .cbo-load em:nth-child(2) { animation-delay:0s;   }
         .cbo-load em:nth-child(3) { animation-delay:0.2s; }
-        .cbo-load em:nth-child(4) { animation-delay:0.4s; background:#C97B84; }
+        .cbo-load em:nth-child(4) { animation-delay:0.4s; background:#26282B; }
       `}</style>
 
       {/* Nucleo redondo + 3 estelas 3D en planos cruzados */}
