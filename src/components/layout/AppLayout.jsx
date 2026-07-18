@@ -86,6 +86,15 @@ export default function AppLayout() {
         <Topbar profile={profile} unreadCount={unreadCount} session={session} />
       </div>
 
+      {/* ── Topbar móvil fija ── */}
+      <div className="md:hidden fixed top-0 left-0 right-0 z-40 flex items-center gap-2 px-4 h-12"
+        style={{ background: '#ffffff', borderBottom: '1px solid #E8F1EF' }}>
+        <div className="w-7 h-7 rounded-md flex items-center justify-center flex-shrink-0" style={{ background: '#134E4A' }}>
+          <span className="text-white font-bold leading-none" style={{ fontSize: 12 }}>CQ</span>
+        </div>
+        <span className="font-extrabold text-[15px]" style={{ color: '#134E4A' }}>CeQu.com</span>
+      </div>
+
       {/* ── Sidebar — solo móvil ── */}
       <div className="hidden">
         {/* Sidebar oculto — mantenemos para compatibilidad */}
@@ -166,7 +175,7 @@ export default function AppLayout() {
       </div>
 
       {/* ── Contenido principal ── */}
-      <main className="md:pt-0 pb-28 md:pb-8 overflow-x-hidden">
+      <main className="pt-12 md:pt-0 pb-28 md:pb-8 overflow-x-hidden">
         <Outlet />
       </main>
     </div>

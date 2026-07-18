@@ -397,8 +397,10 @@ export default function FeedPage() {
 
       {/* ── MÓVIL: columna única ── */}
       <div className="md:hidden max-w-2xl mx-auto px-0">
+        <div className="sticky z-30" style={{ top: 48, background: '#F3F6F5' }}>
+          <ErrorBoundary><FilterBar filters={filters} setFilters={setFilters} /></ErrorBoundary>
+        </div>
         <BannerCarousel />
-        <ErrorBoundary><FilterBar filters={filters} setFilters={setFilters} /></ErrorBoundary>
         <div className="flex items-center justify-between mb-2.5 px-2">
           <span className="text-[11px]" style={{ color: '#1F6E68' }}>
             {loading ? '...' : `${posts.filter(p => !blockedUsers.includes(p.author_id)).length} publicaciones`}
