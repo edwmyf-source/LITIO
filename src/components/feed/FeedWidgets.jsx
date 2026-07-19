@@ -30,7 +30,7 @@ export default function FeedWidgets() {
               className="w-full object-cover" style={{ aspectRatio: '1/1' }} />
           ) : (
             <div className="w-full flex flex-col items-center justify-center gap-2"
-              style={{ aspectRatio: '1/1', background: w.imagen_gradient || 'linear-gradient(135deg,#134E4A,#134E4A)' }}>
+              style={{ aspectRatio: '1/1', background: w.imagen_gradient || 'linear-gradient(135deg,#111111,#111111)' }}>
               <span style={{ fontSize: 52 }}>{w.imagen_emoji || '🧪'}</span>
             </div>
           )}
@@ -45,7 +45,7 @@ export default function FeedWidgets() {
             </p>
             <a href={w.btn_url} target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-3 py-1.5 rounded-md transition-colors hover:opacity-80"
-              style={{ background: w.btn_color || '#F3F6F5', color: w.btn_text_color || '#134E4A' }}>
+              style={{ background: w.btn_color || '#FFFFFF', color: w.btn_text_color || '#111111' }}>
               <ExternalLink size={11} />
               {w.btn_texto || 'Más información'}
             </a>
