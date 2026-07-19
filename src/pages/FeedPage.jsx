@@ -415,7 +415,7 @@ export default function FeedPage() {
             {SORT_OPTIONS.map(opt => { const Icon = opt.icon; return (
               <button key={opt.value} onClick={() => setSort(opt.value)}
                 className={`flex items-center gap-1 px-3.5 py-2 text-[13px] font-semibold transition-colors ${sort === opt.value ? 'text-white' : 'text-gray-500 hover:bg-gray-50'}`}
-                style={sort === opt.value ? { background: '#0F5C57' } : {}}>
+                style={sort === opt.value ? { background: '#111111' } : {}}>
                 <Icon size={14} />{opt.label}
               </button>
             )})}

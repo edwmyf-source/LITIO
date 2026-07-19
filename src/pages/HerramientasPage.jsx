@@ -52,9 +52,9 @@ function FilaComparativa({ label, s, l, hi }) {
   }
   const cS = fmtCelda(s), cL = fmtCelda(l)
   return (
-    <div className="grid gap-1 px-3 py-1.5" style={{ gridTemplateColumns: '1.3fr 1fr 1fr', ...(hi ? { background: '#eff6ff', borderTop: '1px solid #bfdbfe' } : { borderTop: '1px solid #eef2ff' }) }}>
-      <span className={hi ? 'text-xs font-bold' : 'text-xs'} style={{ color: '#1e3a5f' }}>{label}</span>
-      <span className={hi ? 'text-xs font-black text-right tabular-nums' : 'text-xs text-right tabular-nums'} style={{ color: hi ? '#1d4ed8' : cS.color }}>{hi ? cop0(s) : cS.txt}</span>
+    <div className="grid gap-1 px-3 py-1.5" style={{ gridTemplateColumns: '1.3fr 1fr 1fr', ...(hi ? { background: '#F3F3F3', borderTop: '1px solid #D9D9D9' } : { borderTop: '1px solid #eef2ff' }) }}>
+      <span className={hi ? 'text-xs font-bold' : 'text-xs'} style={{ color: '#111111' }}>{label}</span>
+      <span className={hi ? 'text-xs font-black text-right tabular-nums' : 'text-xs text-right tabular-nums'} style={{ color: hi ? '#B01F1F' : cS.color }}>{hi ? cop0(s) : cS.txt}</span>
       <span className={hi ? 'text-xs font-black text-right tabular-nums' : 'text-xs text-right tabular-nums'} style={{ color: hi ? '#6d28d9' : cL.color }}>{hi ? cop0(l) : cL.txt}</span>
     </div>
   )
@@ -86,19 +86,19 @@ function TabMensual() {
     <div className="space-y-3">
       <div className="grid grid-cols-2 gap-2">
         <div>
-          <label className="block text-xs font-semibold mb-0.5" style={{ color: '#1e3a5f' }}>Tipo de contrato</label>
+          <label className="block text-xs font-semibold mb-0.5" style={{ color: '#111111' }}>Tipo de contrato</label>
           <select value={tipo} onChange={e => setTipo(e.target.value)} className="w-full border border-blue-100 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-blue-400">
             <option value="servicios">Prestación servicios</option>
             <option value="laboral">Contrato laboral</option>
           </select>
         </div>
         <div>
-          <label className="block text-xs font-semibold mb-0.5" style={{ color: '#1e3a5f' }}>{tipo === 'servicios' ? 'Honorario' : 'Salario'} mensual</label>
+          <label className="block text-xs font-semibold mb-0.5" style={{ color: '#111111' }}>{tipo === 'servicios' ? 'Honorario' : 'Salario'} mensual</label>
           <input value={ingreso} onChange={e => setIngreso(fmtM(e.target.value))} placeholder="$0" inputMode="numeric"
             className="w-full border border-blue-100 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-blue-400" />
         </div>
         <div className="col-span-2">
-          <label className="block text-xs font-semibold mb-0.5" style={{ color: '#1e3a5f' }}>Clase de riesgo ARL</label>
+          <label className="block text-xs font-semibold mb-0.5" style={{ color: '#111111' }}>Clase de riesgo ARL</label>
           <select value={arl} onChange={e => setArl(e.target.value)} className="w-full border border-blue-100 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-blue-400">
             <option value="1">I — 0.522% (oficina, admin)</option>
             <option value="2">II — 1.044% (lab, comercio)</option>
@@ -108,13 +108,13 @@ function TabMensual() {
           </select>
         </div>
       </div>
-      <button onClick={calcular} className="w-full text-white font-bold py-2 rounded-xl transition text-sm" style={{ background: '#2563eb' }}>Calcular equivalencia</button>
+      <button onClick={calcular} className="w-full text-white font-bold py-2 rounded-xl transition text-sm" style={{ background: '#D62828' }}>Calcular equivalencia</button>
       {res && (
         <div className="space-y-3">
           <div className="rounded-xl border border-blue-100 overflow-hidden">
-            <div className="grid gap-1 px-3 py-2" style={{ gridTemplateColumns: '1.3fr 1fr 1fr', background: '#eff6ff' }}>
-              <span className="text-[10px] font-bold" style={{ color: '#6b9fd4' }}>Concepto</span>
-              <span className="text-[10px] font-bold text-right" style={{ color: '#1d4ed8' }}>Honorario</span>
+            <div className="grid gap-1 px-3 py-2" style={{ gridTemplateColumns: '1.3fr 1fr 1fr', background: '#F3F3F3' }}>
+              <span className="text-[10px] font-bold" style={{ color: '#8A8A8A' }}>Concepto</span>
+              <span className="text-[10px] font-bold text-right" style={{ color: '#B01F1F' }}>Honorario</span>
               <span className="text-[10px] font-bold text-right" style={{ color: '#6d28d9' }}>Salario</span>
             </div>
             <FilaComparativa label="Ingreso bruto" s={res.s.ing} l={res.l.ing} />
@@ -129,14 +129,14 @@ function TabMensual() {
             <FilaComparativa label="Neto mensual" s={res.s.total} l={res.l.total} hi />
           </div>
 
-          <div className="rounded-2xl p-4" style={{ background: '#eff6ff', border: '1px solid #bfdbfe' }}>
-            <p className="text-xs" style={{ color: '#1e3a5f', lineHeight: 1.5 }}>
+          <div className="rounded-2xl p-4" style={{ background: '#F3F3F3', border: '1px solid #D9D9D9' }}>
+            <p className="text-xs" style={{ color: '#111111', lineHeight: 1.5 }}>
               {res.tipo === 'servicios'
                 ? <>Tus honorarios de <strong>{cop0(actual.ing)}</strong> equivalen aproximadamente a un contrato laboral por</>
                 : <>Tu salario de <strong>{cop0(actual.ing)}</strong> equivale aproximadamente a unos honorarios por</>}
               {' '}al mes
             </p>
-            <p className="text-2xl font-black mt-1" style={{ color: '#1d4ed8' }}>{cop0(res.eq)}</p>
+            <p className="text-2xl font-black mt-1" style={{ color: '#B01F1F' }}>{cop0(res.eq)}</p>
           </div>
         </div>
       )}
@@ -162,46 +162,46 @@ function TabAnual() {
 
   return (
     <div className="space-y-3">
-      <div className="rounded-xl p-3" style={{ background: '#eff6ff', border: '1px solid #bfdbfe' }}>
-        <p className="text-xs" style={{ color: '#1e3a5f', lineHeight: 1.5 }}>
+      <div className="rounded-xl p-3" style={{ background: '#F3F3F3', border: '1px solid #D9D9D9' }}>
+        <p className="text-xs" style={{ color: '#111111', lineHeight: 1.5 }}>
           Ingresa tus honorarios mensuales del año para calcular a cuánto equivaldría un contrato laboral anual con el mismo neto.
         </p>
       </div>
       <div>
-        <label className="block text-xs font-semibold mb-0.5" style={{ color: '#1e3a5f' }}>Clase de riesgo ARL</label>
+        <label className="block text-xs font-semibold mb-0.5" style={{ color: '#111111' }}>Clase de riesgo ARL</label>
         <select value={arl} onChange={e => setArl(e.target.value)} className="w-full border border-blue-100 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-blue-400">
           <option value="1">I — 0.522%</option><option value="2">II — 1.044%</option><option value="3">III — 2.436%</option><option value="4">IV — 4.350%</option><option value="5">V — 6.960%</option>
         </select>
       </div>
       <div className="rounded-xl border border-blue-100 overflow-hidden">
         <table className="w-full">
-          <thead style={{ background: '#eff6ff' }}><tr><th className="py-1.5 px-3 text-left text-xs font-bold" style={{ color: '#6b9fd4' }}>Mes</th><th className="py-1.5 px-3 text-right text-xs font-bold" style={{ color: '#0369a1' }}>Honorario</th></tr></thead>
+          <thead style={{ background: '#F3F3F3' }}><tr><th className="py-1.5 px-3 text-left text-xs font-bold" style={{ color: '#8A8A8A' }}>Mes</th><th className="py-1.5 px-3 text-right text-xs font-bold" style={{ color: '#0369a1' }}>Honorario</th></tr></thead>
           <tbody>
             {MESES.map((m, i) => (
               <tr key={m} className="border-t border-blue-50">
-                <td className="py-1 px-3 text-xs" style={{ color: '#1e3a5f' }}>{m}</td>
+                <td className="py-1 px-3 text-xs" style={{ color: '#111111' }}>{m}</td>
                 <td className="py-1 px-2"><input value={ingresos[i]} onChange={e => { const a = [...ingresos]; a[i] = fmtM(e.target.value); setIngresos(a) }} placeholder="$0" inputMode="numeric" className="w-full text-right border border-blue-100 rounded-lg px-2 py-1 text-xs bg-white focus:outline-none focus:ring-1 focus:ring-blue-400" /></td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      <button onClick={calcular} className="w-full text-white font-bold py-2 rounded-xl transition text-sm" style={{ background: '#2563eb' }}>Calcular</button>
+      <button onClick={calcular} className="w-full text-white font-bold py-2 rounded-xl transition text-sm" style={{ background: '#D62828' }}>Calcular</button>
       {res && (
         <div className="space-y-3">
           <div className="grid grid-cols-2 gap-2">
-            {[['Neto anual', cop0(res.total), '#eff6ff', '#1d4ed8'], ['Promedio mensual', cop0(res.promedio), '#eff6ff', '#1d4ed8'], ['Equivale a salario', cop0(res.salEq), '#f5f3ff', '#6d28d9']].map(([l, v, bg, c]) => (
+            {[['Neto anual', cop0(res.total), '#F3F3F3', '#B01F1F'], ['Promedio mensual', cop0(res.promedio), '#F3F3F3', '#B01F1F'], ['Equivale a salario', cop0(res.salEq), '#f5f3ff', '#6d28d9']].map(([l, v, bg, c]) => (
               <div key={l} className="rounded-xl p-2.5 text-center border border-blue-100" style={{ background: bg }}>
                 <p className="text-[10px] font-semibold mb-0.5" style={{ color: c, opacity: 0.7 }}>{l}</p>
                 <p className="text-base font-black" style={{ color: c }}>{v}</p>
               </div>
             ))}
           </div>
-          <div className="rounded-2xl p-4" style={{ background: '#eff6ff', border: '1px solid #bfdbfe' }}>
-            <p className="text-xs" style={{ color: '#1e3a5f', lineHeight: 1.5 }}>
+          <div className="rounded-2xl p-4" style={{ background: '#F3F3F3', border: '1px solid #D9D9D9' }}>
+            <p className="text-xs" style={{ color: '#111111', lineHeight: 1.5 }}>
               Tus honorarios anuales equivalen aproximadamente a un contrato laboral por
             </p>
-            <p className="text-2xl font-black mt-1" style={{ color: '#1d4ed8' }}>{cop0(res.salEq)} al mes</p>
+            <p className="text-2xl font-black mt-1" style={{ color: '#B01F1F' }}>{cop0(res.salEq)} al mes</p>
           </div>
         </div>
       )}
@@ -234,7 +234,7 @@ function CalcDiluciones() {
   return (
     <div className="space-y-3">
       <div>
-        <label className="block text-xs font-semibold mb-0.5" style={{ color: '#1e3a5f' }}>¿Qué quiero calcular?</label>
+        <label className="block text-xs font-semibold mb-0.5" style={{ color: '#111111' }}>¿Qué quiero calcular?</label>
         <select value={inc} onChange={e => { setInc(e.target.value); setRes(null) }} className="w-full border border-blue-100 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-blue-400">
           <option value="v1">V₁ — volumen a tomar de la solución madre</option>
           <option value="c1">C₁ — concentración de la solución madre</option>
@@ -245,19 +245,19 @@ function CalcDiluciones() {
       <div className="grid grid-cols-2 gap-2">
         {['c1','v1','c2','v2'].map(k => (
           <div key={k} className={inc === k ? 'opacity-40 pointer-events-none' : ''}>
-            <label className="block text-xs font-semibold mb-0.5" style={{ color: '#1e3a5f' }}>{labels[k]}</label>
+            <label className="block text-xs font-semibold mb-0.5" style={{ color: '#111111' }}>{labels[k]}</label>
             <input value={{ c1, v1, c2, v2 }[k]} onChange={e => ({ c1: setC1, v1: setV1, c2: setC2, v2: setV2 }[k])(e.target.value)}
               disabled={inc === k} placeholder={inc === k ? '?' : '0'} inputMode="decimal"
               className="w-full border border-blue-100 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-blue-400 disabled:bg-blue-50" />
           </div>
         ))}
       </div>
-      <button onClick={calcular} className="w-full text-white font-bold py-2 rounded-xl text-sm" style={{ background: '#2563eb' }}>Calcular (C₁V₁ = C₂V₂)</button>
+      <button onClick={calcular} className="w-full text-white font-bold py-2 rounded-xl text-sm" style={{ background: '#D62828' }}>Calcular (C₁V₁ = C₂V₂)</button>
       {res && (
-        <div className="rounded-2xl p-3 text-center" style={{ background: '#eff6ff', border: '1px solid #bfdbfe' }}>
-          <p className="text-xs font-semibold mb-0.5" style={{ color: '#2563eb' }}>{resLabel[res.inc]}</p>
-          <p className="text-3xl font-black" style={{ color: '#1d4ed8' }}>{fmt(res.valor)}</p>
-          <p className="text-xs mt-0.5" style={{ color: '#93c5fd' }}>{res.inc.startsWith('v') ? 'mL' : '%'}</p>
+        <div className="rounded-2xl p-3 text-center" style={{ background: '#F3F3F3', border: '1px solid #D9D9D9' }}>
+          <p className="text-xs font-semibold mb-0.5" style={{ color: '#D62828' }}>{resLabel[res.inc]}</p>
+          <p className="text-3xl font-black" style={{ color: '#B01F1F' }}>{fmt(res.valor)}</p>
+          <p className="text-xs mt-0.5" style={{ color: '#C4C4C4' }}>{res.inc.startsWith('v') ? 'mL' : '%'}</p>
         </div>
       )}
     </div>
@@ -301,12 +301,12 @@ function CalcConversion() {
       {/* Fila principal: valor + unidad */}
       <div className="flex gap-2 items-end">
         <div className="flex-1">
-          <label className="block text-xs font-semibold mb-0.5" style={{ color: '#1e3a5f' }}>Valor a convertir</label>
+          <label className="block text-xs font-semibold mb-0.5" style={{ color: '#111111' }}>Valor a convertir</label>
           <input value={valor} onChange={e => setValor(e.target.value)} placeholder="0" inputMode="decimal"
             className="w-full border border-blue-100 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-blue-400" />
         </div>
         <div className="flex-1">
-          <label className="block text-xs font-semibold mb-0.5" style={{ color: '#1e3a5f' }}>Unidad de entrada</label>
+          <label className="block text-xs font-semibold mb-0.5" style={{ color: '#111111' }}>Unidad de entrada</label>
           <select value={desde} onChange={e => setDesde(e.target.value)} className="w-full border border-blue-100 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-blue-400">
             {unidades.map(u => <option key={u.id} value={u.id}>{u.label}</option>)}
           </select>
@@ -315,28 +315,28 @@ function CalcConversion() {
       {/* Opcionales */}
       <div className="flex gap-2">
         <div className="flex-1">
-          <label className="block text-xs font-semibold mb-0.5" style={{ color: '#6b9fd4' }}>Densidad (g/mL) <span className="font-normal">— % v/v</span></label>
+          <label className="block text-xs font-semibold mb-0.5" style={{ color: '#8A8A8A' }}>Densidad (g/mL) <span className="font-normal">— % v/v</span></label>
           <input value={densidad} onChange={e => setDensidad(e.target.value)} placeholder="1.00" inputMode="decimal"
             className="w-full border border-blue-100 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-blue-400" />
         </div>
         <div className="flex-1">
-          <label className="block text-xs font-semibold mb-0.5" style={{ color: '#6b9fd4' }}>PM (g/mol) <span className="font-normal">— molar</span></label>
+          <label className="block text-xs font-semibold mb-0.5" style={{ color: '#8A8A8A' }}>PM (g/mol) <span className="font-normal">— molar</span></label>
           <input value={pm} onChange={e => setPm(e.target.value)} placeholder="opcional" inputMode="decimal"
             className="w-full border border-blue-100 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-blue-400" />
         </div>
       </div>
       {/* Resultado en tiempo real */}
       <div className="rounded-2xl border border-blue-100 overflow-hidden" style={{ background: '#fff' }}>
-        <div className="px-3 py-2" style={{ background: '#eff6ff', borderBottom: '1px solid #bfdbfe' }}>
-          <p className="text-xs font-bold" style={{ color: '#2563eb' }}>Equivalencias</p>
+        <div className="px-3 py-2" style={{ background: '#F3F3F3', borderBottom: '1px solid #D9D9D9' }}>
+          <p className="text-xs font-bold" style={{ color: '#D62828' }}>Equivalencias</p>
         </div>
         {res ? Object.entries(res).map(([k, v]) => (
           <div key={k} className="flex justify-between items-center px-3 py-2 border-t border-blue-50 first:border-0">
-            <span className="text-xs" style={{ color: '#6b9fd4' }}>{k}</span>
-            <span className="text-sm font-bold tabular-nums" style={{ color: '#1d4ed8' }}>{v}</span>
+            <span className="text-xs" style={{ color: '#8A8A8A' }}>{k}</span>
+            <span className="text-sm font-bold tabular-nums" style={{ color: '#B01F1F' }}>{v}</span>
           </div>
         )) : (
-          <div className="px-3 py-4 text-center text-xs" style={{ color: '#93c5fd' }}>Ingresa un valor para ver las equivalencias</div>
+          <div className="px-3 py-4 text-center text-xs" style={{ color: '#C4C4C4' }}>Ingresa un valor para ver las equivalencias</div>
         )}
       </div>
     </div>
@@ -356,19 +356,19 @@ function CalcPureza() {
     <div className="space-y-3">
       <div className="flex gap-2">
         <div className="flex-1">
-          <label className="block text-xs font-semibold mb-0.5" style={{ color: '#1e3a5f' }}>Masa del reactivo (g)</label>
+          <label className="block text-xs font-semibold mb-0.5" style={{ color: '#111111' }}>Masa del reactivo (g)</label>
           <input value={masa} onChange={e => setMasa(e.target.value)} placeholder="100" inputMode="decimal"
             className="w-full border border-blue-100 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-blue-400" />
         </div>
         <div className="flex-1">
-          <label className="block text-xs font-semibold mb-0.5" style={{ color: '#1e3a5f' }}>Pureza del certificado (%)</label>
+          <label className="block text-xs font-semibold mb-0.5" style={{ color: '#111111' }}>Pureza del certificado (%)</label>
           <input value={pureza} onChange={e => setPureza(e.target.value)} placeholder="99.5" inputMode="decimal"
             className="w-full border border-blue-100 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-blue-400" />
         </div>
       </div>
       <div className="grid grid-cols-3 gap-2">
         {[
-          ['Masa total', res ? fmt(res.m) : '—', '#eff6ff', '#2563eb'],
+          ['Masa total', res ? fmt(res.m) : '—', '#F3F3F3', '#D62828'],
           ['Principio activo', res ? fmt(res.principioActivo) : '—', '#f0fdf4', '#15803d'],
           ['Impurezas', res ? fmt(res.excipiente) : '—', '#f9fafb', '#6b7280'],
         ].map(([l, v, bg, c]) => (
@@ -406,12 +406,12 @@ function CalcPH() {
   }
 
   const pHNum = numF(res)
-  const pHColor = pHNum < 4 ? '#dc2626' : pHNum < 6.5 ? '#ea580c' : pHNum < 7.5 ? '#16a34a' : pHNum < 10 ? '#2563eb' : '#7c3aed'
+  const pHColor = pHNum < 4 ? '#dc2626' : pHNum < 6.5 ? '#ea580c' : pHNum < 7.5 ? '#16a34a' : pHNum < 10 ? '#D62828' : '#7c3aed'
 
   return (
     <div className="space-y-3">
       <div>
-        <label className="block text-xs font-semibold mb-0.5" style={{ color: '#1e3a5f' }}>Tipo de cálculo</label>
+        <label className="block text-xs font-semibold mb-0.5" style={{ color: '#111111' }}>Tipo de cálculo</label>
         <select value={tipo} onChange={e => { setTipo(e.target.value); setRes(null) }} className="w-full border border-blue-100 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-blue-400">
           <option value="fuerte_acido">Ácido fuerte — pH = -log[H⁺]</option>
           <option value="fuerte_base">Base fuerte — pH = 14 + log[OH⁻]</option>
@@ -422,33 +422,33 @@ function CalcPH() {
       <div className="grid grid-cols-2 gap-2">
         {(tipo !== 'buffer') && (
           <div className="col-span-2">
-            <label className="block text-xs font-semibold mb-0.5" style={{ color: '#1e3a5f' }}>Concentración (mol/L)</label>
+            <label className="block text-xs font-semibold mb-0.5" style={{ color: '#111111' }}>Concentración (mol/L)</label>
             <input value={conc} onChange={e => setConc(e.target.value)} placeholder="0.1" inputMode="decimal" className="w-full border border-blue-100 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-blue-400" />
           </div>
         )}
         {(tipo === 'debil' || tipo === 'buffer') && (
           <div className={tipo === 'buffer' ? '' : 'col-span-2'}>
-            <label className="block text-xs font-semibold mb-0.5" style={{ color: '#1e3a5f' }}>pKa del ácido</label>
+            <label className="block text-xs font-semibold mb-0.5" style={{ color: '#111111' }}>pKa del ácido</label>
             <input value={pKa} onChange={e => setPKa(e.target.value)} placeholder="4.76" inputMode="decimal" className="w-full border border-blue-100 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-blue-400" />
           </div>
         )}
         {tipo === 'buffer' && (<>
           <div>
-            <label className="block text-xs font-semibold mb-0.5" style={{ color: '#1e3a5f' }}>[Ácido] (mol/L)</label>
+            <label className="block text-xs font-semibold mb-0.5" style={{ color: '#111111' }}>[Ácido] (mol/L)</label>
             <input value={cAcido} onChange={e => setCAcido(e.target.value)} placeholder="0.1" inputMode="decimal" className="w-full border border-blue-100 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-blue-400" />
           </div>
           <div>
-            <label className="block text-xs font-semibold mb-0.5" style={{ color: '#1e3a5f' }}>[Base conj.] (mol/L)</label>
+            <label className="block text-xs font-semibold mb-0.5" style={{ color: '#111111' }}>[Base conj.] (mol/L)</label>
             <input value={cBase} onChange={e => setCBase(e.target.value)} placeholder="0.1" inputMode="decimal" className="w-full border border-blue-100 rounded-xl px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-blue-400" />
           </div>
         </>)}
       </div>
-      <button onClick={calcular} className="w-full text-white font-bold py-2 rounded-xl text-sm" style={{ background: '#2563eb' }}>Calcular pH</button>
+      <button onClick={calcular} className="w-full text-white font-bold py-2 rounded-xl text-sm" style={{ background: '#D62828' }}>Calcular pH</button>
       {res && (
         <div className="rounded-2xl p-4 text-center border" style={{ background: '#fff', borderColor: pHColor + '40' }}>
           <p className="text-xs font-semibold mb-1" style={{ color: pHColor }}>pH calculado</p>
           <p className="text-5xl font-black" style={{ color: pHColor }}>{res}</p>
-          <div className="mt-3 h-2 rounded-full overflow-hidden" style={{ background: 'linear-gradient(to right, #dc2626, #ea580c, #eab308, #16a34a, #2563eb, #7c3aed)' }}>
+          <div className="mt-3 h-2 rounded-full overflow-hidden" style={{ background: 'linear-gradient(to right, #dc2626, #ea580c, #eab308, #16a34a, #D62828, #7c3aed)' }}>
             <div className="h-full w-1 rounded-full bg-white shadow-md" style={{ marginLeft: `${Math.min(Math.max((pHNum / 14) * 100, 0), 98)}%` }} />
           </div>
           <div className="flex justify-between text-[9px] mt-0.5" style={{ color: '#9ca3af' }}>
@@ -513,9 +513,9 @@ function FormulacionSimple() {
     <div className="space-y-4">
       {/* Ingredientes */}
       <div>
-        <p className="text-xs font-bold mb-1.5" style={{ color: '#1e3a5f' }}>Ingredientes</p>
+        <p className="text-xs font-bold mb-1.5" style={{ color: '#111111' }}>Ingredientes</p>
         <div className="rounded-xl overflow-hidden border border-blue-100">
-          <div className="grid grid-cols-12 gap-1 px-2 py-1.5 text-[10px] font-bold" style={{ background: '#eff6ff', color: '#6b9fd4' }}>
+          <div className="grid grid-cols-12 gap-1 px-2 py-1.5 text-[10px] font-bold" style={{ background: '#F3F3F3', color: '#8A8A8A' }}>
             <span className="col-span-4">Ingrediente</span>
             <span className="col-span-3 text-right">$/kg</span>
             <span className="col-span-3 text-right">% p/p</span>
@@ -533,7 +533,7 @@ function FormulacionSimple() {
             </div>
           ))}
         </div>
-        <button onClick={addIng} className="mt-1.5 w-full flex items-center justify-center gap-1.5 py-1.5 rounded-xl text-xs font-semibold border-2 border-dashed border-blue-200 transition-colors hover:bg-blue-50" style={{ color: '#2563eb' }}>
+        <button onClick={addIng} className="mt-1.5 w-full flex items-center justify-center gap-1.5 py-1.5 rounded-xl text-xs font-semibold border-2 border-dashed border-blue-200 transition-colors hover:bg-blue-50" style={{ color: '#D62828' }}>
           <Plus size={13} /> Agregar ingrediente
         </button>
       </div>
@@ -541,15 +541,15 @@ function FormulacionSimple() {
       {/* Presentaciones + margen */}
       <div>
         <div className="flex items-center justify-between mb-1.5">
-          <p className="text-xs font-bold" style={{ color: '#1e3a5f' }}>Presentaciones</p>
+          <p className="text-xs font-bold" style={{ color: '#111111' }}>Presentaciones</p>
           <div className="flex items-center gap-1.5">
-            <label className="text-[10px]" style={{ color: '#6b9fd4' }}>Margen %</label>
+            <label className="text-[10px]" style={{ color: '#8A8A8A' }}>Margen %</label>
             <input value={margen} onChange={e => setMargen(e.target.value)} placeholder="30" inputMode="decimal"
               className="w-14 border border-blue-100 rounded-lg px-2 py-1 text-xs bg-white text-right focus:outline-none focus:ring-1 focus:ring-blue-300" />
           </div>
         </div>
         <div className="rounded-xl overflow-hidden border border-blue-100">
-          <div className="grid grid-cols-10 gap-1 px-2 py-1.5 text-[10px] font-bold" style={{ background: '#eff6ff', color: '#6b9fd4' }}>
+          <div className="grid grid-cols-10 gap-1 px-2 py-1.5 text-[10px] font-bold" style={{ background: '#F3F3F3', color: '#8A8A8A' }}>
             <span className="col-span-4">Presentación</span>
             <span className="col-span-4 text-right">Gramos</span>
             <span className="col-span-2"></span>
@@ -564,24 +564,24 @@ function FormulacionSimple() {
             </div>
           ))}
         </div>
-        <button onClick={addPres} className="mt-1.5 w-full flex items-center justify-center gap-1.5 py-1.5 rounded-xl text-xs font-semibold border-2 border-dashed border-blue-200 hover:bg-blue-50" style={{ color: '#2563eb' }}>
+        <button onClick={addPres} className="mt-1.5 w-full flex items-center justify-center gap-1.5 py-1.5 rounded-xl text-xs font-semibold border-2 border-dashed border-blue-200 hover:bg-blue-50" style={{ color: '#D62828' }}>
           <Plus size={13} /> Agregar presentación
         </button>
       </div>
 
-      <button onClick={calcular} className="w-full text-white font-bold py-2 rounded-xl text-sm" style={{ background: '#2563eb' }}>Calcular costos</button>
+      <button onClick={calcular} className="w-full text-white font-bold py-2 rounded-xl text-sm" style={{ background: '#D62828' }}>Calcular costos</button>
 
       {res && (
         <div className="space-y-3">
           {/* Resumen costo */}
           <div className="grid grid-cols-2 gap-2">
-            <div className="rounded-xl p-2.5 text-center border border-blue-100" style={{ background: '#eff6ff' }}>
-              <p className="text-[10px] font-semibold mb-0.5" style={{ color: '#2563eb', opacity: 0.7 }}>Costo por gramo</p>
-              <p className="text-base font-black" style={{ color: '#1d4ed8' }}>{cop(res.costoPorGramo)}</p>
+            <div className="rounded-xl p-2.5 text-center border border-blue-100" style={{ background: '#F3F3F3' }}>
+              <p className="text-[10px] font-semibold mb-0.5" style={{ color: '#D62828', opacity: 0.7 }}>Costo por gramo</p>
+              <p className="text-base font-black" style={{ color: '#B01F1F' }}>{cop(res.costoPorGramo)}</p>
             </div>
-            <div className="rounded-xl p-2.5 text-center border border-blue-100" style={{ background: '#eff6ff' }}>
-              <p className="text-[10px] font-semibold mb-0.5" style={{ color: '#2563eb', opacity: 0.7 }}>Costo por kg</p>
-              <p className="text-base font-black" style={{ color: '#1d4ed8' }}>{cop(res.costoPorKg)}</p>
+            <div className="rounded-xl p-2.5 text-center border border-blue-100" style={{ background: '#F3F3F3' }}>
+              <p className="text-[10px] font-semibold mb-0.5" style={{ color: '#D62828', opacity: 0.7 }}>Costo por kg</p>
+              <p className="text-base font-black" style={{ color: '#B01F1F' }}>{cop(res.costoPorKg)}</p>
             </div>
           </div>
 
@@ -594,23 +594,23 @@ function FormulacionSimple() {
 
           {/* Tabla ingredientes */}
           <div className="rounded-xl overflow-hidden border border-blue-100">
-            <div className="grid grid-cols-12 px-2 py-1.5 text-[10px] font-bold" style={{ background: '#eff6ff', color: '#6b9fd4' }}>
+            <div className="grid grid-cols-12 px-2 py-1.5 text-[10px] font-bold" style={{ background: '#F3F3F3', color: '#8A8A8A' }}>
               <span className="col-span-4">Ingrediente</span>
               <span className="col-span-3 text-right">% p/p</span>
               <span className="col-span-5 text-right">Aporte $/kg PT</span>
             </div>
             {res.filas.map((f, i) => (
               <div key={i} className="grid grid-cols-12 px-2 py-1.5 border-t border-blue-50">
-                <span className="col-span-4 text-xs" style={{ color: '#1e3a5f' }}>{f.nombre || `Ing. ${i + 1}`}</span>
-                <span className="col-span-3 text-right text-xs tabular-nums" style={{ color: '#6b9fd4' }}>{fmt(f.pct * 100, 1)}%</span>
-                <span className="col-span-5 text-right text-xs font-semibold tabular-nums" style={{ color: '#1d4ed8' }}>{cop(f.aporte)}</span>
+                <span className="col-span-4 text-xs" style={{ color: '#111111' }}>{f.nombre || `Ing. ${i + 1}`}</span>
+                <span className="col-span-3 text-right text-xs tabular-nums" style={{ color: '#8A8A8A' }}>{fmt(f.pct * 100, 1)}%</span>
+                <span className="col-span-5 text-right text-xs font-semibold tabular-nums" style={{ color: '#B01F1F' }}>{cop(f.aporte)}</span>
               </div>
             ))}
           </div>
 
           {/* Tabla presentaciones */}
           <div className="rounded-xl overflow-hidden border border-blue-100">
-            <div className="grid grid-cols-12 px-2 py-1.5 text-[10px] font-bold" style={{ background: '#eff6ff', color: '#6b9fd4' }}>
+            <div className="grid grid-cols-12 px-2 py-1.5 text-[10px] font-bold" style={{ background: '#F3F3F3', color: '#8A8A8A' }}>
               <span className="col-span-3">Pres.</span>
               <span className="col-span-2 text-right">g</span>
               <span className="col-span-4 text-right">Costo MP</span>
@@ -618,9 +618,9 @@ function FormulacionSimple() {
             </div>
             {res.pres.map((p, i) => (
               <div key={i} className="grid grid-cols-12 px-2 py-1.5 border-t border-blue-50">
-                <span className="col-span-3 text-xs font-semibold" style={{ color: '#1e3a5f' }}>{p.label || `${p.g}g`}</span>
-                <span className="col-span-2 text-right text-xs tabular-nums" style={{ color: '#6b9fd4' }}>{fmt(numF(p.g), 0)}</span>
-                <span className="col-span-4 text-right text-xs font-bold tabular-nums" style={{ color: '#1d4ed8' }}>{cop(p.costoMP)}</span>
+                <span className="col-span-3 text-xs font-semibold" style={{ color: '#111111' }}>{p.label || `${p.g}g`}</span>
+                <span className="col-span-2 text-right text-xs tabular-nums" style={{ color: '#8A8A8A' }}>{fmt(numF(p.g), 0)}</span>
+                <span className="col-span-4 text-right text-xs font-bold tabular-nums" style={{ color: '#B01F1F' }}>{cop(p.costoMP)}</span>
                 {res.mg > 0 && <span className="col-span-3 text-right text-xs font-bold tabular-nums" style={{ color: '#15803d' }}>{cop(p.precioVenta)}</span>}
               </div>
             ))}
@@ -638,11 +638,11 @@ function FAQ({ pregunta, respuesta }) {
   const [open, setOpen] = useState(false)
   return (
     <div className="border border-blue-100 rounded-xl overflow-hidden">
-      <button onClick={() => setOpen(o => !o)} className="w-full flex items-center justify-between px-3 py-2.5 text-left text-xs font-semibold hover:bg-blue-50 transition" style={{ color: '#1e3a5f' }}>
+      <button onClick={() => setOpen(o => !o)} className="w-full flex items-center justify-between px-3 py-2.5 text-left text-xs font-semibold hover:bg-blue-50 transition" style={{ color: '#111111' }}>
         {pregunta}
         {open ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
       </button>
-      {open && <p className="px-3 pb-3 text-xs leading-relaxed" style={{ color: '#6b9fd4' }}>{respuesta}</p>}
+      {open && <p className="px-3 pb-3 text-xs leading-relaxed" style={{ color: '#8A8A8A' }}>{respuesta}</p>}
     </div>
   )
 }
@@ -661,21 +661,21 @@ export default function HerramientasPage() {
     <div className="max-w-2xl mx-auto px-3 py-4 space-y-4">
       {/* Header */}
       <div className="flex items-center gap-2">
-        <Calculator size={20} style={{ color: '#2563eb' }} />
-        <h1 className="text-lg font-black" style={{ color: '#1e3a5f' }}>Honorarios vs salario</h1>
+        <Calculator size={20} style={{ color: '#D62828' }} />
+        <h1 className="text-lg font-black" style={{ color: '#111111' }}>Honorarios vs salario</h1>
       </div>
 
       {/* Card calculadora */}
       <div className="rounded-2xl overflow-hidden shadow-sm" style={{ background: '#ffffff', border: '1px solid #D9D9D9' }}>
 
         {/* Sub-tabs */}
-        <div className="flex p-2 gap-1.5" style={{ background: '#eff6ff', borderBottom: '0.5px solid #bfdbfe' }}>
+        <div className="flex p-2 gap-1.5" style={{ background: '#F3F3F3', borderBottom: '0.5px solid #D9D9D9' }}>
           {TABS_LAB.map(t => (
             <button key={t.id} onClick={() => setTabLab(t.id)}
               className="flex-1 py-1.5 rounded-lg text-xs font-bold transition"
               style={tabLab === t.id
-                ? { background: '#2563eb', color: '#fff' }
-                : { background: 'transparent', color: '#93c5fd' }}>
+                ? { background: '#D62828', color: '#fff' }
+                : { background: 'transparent', color: '#C4C4C4' }}>
               {t.label}
             </button>
           ))}
@@ -683,7 +683,7 @@ export default function HerramientasPage() {
 
         {/* Título */}
         <div className="px-3 pt-3 pb-1">
-          <h2 className="font-bold text-sm" style={{ color: '#1e3a5f' }}>{titulo[tabLab]}</h2>
+          <h2 className="font-bold text-sm" style={{ color: '#111111' }}>{titulo[tabLab]}</h2>
         </div>
 
         {/* Contenido */}
@@ -694,10 +694,10 @@ export default function HerramientasPage() {
       </div>
 
       {/* Info */}
-      <div className="rounded-xl p-3 flex gap-2" style={{ background: 'rgba(239,246,255,0.8)', border: '0.5px solid #bfdbfe' }}>
-        <Info size={13} style={{ color: '#2563eb', flexShrink: 0, marginTop: 1 }} />
-        <p className="text-[11px] leading-relaxed" style={{ color: '#6b9fd4' }}>
-          <strong style={{ color: '#1e3a5f' }}>Laboral:</strong> SMMLV 2026 $1.750.905 (Decreto 0159).
+      <div className="rounded-xl p-3 flex gap-2" style={{ background: 'rgba(239,246,255,0.8)', border: '0.5px solid #D9D9D9' }}>
+        <Info size={13} style={{ color: '#D62828', flexShrink: 0, marginTop: 1 }} />
+        <p className="text-[11px] leading-relaxed" style={{ color: '#8A8A8A' }}>
+          <strong style={{ color: '#111111' }}>Laboral:</strong> SMMLV 2026 $1.750.905 (Decreto 0159).
         </p>
       </div>
 

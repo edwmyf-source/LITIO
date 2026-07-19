@@ -204,7 +204,7 @@ export default memo(function PostCard({ post, onContact, contactingId, blockedUs
           </p>
         </div>
         {catLabel && (
-          <span className="flex-shrink-0 px-3 py-1 rounded-full text-[12px] font-bold" style={{ background: '#F5E6E9', color: '#B06B76' }}>
+          <span className="flex-shrink-0 px-3 py-1 rounded-full text-[12px] font-bold" style={{ background: '#FBE5E5', color: '#D62828' }}>
             {catLabel}
           </span>
         )}
@@ -222,7 +222,7 @@ export default memo(function PostCard({ post, onContact, contactingId, blockedUs
       <div className="pt-4 flex items-center gap-2.5" style={{ borderTop: '1px solid #F3F4F6' }}>
         <button onClick={handleLike}
           className="flex items-center gap-1.5 px-4 py-2.5 rounded-2xl text-[14px] font-semibold transition-all active:scale-95"
-          style={{ background: liked ? '#0F5C57' : '#F8FAFC', color: liked ? '#fff' : '#6B7280' }}>
+          style={{ background: liked ? '#111111' : '#F8FAFC', color: liked ? '#fff' : '#6B7280' }}>
           <ThumbsUp size={18} fill={liked ? '#fff' : 'none'} />
           <span className="font-bold">{likeCount || 0}</span>
         </button>
@@ -235,7 +235,7 @@ export default memo(function PostCard({ post, onContact, contactingId, blockedUs
         {!isMine && (
           <button onClick={() => onContact?.(post)} disabled={isContacting} aria-label="Contactar"
             className="flex items-center gap-1 px-4 py-2.5 rounded-2xl transition-all active:scale-95 disabled:opacity-60"
-            style={{ background: '#F8FAFC', color: '#0F5C57' }}>
+            style={{ background: '#F8FAFC', color: '#111111' }}>
             {isContacting
               ? <Loader2 size={18} className="animate-spin" />
               : <MessageSquareText size={18} />}

@@ -116,8 +116,8 @@ export default function AppLayout() {
                 <button key={item.path} onClick={() => { navigate(item.path); setProfileMenuOpen(false) }}
                   className="w-full flex items-center gap-3.5 px-5 py-3.5 text-[15px] font-medium transition-colors hover:bg-gray-50"
                   style={{ color: '#111827' }}>
-                  <span className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: '#F5E6E9' }}>
-                    <Icon size={18} style={{ color: '#B06B76' }} />
+                  <span className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: '#FBE5E5' }}>
+                    <Icon size={18} style={{ color: '#D62828' }} />
                   </span>
                   {item.label}
                   {!!item.badge && (
@@ -149,8 +149,8 @@ export default function AppLayout() {
           {(() => { const active = currentTab === '/feed'; return (
             <button onClick={() => navigate('/feed')}
               className="flex flex-col items-center gap-1 flex-1 active:scale-95 transition-transform" aria-label="Inicio">
-              <Home size={22} style={{ color: active ? '#0F5C57' : '#6B7280' }} strokeWidth={active ? 2.4 : 2} />
-              <span className="text-[12px] font-semibold" style={{ color: active ? '#0F5C57' : '#6B7280' }}>Inicio</span>
+              <Home size={22} style={{ color: active ? '#111111' : '#6B7280' }} strokeWidth={active ? 2.4 : 2} />
+              <span className="text-[12px] font-semibold" style={{ color: active ? '#111111' : '#6B7280' }}>Inicio</span>
             </button>
           )})()}
 
@@ -158,7 +158,7 @@ export default function AppLayout() {
           <div className="flex-shrink-0 px-2">
             <button onClick={() => navigate('/feed?publish=1')} aria-label="Publicar"
               className="w-[58px] h-[58px] rounded-full flex items-center justify-center active:scale-95 transition-transform"
-              style={{ background: '#0F5C57', boxShadow: '0 10px 24px rgba(15,92,87,0.38)' }}>
+              style={{ background: '#111111', boxShadow: '0 10px 24px rgba(15,92,87,0.38)' }}>
               <Plus size={28} color="#ffffff" strokeWidth={2.5} />
             </button>
           </div>
@@ -167,14 +167,14 @@ export default function AppLayout() {
           <button onClick={() => setProfileMenuOpen(o => !o)}
             className="flex flex-col items-center gap-1 flex-1 relative active:scale-95 transition-transform" aria-label="Perfil">
             <div className="relative">
-              <User size={22} style={{ color: profileMenuOpen ? '#0F5C57' : '#6B7280' }} strokeWidth={profileMenuOpen ? 2.4 : 2} />
+              <User size={22} style={{ color: profileMenuOpen ? '#111111' : '#6B7280' }} strokeWidth={profileMenuOpen ? 2.4 : 2} />
               {unreadCount > 0 && (
                 <span className="absolute -top-1.5 -right-2 bg-red-500 text-white text-[8px] font-bold px-1 rounded-full min-w-[14px] text-center leading-4">
                   {unreadCount > 99 ? '99+' : unreadCount}
                 </span>
               )}
             </div>
-            <span className="text-[12px] font-semibold" style={{ color: profileMenuOpen ? '#0F5C57' : '#6B7280' }}>Perfil</span>
+            <span className="text-[12px] font-semibold" style={{ color: profileMenuOpen ? '#111111' : '#6B7280' }}>Perfil</span>
           </button>
 
         </div>

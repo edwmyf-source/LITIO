@@ -40,12 +40,12 @@ function getPersonaje(pts) {
 const NIVELES = [
   { id: 1,  tema: 'La vida y los seres vivos',    emoji: '🌱', color: '#16a34a', bg: '#f0fdf4', frase_inicio: '¡Vamos calentando motores!', frase_nivel: '¡Arrancamos!' },
   { id: 2,  tema: 'El cuerpo humano',             emoji: '🫀', color: '#0d9488', bg: '#f0fdfa', frase_inicio: '¿Conoces tu propio cuerpo?', frase_nivel: '¡Subiste de nivel! 🚀' },
-  { id: 3,  tema: 'Naturaleza y planeta Tierra',  emoji: '🌎', color: '#2563eb', bg: '#eff6ff', frase_inicio: '¡Vas bien, sigue así!', frase_nivel: '¡Nivel 3! ¡Se pone bueno!' },
+  { id: 3,  tema: 'Naturaleza y planeta Tierra',  emoji: '🌎', color: '#D62828', bg: '#F3F3F3', frase_inicio: '¡Vas bien, sigue así!', frase_nivel: '¡Nivel 3! ¡Se pone bueno!' },
   { id: 4,  tema: 'Física: movimiento y fuerzas', emoji: '🚀', color: '#7c3aed', bg: '#f5f3ff', frase_inicio: 'Aquí empieza lo serio...', frase_nivel: '¡Nivel 4! ¡Eso es!' },
   { id: 5,  tema: 'Física: energía y luz',        emoji: '💡', color: '#dc2626', bg: '#fff1f2', frase_inicio: '¡Que se haga la luz!', frase_nivel: '¡NIVEL 5! 🔥 ¡Fuego!' },
   { id: 6,  tema: 'Química básica',               emoji: '⚛️', color: '#ea580c', bg: '#fff7ed', frase_inicio: 'Los átomos no mienten', frase_nivel: '¡Nivel 6! ¡Imparable!' },
   { id: 7,  tema: 'Mezclas y soluciones',         emoji: '🧫', color: '#0369a1', bg: '#f0f9ff', frase_inicio: '¿Soluto o solvente? Eso te pregunto', frase_nivel: '¡NIVEL 7! ¡Qué bestia!' },
-  { id: 8,  tema: 'Ácidos y bases',               emoji: '🧪', color: '#1d4ed8', bg: '#eff6ff', frase_inicio: '¿pH qué? ¡Demuéstralo!', frase_nivel: '¡Nivel 8! ¡La rompes!' },
+  { id: 8,  tema: 'Ácidos y bases',               emoji: '🧪', color: '#B01F1F', bg: '#F3F3F3', frase_inicio: '¿pH qué? ¡Demuéstralo!', frase_nivel: '¡Nivel 8! ¡La rompes!' },
   { id: 9,  tema: 'Reacciones químicas',          emoji: '💥', color: '#7e22ce', bg: '#faf5ff', frase_inicio: 'Las reacciones no mienten', frase_nivel: '¡NIVEL 9! ¡Sos un crack!' },
   { id: 10, tema: 'Química orgánica básica',      emoji: '🌿', color: '#15803d', bg: '#f0fdf4', frase_inicio: '¡Mitad del camino! ¿Aguantas?', frase_nivel: '¡NIVEL 10! ¡Mitad! 🏅' },
   { id: 11, tema: 'Separación de mezclas',        emoji: '🔬', color: '#0f766e', bg: '#f0fdfa', frase_inicio: 'Aquí solo sobreviven los mejores', frase_nivel: '¡Nivel 11! ¡Eres nivel PRO!' },
@@ -55,7 +55,7 @@ const NIVELES = [
   { id: 15, tema: 'Análisis químico',             emoji: '📊', color: '#0891b2', bg: '#ecfeff', frase_inicio: '¡Solo los elegidos llegan aquí!', frase_nivel: '¡NIVEL 15! ¡Top 1%!' },
   { id: 16, tema: 'Química analítica avanzada',   emoji: '🏆', color: '#be185d', bg: '#fdf2f8', frase_inicio: '¡Si llegas aquí, eres élite!', frase_nivel: '¡NIVEL 16! ¡Genio puro!' },
   { id: 17, tema: 'Fisicoquímica',                emoji: '🌀', color: '#7c3aed', bg: '#f5f3ff', frase_inicio: '¡La física y la química se abrazan!', frase_nivel: '¡NIVEL 17! ¡Eres un monstruo!' },
-  { id: 18, tema: 'Química de materiales',        emoji: '🔩', color: '#1e40af', bg: '#eff6ff', frase_inicio: '¡Casi nadie llega aquí, campeón!', frase_nivel: '¡NIVEL 18! ¡Leyenda viva!' },
+  { id: 18, tema: 'Química de materiales',        emoji: '🔩', color: '#1e40af', bg: '#F3F3F3', frase_inicio: '¡Casi nadie llega aquí, campeón!', frase_nivel: '¡NIVEL 18! ¡Leyenda viva!' },
   { id: 19, tema: 'Bioquímica',                   emoji: '🧬', color: '#065f46', bg: '#ecfdf5', frase_inicio: '¡La química de la vida misma!', frase_nivel: '¡NIVEL 19! ¡Casi Dios!' },
   { id: 20, tema: 'Albert Einsteinium (élite)',   emoji: '⚡', color: '#b45309', bg: '#fefce8', frase_inicio: '¡NIVEL FINAL! ¡Aquí termina todo!', frase_nivel: '¡NIVEL 20! ¡ERES EL ELEGIDO!' },
 ]
@@ -74,11 +74,11 @@ function PantallaInicio({ onStart }) {
     <div className="flex flex-col items-center text-center px-4 py-8 gap-5">
       <div className="text-7xl animate-bounce">🧪</div>
       <div>
-        <h1 className="text-2xl font-black mb-1" style={{ color: '#1e3a5f' }}>¿Cuánto sabes de química?</h1>
-        <p className="text-sm" style={{ color: '#6b9fd4' }}>20 niveles temáticos · 30 segundos cada uno · ¡3 correctas seguidas para subir!</p>
+        <h1 className="text-2xl font-black mb-1" style={{ color: '#111111' }}>¿Cuánto sabes de química?</h1>
+        <p className="text-sm" style={{ color: '#8A8A8A' }}>20 niveles temáticos · 30 segundos cada uno · ¡3 correctas seguidas para subir!</p>
       </div>
-      <div className="w-full rounded-2xl p-4 text-left" style={{ background: '#eff6ff', border: '1px solid #bfdbfe' }}>
-        <p className="text-xs font-bold mb-2" style={{ color: '#1e3a5f' }}>¿Cómo funciona?</p>
+      <div className="w-full rounded-2xl p-4 text-left" style={{ background: '#F3F3F3', border: '1px solid #D9D9D9' }}>
+        <p className="text-xs font-bold mb-2" style={{ color: '#111111' }}>¿Cómo funciona?</p>
         {[
           ['⏱️', '30 segundos por nivel — si se acaba, fin del juego'],
           ['✅', '3 respuestas correctas seguidas = siguiente nivel'],
@@ -87,23 +87,23 @@ function PantallaInicio({ onStart }) {
           ['🔥', 'Racha perfecta = multiplicador de puntos'],
         ].map(([ico, txt]) => (
           <div key={txt} className="flex items-start gap-2 mb-1.5">
-            <span>{ico}</span><p className="text-xs" style={{ color: '#6b9fd4' }}>{txt}</p>
+            <span>{ico}</span><p className="text-xs" style={{ color: '#8A8A8A' }}>{txt}</p>
           </div>
         ))}
       </div>
-      <div className="w-full rounded-2xl p-3" style={{ background: 'rgba(255,255,255,0.7)', border: '0.5px solid #bfdbfe' }}>
-        <p className="text-xs font-bold mb-2" style={{ color: '#1e3a5f' }}>Evolución según puntos:</p>
+      <div className="w-full rounded-2xl p-3" style={{ background: 'rgba(255,255,255,0.7)', border: '0.5px solid #D9D9D9' }}>
+        <p className="text-xs font-bold mb-2" style={{ color: '#111111' }}>Evolución según puntos:</p>
         <div className="flex flex-wrap gap-1 justify-center">
           {PERSONAJES.map(p => (
             <div key={p.id} className="flex flex-col items-center" title={`${p.nombre} (${p.min} pts)`}>
               <span className="text-lg">{p.emoji}</span>
-              <span className="text-[7px]" style={{ color: '#93c5fd' }}>{p.min}</span>
+              <span className="text-[7px]" style={{ color: '#C4C4C4' }}>{p.min}</span>
             </div>
           ))}
         </div>
       </div>
       <button onClick={onStart} className="w-full py-4 rounded-2xl text-white font-black text-lg active:scale-95 transition-all"
-        style={{ background: '#2563eb', boxShadow: '0 6px 20px rgba(37,99,235,0.35)' }}>
+        style={{ background: '#D62828', boxShadow: '0 6px 20px rgba(37,99,235,0.35)' }}>
         ¡Empezar! 🚀
       </button>
     </div>
@@ -256,7 +256,7 @@ function JuegoPrincipal({ onGameOver }) {
       <div className="flex flex-col items-center text-center px-4 py-10 gap-3">
         <div className="text-4xl">⚠️</div>
         <p className="text-sm font-semibold" style={{ color: '#c62828' }}>{errorCarga}</p>
-        <p className="text-xs" style={{ color: '#6b9fd4' }}>Intenta recargar la página.</p>
+        <p className="text-xs" style={{ color: '#8A8A8A' }}>Intenta recargar la página.</p>
       </div>
     )
   }
@@ -265,7 +265,7 @@ function JuegoPrincipal({ onGameOver }) {
     return (
       <div className="flex flex-col items-center text-center px-4 py-10 gap-3">
         <div className="text-4xl animate-bounce">🧪</div>
-        <p className="text-sm font-semibold" style={{ color: '#1e3a5f' }}>Cargando preguntas...</p>
+        <p className="text-sm font-semibold" style={{ color: '#111111' }}>Cargando preguntas...</p>
       </div>
     )
   }
@@ -290,23 +290,23 @@ function JuegoPrincipal({ onGameOver }) {
         <div className="flex items-center gap-2">
           <span className="text-xl">{nivelDef.emoji}</span>
           <div>
-            <p className="text-[10px] font-bold leading-none" style={{ color: '#93c5fd' }}>NIVEL {nivelIdx + 1}/20</p>
-            <p className="text-xs font-bold leading-tight" style={{ color: '#1e3a5f' }}>{nivelDef.tema}</p>
+            <p className="text-[10px] font-bold leading-none" style={{ color: '#C4C4C4' }}>NIVEL {nivelIdx + 1}/20</p>
+            <p className="text-xs font-bold leading-tight" style={{ color: '#111111' }}>{nivelDef.tema}</p>
           </div>
         </div>
         <div className="text-right">
-          <p className="text-lg font-black tabular-nums leading-none" style={{ color: '#1d4ed8' }}>{puntos}</p>
+          <p className="text-lg font-black tabular-nums leading-none" style={{ color: '#B01F1F' }}>{puntos}</p>
           {racha >= 2 && <p className="text-[10px] font-bold" style={{ color: '#f59e0b' }}>{FRASES_RACHA[Math.min(racha - 2, 4)]}</p>}
         </div>
       </div>
 
       {/* Barra de insignia: puntos 0 → 500 con animacion */}
       <div className="mt-1">
-        <div className="flex items-center justify-between text-[9px] font-bold mb-1" style={{ color: '#1e3a5f' }}>
+        <div className="flex items-center justify-between text-[9px] font-bold mb-1" style={{ color: '#111111' }}>
           <span>INSIGNIA</span>
           <span className="tabular-nums" style={{ color: '#111111' }}>{Math.min(puntos, 500)} / 500 pts</span>
         </div>
-        <div className="relative h-2 rounded-full overflow-hidden" style={{ background: '#dbeafe' }}>
+        <div className="relative h-2 rounded-full overflow-hidden" style={{ background: '#EBEBEB' }}>
           <div className="h-full rounded-full transition-all duration-500 ease-out relative overflow-hidden"
             style={{
               width: `${Math.min(100, (puntos / 500) * 100)}%`,
@@ -332,23 +332,23 @@ function JuegoPrincipal({ onGameOver }) {
       <div>
         <div className="flex items-center gap-2 mb-1">
           <span className="text-base font-black tabular-nums w-6" style={{ color: colorTiempo }}>{tiempo}</span>
-          <div className="flex-1 h-2.5 rounded-full overflow-hidden" style={{ background: '#dbeafe' }}>
+          <div className="flex-1 h-2.5 rounded-full overflow-hidden" style={{ background: '#EBEBEB' }}>
             <div className="h-full rounded-full transition-all duration-1000" style={{ width: `${pctTiempo}%`, background: colorTiempo }} />
           </div>
         </div>
         {/* Progreso correctas en nivel */}
         <div className="flex gap-1.5 justify-center">
           {[0, 1, 2].map(i => (
-            <div key={i} className="w-8 h-1.5 rounded-full transition-all" style={{ background: i < correctasNivel ? nivelDef.color : '#dbeafe' }} />
+            <div key={i} className="w-8 h-1.5 rounded-full transition-all" style={{ background: i < correctasNivel ? nivelDef.color : '#EBEBEB' }} />
           ))}
         </div>
-        <p className="text-center text-[10px] mt-0.5" style={{ color: '#93c5fd' }}>{correctasNivel}/3 para subir de nivel</p>
+        <p className="text-center text-[10px] mt-0.5" style={{ color: '#C4C4C4' }}>{correctasNivel}/3 para subir de nivel</p>
       </div>
 
       {/* Pregunta */}
       <div className="rounded-2xl p-4 min-h-[80px] flex items-center justify-center"
         style={{ background: `${nivelDef.bg}`, border: `1.5px solid ${nivelDef.color}40`, backdropFilter: 'blur(8px)' }}>
-        <p className="text-[15px] font-semibold leading-snug text-center" style={{ color: '#1e3a5f' }}>{pregunta.q}</p>
+        <p className="text-[15px] font-semibold leading-snug text-center" style={{ color: '#111111' }}>{pregunta.q}</p>
       </div>
 
       {/* 3 Opciones coloridas */}
@@ -386,7 +386,7 @@ function JuegoPrincipal({ onGameOver }) {
         <div className="text-center py-1">
           <p className="text-sm font-black" style={{ color: feedback.ok ? '#16a34a' : '#dc2626' }}>{feedback.frase}</p>
           {feedback.ok && feedback.pts > 0 && (
-            <p className="text-xs font-bold" style={{ color: '#2563eb' }}>+{feedback.pts} pts{feedback.multiplicador > 1 ? ` ×${feedback.multiplicador}` : ''}</p>
+            <p className="text-xs font-bold" style={{ color: '#D62828' }}>+{feedback.pts} pts{feedback.multiplicador > 1 ? ` ×${feedback.multiplicador}` : ''}</p>
           )}
         </div>
       )}

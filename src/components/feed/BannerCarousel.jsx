@@ -97,7 +97,7 @@ export default function BannerCarousel() {
                 height: '5px',
                 width: current === i ? '16px' : '5px',
                 borderRadius: '3px',
-                background: current === i ? '#2563eb' : '#cbd5e1',
+                background: current === i ? '#111111' : '#D9D9D9',
                 border: 'none',
                 padding: 0,
                 cursor: 'pointer',

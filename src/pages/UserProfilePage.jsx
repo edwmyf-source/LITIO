@@ -194,7 +194,7 @@ export default function UserProfilePage() {
         <div className="relative" style={{ height: 150 }}>
           {coverUrl
             ? <img src={coverUrl} alt="" className="w-full h-full object-cover" />
-            : <div className="w-full h-full" style={{ background: 'linear-gradient(160deg, #0F5C57, #0A423E)' }} />
+            : <div className="w-full h-full" style={{ background: 'linear-gradient(160deg, #111111, #000000)' }} />
           }
           {uploadingCover && (
             <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
@@ -226,7 +226,7 @@ export default function UserProfilePage() {
                 {uploadingAvatar ? (
                   <div style={{ width: 92, height: 92 }}
                     className="rounded-[24px] bg-gray-100 flex items-center justify-center">
-                    <Loader2 size={24} className="animate-spin" style={{ color: '#0F5C57' }} />
+                    <Loader2 size={24} className="animate-spin" style={{ color: '#111111' }} />
                   </div>
                 ) : (
                   <UserAvatar seed={profile.id} avatarUrl={profile.avatar_url} size={92} className="!rounded-[24px]" />
@@ -237,7 +237,7 @@ export default function UserProfilePage() {
                   onClick={() => avatarInputRef.current?.click()}
                   disabled={uploadingAvatar}
                   className="absolute bottom-1 right-1 w-8 h-8 rounded-full border-2 border-white flex items-center justify-center transition-colors disabled:opacity-50"
-                  style={{ background: '#0F5C57' }}
+                  style={{ background: '#111111' }}
                   aria-label="Cambiar foto de perfil">
                   <Camera size={14} className="text-white" />
                 </button>
@@ -257,8 +257,8 @@ export default function UserProfilePage() {
               <button onClick={handleFollow} disabled={loadingFollow}
                 className="flex items-center gap-1.5 text-[14px] font-semibold px-6 h-11 rounded-2xl transition-all disabled:opacity-60 active:scale-95"
                 style={isFollowing
-                  ? { border: '1px solid #0F5C57', color: '#0F5C57', background: '#fff' }
-                  : { background: '#0F5C57', color: '#fff', boxShadow: '0 8px 20px rgba(15,92,87,0.28)' }}>
+                  ? { border: '1px solid #111111', color: '#111111', background: '#fff' }
+                  : { background: '#111111', color: '#fff', boxShadow: '0 8px 20px rgba(15,92,87,0.28)' }}>
                 {loadingFollow
                   ? <Spinner size={15} />
                   : isFollowing

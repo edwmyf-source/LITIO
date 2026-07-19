@@ -200,12 +200,12 @@ function ChatThread({ conversation, userId, myProfile }) {
         <button onClick={() => navigate('/feed', { state: { scrollToPostId: conversation.posts.id } })}
           className="mx-4 mt-2 mb-1 flex-shrink-0 flex items-start gap-2.5 px-3.5 py-3 rounded-2xl text-left transition-all active:scale-[0.98] w-[calc(100%-2rem)]"
           style={{ background: '#F8FAFC', border: '1px solid #E5E7EB' }}>
-          <span className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: '#0F5C57' }}>
+          <span className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: '#111111' }}>
             <MessageSquareText size={16} color="#fff" />
           </span>
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2 mb-0.5">
-              <span className="text-[11px] font-bold uppercase tracking-wide" style={{ color: '#B06B76' }}>
+              <span className="text-[11px] font-bold uppercase tracking-wide" style={{ color: '#D62828' }}>
                 {CATEGORY_MAP[conversation.posts.category]?.label || conversation.posts.category}
               </span>
               <span className="text-[11px]" style={{ color: '#9CA3AF' }}>· Ver publicación</span>
@@ -245,7 +245,7 @@ function ChatThread({ conversation, userId, myProfile }) {
                       <div style={{ maxWidth: '75%' }}>
                         <div className="px-4 py-3 text-[15px] leading-relaxed whitespace-pre-wrap break-words"
                           style={{
-                            background: isMine ? '#0F5C57' : '#ffffff',
+                            background: isMine ? '#111111' : '#ffffff',
                             color: isMine ? '#ffffff' : '#111827',
                             borderRadius: isMine
                               ? isLast ? '22px 22px 7px 22px' : '22px'
@@ -290,7 +290,7 @@ function ChatThread({ conversation, userId, myProfile }) {
         />
         <button onClick={handleSend} disabled={!text.trim() || sending}
           className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 transition-all active:scale-95 disabled:opacity-40"
-          style={{ background: '#0F5C57', boxShadow: '0 6px 16px rgba(15,92,87,0.3)' }}>
+          style={{ background: '#111111', boxShadow: '0 6px 16px rgba(15,92,87,0.3)' }}>
           {sending ? <Spinner size={16} color="#fff" /> : <Send size={18} color="#fff" />}
         </button>
       </div>
