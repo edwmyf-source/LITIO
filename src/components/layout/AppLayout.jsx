@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { LayoutList, MessageSquare, Bell, Calculator, Plus, LogOut, User, HelpCircle, Lock, ChevronRight, FlaskConical, Home, Users } from 'lucide-react'
 import Sidebar from './Sidebar'
 import Topbar from './Topbar'
@@ -13,6 +13,7 @@ import { publicName } from '../../lib/helpers'
 export default function AppLayout() {
   const { session, profile } = useAuth()
   const location = useLocation()
+  const [searchParams] = useSearchParams()
   const navigate = useNavigate()
   const [unreadCount, setUnreadCount] = useState(0)
   const [profileMenuOpen, setProfileMenuOpen] = useState(false)
@@ -147,39 +148,57 @@ export default function AppLayout() {
           </div>
         )}
 
-        <div className="mx-4 mb-4 h-[72px] rounded-[28px] flex items-center justify-around px-3"
+        <div className="mx-4 mb-4 h-[72px] rounded-[28px] flex items-center justify-around px-2"
           style={{ background: 'rgba(255,255,255,0.82)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', boxShadow: '0 12px 40px rgba(17,24,39,0.14)', border: '1px solid rgba(255,255,255,0.6)', pointerEvents: 'auto' }}>
 
-          {/* Inicio */}
+          {/* Feed */}
           {(() => { const active = currentTab === '/feed'; return (
             <button onClick={() => navigate('/feed')}
-              className="flex flex-col items-center gap-1 flex-1 active:scale-95 transition-transform" aria-label="Inicio">
+              className="flex flex-col items-center gap-1 flex-1 active:scale-95 transition-transform" aria-label="Feed">
               <Home size={22} style={{ color: active ? '#0047AB' : '#6B7280' }} strokeWidth={active ? 2.4 : 2} />
-              <span className="text-[12px] font-semibold" style={{ color: active ? '#0047AB' : '#6B7280' }}>Inicio</span>
+              <span className="text-[11px] font-semibold" style={{ color: active ? '#0047AB' : '#6B7280' }}>Feed</span>
+            </button>
+          )})()}
+
+          {/* Mensajes */}
+          {(() => { const active = currentTab === '/chats'; return (
+            <button onClick={() => navigate('/chats')}
+              className="flex flex-col items-center gap-1 flex-1 relative active:scale-95 transition-transform" aria-label="Mensajes">
+              <div className="relative">
+                <MessageSquare size={22} style={{ color: active ? '#0047AB' : '#6B7280' }} strokeWidth={active ? 2.4 : 2} />
+                {unreadCount > 0 && (
+                  <span className="absolute -top-1.5 -right-2 bg-red-500 text-white text-[8px] font-bold px-1 rounded-full min-w-[14px] text-center leading-4">
+                    {unreadCount > 99 ? '99+' : unreadCount}
+                  </span>
+                )}
+              </div>
+              <span className="text-[11px] font-semibold" style={{ color: active ? '#0047AB' : '#6B7280' }}>Mensajes</span>
             </button>
           )})()}
 
           {/* Publicar — círculo primario */}
-          <div className="flex-shrink-0 px-2">
+          <div className="flex-shrink-0 px-1">
             <button onClick={() => navigate('/feed?publish=1')} aria-label="Publicar"
-              className="w-[58px] h-[58px] rounded-full flex items-center justify-center active:scale-95 transition-transform"
-              style={{ background: '#0047AB', boxShadow: '0 10px 24px rgba(15,92,87,0.38)' }}>
+              className="w-[56px] h-[56px] rounded-full flex items-center justify-center active:scale-95 transition-transform"
+              style={{ background: '#0047AB', boxShadow: '0 10px 24px rgba(0,71,171,0.38)' }}>
               <Plus size={28} color="#ffffff" strokeWidth={2.5} />
             </button>
           </div>
 
+          {/* Buscar */}
+          {(() => { const active = currentTab === '/feed' && searchParams.get('buscar') === '1'; return (
+            <button onClick={() => navigate('/feed?buscar=1')}
+              className="flex flex-col items-center gap-1 flex-1 active:scale-95 transition-transform" aria-label="Buscar">
+              <Search size={22} style={{ color: active ? '#0047AB' : '#6B7280' }} strokeWidth={active ? 2.4 : 2} />
+              <span className="text-[11px] font-semibold" style={{ color: active ? '#0047AB' : '#6B7280' }}>Buscar</span>
+            </button>
+          )})()}
+
           {/* Perfil */}
           <button ref={profileBtnRef} onClick={() => setProfileMenuOpen(o => !o)}
             className="flex flex-col items-center gap-1 flex-1 relative active:scale-95 transition-transform" aria-label="Perfil">
-            <div className="relative">
-              <User size={22} style={{ color: profileMenuOpen ? '#0047AB' : '#6B7280' }} strokeWidth={profileMenuOpen ? 2.4 : 2} />
-              {unreadCount > 0 && (
-                <span className="absolute -top-1.5 -right-2 bg-red-500 text-white text-[8px] font-bold px-1 rounded-full min-w-[14px] text-center leading-4">
-                  {unreadCount > 99 ? '99+' : unreadCount}
-                </span>
-              )}
-            </div>
-            <span className="text-[12px] font-semibold" style={{ color: profileMenuOpen ? '#0047AB' : '#6B7280' }}>Perfil</span>
+            <User size={22} style={{ color: profileMenuOpen ? '#0047AB' : '#6B7280' }} strokeWidth={profileMenuOpen ? 2.4 : 2} />
+            <span className="text-[11px] font-semibold" style={{ color: profileMenuOpen ? '#0047AB' : '#6B7280' }}>Perfil</span>
           </button>
 
         </div>

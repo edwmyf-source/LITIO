@@ -1,5 +1,6 @@
-import { Search, X, ChevronDown } from 'lucide-react'
-import { useState } from 'react'
+import { Search, X, ChevronDown, Users, FileText } from 'lucide-react'
+import { useState, useRef, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   MARKETPLACE_TABS,
   TIENDA_CATS,
@@ -53,8 +54,17 @@ function Section({ title, value, open, onToggle, children }) {
   )
 }
 
-export default function FilterBar({ filters, setFilters }) {
+export default function FilterBar({ filters, setFilters, autoFocusSearch = false }) {
   const [openSecs, setOpenSecs] = useState(new Set(['categoria']))
+  const navigate = useNavigate()
+  const searchRef = useRef(null)
+
+  useEffect(() => {
+    if (autoFocusSearch && searchRef.current) {
+      searchRef.current.focus()
+      searchRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
+  }, [autoFocusSearch])
 
   const set    = (k, v) => setFilters(f => ({ ...f, [k]: v }))
   const tab    = filters.tab || 'todo'
@@ -150,10 +160,26 @@ export default function FilterBar({ filters, setFilters }) {
 
       </div>
 
+      {/* Toggle: Publicaciones / Personas */}
+      <div className="flex gap-2 mb-2">
+        <button
+          className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-full text-[12px] font-bold transition-all"
+          style={{ background: '#0047AB', color: '#fff', border: '1.5px solid #0047AB' }}>
+          <FileText size={14} /> Publicaciones
+        </button>
+        <button
+          onClick={() => navigate('/contacts')}
+          className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-full text-[12px] font-bold transition-all"
+          style={{ background: '#fff', color: '#3A5590', border: '1.5px solid #D6E2F5' }}>
+          <Users size={14} /> Personas
+        </button>
+      </div>
+
       {/* Buscador */}
       <div className="relative">
         <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2" style={{ color: '#6B87B8' }} />
         <input
+          ref={searchRef}
           value={filters.search || ''}
           onChange={e => set('search', e.target.value)}
           placeholder="Busca lo que necesitas..."

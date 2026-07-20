@@ -56,11 +56,18 @@ export default function FeedPage() {
   const navigate    = useNavigate()
   const location    = useLocation()
 
+  const [focusSearch, setFocusSearch] = useState(false)
+
   useEffect(() => {
     const params = new URLSearchParams(location.search)
     if (params.get('publish') === '1') {
       setPublishOpen(true)
       navigate('/feed', { replace: true })
+    }
+    if (params.get('buscar') === '1') {
+      setFocusSearch(true)
+      navigate('/feed', { replace: true })
+      setTimeout(() => setFocusSearch(false), 800)
     }
   }, [location.search, navigate])
 
@@ -353,7 +360,7 @@ export default function FeedPage() {
         {/* ── Columna central ── */}
         <div className="flex-1 min-w-0 space-y-3">
           <BannerCarousel />
-          <ErrorBoundary><FilterBar filters={filters} setFilters={setFilters} /></ErrorBoundary>
+          <ErrorBoundary><FilterBar filters={filters} setFilters={setFilters} autoFocusSearch={focusSearch} /></ErrorBoundary>
           <div className="flex items-center justify-between">
             <span className="text-[11px]" style={{ color: '#2C6BD4' }}>
               {loading ? '...' : `${posts.filter(p => !blockedUsers.includes(p.author_id)).length} publicaciones`}
@@ -405,7 +412,7 @@ export default function FeedPage() {
 
       {/* ── MÓVIL: columna única ── */}
       <div className="md:hidden max-w-2xl mx-auto px-4">
-        <ErrorBoundary><FilterBar filters={filters} setFilters={setFilters} /></ErrorBoundary>
+        <ErrorBoundary><FilterBar filters={filters} setFilters={setFilters} autoFocusSearch={focusSearch} /></ErrorBoundary>
         <BannerCarousel />
         <div className="flex items-center justify-between mb-4 mt-1 px-1">
           <span className="text-[14px] font-semibold" style={{ color: '#111827' }}>
