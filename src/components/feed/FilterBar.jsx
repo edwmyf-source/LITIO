@@ -8,15 +8,22 @@ import {
   TAB_COLOR,
 } from '../../lib/constants'
 
-function Pill({ label, active, onClick }) {
+// size="lg" = categoría principal (nivel 1) · size="sm" = subfiltro (nivel 2)
+function Pill({ label, active, onClick, size = 'sm' }) {
+  const lg = size === 'lg'
   return (
     <button
       onClick={onClick}
-      className="px-[15px] py-[7px] rounded-[11px] text-[10px] font-extrabold transition-all flex-shrink-0"
+      aria-pressed={active}
+      className={`transition-all flex-shrink-0 font-extrabold ${
+        lg ? 'px-[18px] py-[11px] rounded-[14px] text-[13px]' : 'px-[13px] py-[8px] rounded-[11px] text-[12px]'}`}
       style={active
         ? { background: 'linear-gradient(135deg,#0B2E68,#1A5AC8)', color: '#ffffff',
-            boxShadow: '0 5px 14px rgba(11,46,104,0.35), inset 0 1px 0 rgba(255,255,255,0.2)' }
-        : { background: '#FFFFFF', color: '#33456B', boxShadow: '0 3px 10px rgba(8,31,74,0.08)' }}
+            boxShadow: lg
+              ? '0 6px 16px rgba(11,46,104,0.35), inset 0 1px 0 rgba(255,255,255,0.2)'
+              : '0 4px 12px rgba(11,46,104,0.28), inset 0 1px 0 rgba(255,255,255,0.18)' }
+        : { background: '#FFFFFF', color: '#5578AD',
+            boxShadow: 'inset 0 0 0 1.5px #DDE7FA' }}
     >
       {label}
     </button>
@@ -29,12 +36,13 @@ function Section({ title, value, open, onToggle, children }) {
       {title && (
         <button
           onClick={onToggle}
-          className="w-full flex items-center justify-center relative px-3 py-2.5"
+          className="w-full flex items-center justify-between px-4 pt-3.5 pb-1"
         >
-          <span className="text-[11px] font-extrabold" style={{ color: '#0047AB' }}>{title}</span>
-          <span className="flex items-center gap-1.5 absolute right-3">
-            {value && <span className="text-[10px] font-bold" style={{ color: '#2C6BD4' }}>{value}</span>}
-            <ChevronDown size={13}
+          <span className="text-[10px] font-extrabold uppercase"
+            style={{ color: '#8FA3C7', letterSpacing: '0.12em' }}>{title}</span>
+          <span className="flex items-center gap-1.5">
+            {value && <span className="text-[11px] font-bold" style={{ color: '#1A5AC8' }}>{value}</span>}
+            <ChevronDown size={14}
               style={{ color: '#8FA3C7', transition: 'transform 0.3s ease', transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }} />
           </span>
         </button>
@@ -45,7 +53,7 @@ function Section({ title, value, open, onToggle, children }) {
         transition: 'grid-template-rows 0.3s cubic-bezier(0.4,0,0.2,1)',
       }}>
         <div style={{ overflow: 'hidden' }}>
-          <div className="px-3 pb-3 pt-3 flex flex-wrap justify-center gap-2">
+          <div className="px-4 pb-3.5 pt-2.5 flex flex-wrap gap-2">
             {children}
           </div>
         </div>
@@ -96,13 +104,13 @@ export default function FilterBar({ filters, setFilters, autoFocusSearch = false
 
       {/* Buscador — flotando sobre el borde del navy */}
       <div className="relative z-[5] px-2" style={{ marginTop: -24 }}>
-        <Search size={13} className="absolute left-[26px] top-1/2 -translate-y-1/2" style={{ color: '#8FA3C7' }} />
+        <Search size={16} className="absolute left-[28px] top-1/2 -translate-y-1/2" style={{ color: '#8FA3C7' }} />
         <input
           ref={searchRef}
           value={filters.search || ''}
           onChange={e => set('search', e.target.value)}
           placeholder="Buscar en Cobalto..."
-          className="w-full pl-[38px] pr-9 py-3 rounded-[16px] text-[11px] font-semibold focus:outline-none transition-shadow"
+          className="w-full pl-[42px] pr-10 py-[13px] rounded-[16px] text-[13px] font-semibold focus:outline-none transition-shadow"
           style={{ background: '#ffffff', border: 'none', color: '#0A2A5C',
             boxShadow: '0 12px 32px rgba(8,31,74,0.26), inset 0 1px 0 rgba(255,255,255,0.9)' }}
           onFocus={e => e.currentTarget.style.boxShadow = '0 12px 32px rgba(8,31,74,0.26), inset 0 1px 0 rgba(255,255,255,0.9), 0 0 0 3px rgba(26,90,200,0.18)'}
@@ -110,7 +118,7 @@ export default function FilterBar({ filters, setFilters, autoFocusSearch = false
         />
         {filters.search && (
           <button onClick={() => set('search', '')} className="absolute right-5 top-1/2 -translate-y-1/2">
-            <X size={13} style={{ color: '#0047AB' }} />
+            <X size={15} style={{ color: '#0047AB' }} />
           </button>
         )}
       </div>
@@ -118,20 +126,16 @@ export default function FilterBar({ filters, setFilters, autoFocusSearch = false
       {/* Accordion D2 (Filtros) */}
       <div className="rounded-[18px] overflow-hidden mb-2.5 mt-[13px] mx-2" style={{ background: '#ffffff', boxShadow: '0 6px 20px rgba(0,71,171,0.08)' }}>
 
-        {/* Header con gradiente */}
-        <div className="flex items-center justify-center relative px-3 py-3.5" style={{ background: 'linear-gradient(135deg,#0047AB,#2C6BD4)' }}>
-          <span className="text-[11px] font-extrabold flex items-center gap-1.5" style={{ color: 'rgba(255,255,255,0.92)', letterSpacing: '0.1em' }}>
-            ¿Qué quieres ver hoy?
-          </span>
-          {hasFilters && (
+        {hasFilters && (
+          <div className="flex justify-end px-3 pt-3 pb-0.5">
             <button
               onClick={() => { setFilters({}); setOpenSec('categoria') }}
-              className="absolute right-3 text-[10px] font-bold hover:opacity-80"
-              style={{ color: '#fff' }}>
-              Limpiar
+              className="text-[12px] font-bold hover:opacity-80"
+              style={{ color: '#0047AB' }}>
+              Limpiar filtros
             </button>
-          )}
-        </div>
+          </div>
+        )}
 
         {/* Sección: Categoría (sin título propio, usa el del header) */}
         <Section
@@ -140,7 +144,7 @@ export default function FilterBar({ filters, setFilters, autoFocusSearch = false
           onToggle={() => {}}
         >
           {MARKETPLACE_TABS.map(t => (
-            <Pill key={t.value} label={t.label}
+            <Pill key={t.value} label={t.label} size="lg"
               active={tab === t.value}
               onClick={() => { setTab(t.value); if (t.value !== 'todo') setOpenSecs(prev => { const n = new Set(prev); n.add('subcategoria'); return n }) }} />
           ))}

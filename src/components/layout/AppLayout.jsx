@@ -92,14 +92,11 @@ export default function AppLayout() {
       </div>
 
       {/* ── Topbar móvil fija ── */}
-      <div className="md:hidden fixed top-0 left-0 right-0 z-40 flex items-center gap-[9px] px-[18px] h-14"
+      <div className="md:hidden fixed top-0 left-0 right-0 z-40 flex items-center px-[18px] h-14"
         style={{ background: 'radial-gradient(circle at 30% -40%, #1A5AC8 0%, #0B2E68 50%, #081F4A 100%)' }}>
-        <div className="w-8 h-8 rounded-[12px] flex items-center justify-center flex-shrink-0"
-          style={{ background: 'rgba(255,255,255,0.12)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)',
-            border: '1px solid rgba(255,255,255,0.22)' }}>
-          <span className="text-white font-extrabold leading-none" style={{ fontSize: 11 }}>Co</span>
-        </div>
-        <span className="font-extrabold text-[15px]" style={{ color: '#ffffff', letterSpacing: '-0.02em' }}>Cobalto</span>
+        <span className="font-extrabold text-[21px]" style={{ color: '#ffffff', letterSpacing: '-0.03em' }}>
+          Cobalto<span style={{ color: '#7FB2FF' }}>.</span>
+        </span>
       </div>
 
       {/* ── Sidebar — solo móvil ── */}
