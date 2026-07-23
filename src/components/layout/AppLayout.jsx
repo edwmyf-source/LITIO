@@ -93,12 +93,13 @@ export default function AppLayout() {
       </div>
 
       {/* ── Topbar móvil fija ── */}
-      <div className="md:hidden fixed top-0 left-0 right-0 z-40 flex items-center gap-2 px-4 h-12"
-        style={{ background: '#ffffff', borderBottom: '1px solid #F5F8FD' }}>
-        <div className="w-7 h-7 rounded-md flex items-center justify-center flex-shrink-0" style={{ background: '#0047AB' }}>
-          <span className="text-white font-bold leading-none" style={{ fontSize: 12 }}>Co</span>
+      <div className="md:hidden fixed top-0 left-0 right-0 z-40 flex items-center gap-2.5 px-4 h-14"
+        style={{ background: 'rgba(250,251,255,0.88)', backdropFilter: 'blur(18px)', WebkitBackdropFilter: 'blur(18px)' }}>
+        <div className="w-8 h-8 rounded-[12px] flex items-center justify-center flex-shrink-0"
+          style={{ background: 'linear-gradient(135deg,#0047AB,#2C6BD4)', boxShadow: '0 4px 12px rgba(0,71,171,0.3)' }}>
+          <span className="text-white font-extrabold leading-none" style={{ fontSize: 12 }}>Co</span>
         </div>
-        <span className="font-extrabold text-[15px]" style={{ color: '#0047AB' }}>Cobalto</span>
+        <span className="font-extrabold text-[16px]" style={{ color: '#0A2A5C', letterSpacing: '-0.02em' }}>Cobalto</span>
       </div>
 
       {/* ── Sidebar — solo móvil ── */}
@@ -111,18 +112,18 @@ export default function AppLayout() {
 
         {profileMenuOpen && (
           <div ref={menuRef} className="absolute bottom-full right-4 mb-3 rounded-3xl overflow-hidden"
-            style={{ background: 'rgba(255,255,255,0.96)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', border: '1px solid rgba(255,255,255,0.6)', boxShadow: '0 16px 48px rgba(17,24,39,0.18)', minWidth: 230, pointerEvents: 'auto' }}>
-            <div className="px-5 py-4 border-b" style={{ borderColor: '#E5E7EB' }}>
-              <p className="text-[15px] font-bold" style={{ color: '#111827', letterSpacing: '-0.01em' }}>{name}</p>
-              <p className="text-[13px]" style={{ color: '#6B7280' }}>{session?.user?.email}</p>
+            style={{ background: 'rgba(255,255,255,0.96)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', boxShadow: '0 16px 48px rgba(0,71,171,0.2)', minWidth: 230, pointerEvents: 'auto' }}>
+            <div className="px-5 py-4" style={{ background: 'linear-gradient(135deg,#EBF1FC,#F4F7FD)' }}>
+              <p className="text-[15px] font-extrabold" style={{ color: '#0A2A5C', letterSpacing: '-0.01em' }}>{name}</p>
+              <p className="text-[13px] font-medium" style={{ color: '#5578AD' }}>{session?.user?.email}</p>
             </div>
             {profileMenuItems.map(item => {
               const Icon = item.icon
               return (
                 <button key={item.path} onClick={() => { navigate(item.path); setProfileMenuOpen(false) }}
-                  className="w-full flex items-center gap-3.5 px-5 py-3.5 text-[15px] font-medium transition-colors hover:bg-gray-50"
-                  style={{ color: '#111827' }}>
-                  <span className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: '#FBE5E5' }}>
+                  className="w-full flex items-center gap-3.5 px-5 py-3.5 text-[15px] font-bold transition-colors hover:bg-blue-50"
+                  style={{ color: '#0A2A5C' }}>
+                  <span className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: '#EBF1FC' }}>
                     <Icon size={18} style={{ color: '#0047AB' }} />
                   </span>
                   {item.label}
@@ -148,15 +149,15 @@ export default function AppLayout() {
           </div>
         )}
 
-        <div className="mx-4 mb-4 h-[72px] rounded-[28px] flex items-center justify-around px-2"
-          style={{ background: 'rgba(255,255,255,0.82)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', boxShadow: '0 12px 40px rgba(17,24,39,0.14)', border: '1px solid rgba(255,255,255,0.6)', pointerEvents: 'auto' }}>
+        <div className="mx-4 mb-4 h-[68px] rounded-[24px] flex items-center justify-around px-2"
+          style={{ background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', boxShadow: '0 10px 32px rgba(0,71,171,0.15)', pointerEvents: 'auto' }}>
 
           {/* Feed */}
           {(() => { const active = currentTab === '/feed'; return (
             <button onClick={() => navigate('/feed')}
               className="flex flex-col items-center gap-1 flex-1 active:scale-95 transition-transform" aria-label="Feed">
-              <Home size={22} style={{ color: active ? '#0047AB' : '#6B7280' }} strokeWidth={active ? 2.4 : 2} />
-              <span className="text-[11px] font-semibold" style={{ color: active ? '#0047AB' : '#6B7280' }}>Feed</span>
+              <Home size={22} style={{ color: active ? '#0047AB' : '#8FA3C7' }} strokeWidth={active ? 2.4 : 2} />
+              <span className="text-[11px] font-semibold" style={{ color: active ? '#0047AB' : '#8FA3C7' }}>Feed</span>
             </button>
           )})()}
 
@@ -165,23 +166,23 @@ export default function AppLayout() {
             <button onClick={() => navigate('/chats')}
               className="flex flex-col items-center gap-1 flex-1 relative active:scale-95 transition-transform" aria-label="Mensajes">
               <div className="relative">
-                <MessageSquare size={22} style={{ color: active ? '#0047AB' : '#6B7280' }} strokeWidth={active ? 2.4 : 2} />
+                <MessageSquare size={22} style={{ color: active ? '#0047AB' : '#8FA3C7' }} strokeWidth={active ? 2.4 : 2} />
                 {unreadCount > 0 && (
                   <span className="absolute -top-1.5 -right-2 bg-red-500 text-white text-[8px] font-bold px-1 rounded-full min-w-[14px] text-center leading-4">
                     {unreadCount > 99 ? '99+' : unreadCount}
                   </span>
                 )}
               </div>
-              <span className="text-[11px] font-semibold" style={{ color: active ? '#0047AB' : '#6B7280' }}>Mensajes</span>
+              <span className="text-[11px] font-semibold" style={{ color: active ? '#0047AB' : '#8FA3C7' }}>Mensajes</span>
             </button>
           )})()}
 
           {/* Publicar — círculo primario */}
-          <div className="flex-shrink-0 px-1">
+          <div className="flex-shrink-0 px-1" style={{ marginTop: -22 }}>
             <button onClick={() => navigate('/feed?publish=1')} aria-label="Publicar"
-              className="w-[56px] h-[56px] rounded-full flex items-center justify-center active:scale-95 transition-transform"
-              style={{ background: '#0047AB', boxShadow: '0 10px 24px rgba(0,71,171,0.38)' }}>
-              <Plus size={28} color="#ffffff" strokeWidth={2.5} />
+              className="w-[54px] h-[54px] rounded-full flex items-center justify-center active:scale-95 transition-transform"
+              style={{ background: 'linear-gradient(135deg,#0047AB,#2C6BD4)', boxShadow: '0 8px 20px rgba(0,71,171,0.4)' }}>
+              <Plus size={26} color="#ffffff" strokeWidth={2.5} />
             </button>
           </div>
 
@@ -189,23 +190,23 @@ export default function AppLayout() {
           {(() => { const active = currentTab === '/feed' && searchParams.get('buscar') === '1'; return (
             <button onClick={() => navigate('/feed?buscar=1')}
               className="flex flex-col items-center gap-1 flex-1 active:scale-95 transition-transform" aria-label="Buscar">
-              <Search size={22} style={{ color: active ? '#0047AB' : '#6B7280' }} strokeWidth={active ? 2.4 : 2} />
-              <span className="text-[11px] font-semibold" style={{ color: active ? '#0047AB' : '#6B7280' }}>Buscar</span>
+              <Search size={22} style={{ color: active ? '#0047AB' : '#8FA3C7' }} strokeWidth={active ? 2.4 : 2} />
+              <span className="text-[11px] font-semibold" style={{ color: active ? '#0047AB' : '#8FA3C7' }}>Buscar</span>
             </button>
           )})()}
 
           {/* Perfil */}
           <button ref={profileBtnRef} onClick={() => setProfileMenuOpen(o => !o)}
             className="flex flex-col items-center gap-1 flex-1 relative active:scale-95 transition-transform" aria-label="Perfil">
-            <User size={22} style={{ color: profileMenuOpen ? '#0047AB' : '#6B7280' }} strokeWidth={profileMenuOpen ? 2.4 : 2} />
-            <span className="text-[11px] font-semibold" style={{ color: profileMenuOpen ? '#0047AB' : '#6B7280' }}>Perfil</span>
+            <User size={22} style={{ color: profileMenuOpen ? '#0047AB' : '#8FA3C7' }} strokeWidth={profileMenuOpen ? 2.4 : 2} />
+            <span className="text-[11px] font-semibold" style={{ color: profileMenuOpen ? '#0047AB' : '#8FA3C7' }}>Perfil</span>
           </button>
 
         </div>
       </div>
 
       {/* ── Contenido principal ── */}
-      <main className="pt-12 md:pt-0 pb-24 md:pb-8" style={{ overflowX: 'clip' }}>
+      <main className="pt-14 md:pt-0 pb-24 md:pb-8" style={{ overflowX: 'clip' }}>
         <Outlet />
       </main>
     </div>

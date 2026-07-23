@@ -184,27 +184,27 @@ export default memo(function PostCard({ post, onContact, contactingId, blockedUs
   const goToProfile = () => navigate(`/u/${post.author_id}`)
 
   return (
-    <div className="rounded-3xl overflow-hidden bg-white" style={{ boxShadow: '0 4px 24px rgba(17,24,39,0.05)' }} id={`post-${post.id}`}>
+    <div className="rounded-[22px] overflow-hidden bg-white" style={{ boxShadow: '0 8px 28px rgba(0,71,171,0.09)' }} id={`post-${post.id}`}>
 
       <div className="px-5 pt-5 pb-4">
 
       {/* Header */}
       <div className="flex items-center gap-3 mb-4">
         <button onClick={goToProfile} aria-label={`Ver perfil de ${name}`} className="flex-shrink-0">
-          <UserAvatar seed={prof.id || name} avatarUrl={prof.avatar_url} size={44} />
+          <UserAvatar seed={prof.id || name} avatarUrl={prof.avatar_url} size={44} className="!rounded-[16px]" />
         </button>
         <div className="flex-1 min-w-0">
           <button onClick={goToProfile}
-            className="text-[16px] font-bold leading-tight text-left hover:underline block truncate" style={{ color: '#111827', letterSpacing: '-0.01em' }}>
+            className="text-[15px] font-extrabold leading-tight text-left hover:underline block truncate" style={{ color: '#0A2A5C', letterSpacing: '-0.01em' }}>
             {name}
           </button>
-          <p className="text-[13px] leading-tight mt-0.5 truncate" style={{ color: '#6B7280' }}>
+          <p className="text-[12px] font-medium leading-tight mt-0.5 truncate" style={{ color: '#8FA3C7' }}>
             {prof.city && <>{prof.city} · </>}
             {timeAgo(post.created_at)}
           </p>
         </div>
         {catLabel && (
-          <span className="flex-shrink-0 px-3 py-1 rounded-full text-[12px] font-bold" style={{ background: '#FBE5E5', color: '#0047AB' }}>
+          <span className="flex-shrink-0 px-3 py-1.5 rounded-[10px] text-[11px] font-extrabold" style={{ background: '#EBF1FC', color: '#0047AB' }}>
             {catLabel}
           </span>
         )}
@@ -212,33 +212,35 @@ export default memo(function PostCard({ post, onContact, contactingId, blockedUs
       </div>
 
       {/* Texto muro */}
-      <p className="text-[16px] leading-relaxed mb-4 whitespace-pre-wrap break-words line-clamp-5" style={{ color: '#374151' }}>
+      <p className="text-[15px] leading-relaxed mb-4 whitespace-pre-wrap break-words line-clamp-5 font-medium" style={{ color: '#33456B' }}>
         {wallText}
       </p>
 
       <MediaGallery media={media} />
 
-      {/* Footer premium */}
-      <div className="pt-4 flex items-center gap-2.5" style={{ borderTop: '1px solid #F3F4F6' }}>
+      {/* Footer — sin línea, separado por aire */}
+      <div className="pt-2 flex items-center gap-2">
         <button onClick={handleLike}
-          className="flex items-center gap-1.5 px-4 py-2.5 rounded-2xl text-[14px] font-semibold transition-all active:scale-95"
-          style={{ background: liked ? '#0047AB' : '#F8FAFC', color: liked ? '#fff' : '#6B7280' }}>
-          <ThumbsUp size={18} fill={liked ? '#fff' : 'none'} />
-          <span className="font-bold">{likeCount || 0}</span>
+          className="flex items-center gap-1.5 px-3.5 py-2 rounded-[12px] text-[13px] transition-all active:scale-95"
+          style={liked
+            ? { background: 'linear-gradient(135deg,#0047AB,#2C6BD4)', color: '#fff', boxShadow: '0 4px 12px rgba(0,71,171,0.25)' }
+            : { background: '#EBF1FC', color: '#0047AB' }}>
+          <ThumbsUp size={16} fill={liked ? '#fff' : 'none'} />
+          <span className="font-extrabold">{likeCount || 0}</span>
         </button>
         <button onClick={() => setShowComments(!showComments)}
-          className="flex items-center gap-1.5 px-4 py-2.5 rounded-2xl text-[14px] font-semibold transition-all active:scale-95"
-          style={{ background: '#F8FAFC', color: '#6B7280' }}>
-          <MessageCircle size={18} />
-          <span className="font-bold">{post.comment_count || 0}</span>
+          className="flex items-center gap-1.5 px-3.5 py-2 rounded-[12px] text-[13px] transition-all active:scale-95"
+          style={{ background: '#F4F7FD', color: '#5578AD' }}>
+          <MessageCircle size={16} />
+          <span className="font-extrabold">{post.comment_count || 0}</span>
         </button>
         {!isMine && (
           <button onClick={() => onContact?.(post)} disabled={isContacting} aria-label="Contactar"
-            className="flex items-center gap-1 px-4 py-2.5 rounded-2xl transition-all active:scale-95 disabled:opacity-60"
-            style={{ background: '#F8FAFC', color: '#0047AB' }}>
+            className="ml-auto flex items-center gap-1.5 px-4 py-2 rounded-[12px] text-[13px] font-extrabold transition-all active:scale-95 disabled:opacity-60"
+            style={{ background: 'linear-gradient(135deg,#0047AB,#2C6BD4)', color: '#fff', boxShadow: '0 4px 12px rgba(0,71,171,0.25)' }}>
             {isContacting
-              ? <Loader2 size={18} className="animate-spin" />
-              : <MessageSquareText size={18} />}
+              ? <Loader2 size={16} className="animate-spin" />
+              : <>Contactar</>}
           </button>
         )}
       </div>

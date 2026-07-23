@@ -54,18 +54,18 @@ export default function ContactsPage() {
         <ArrowLeft size={16} /> Volver
       </button>
 
-      <h2 className="font-extrabold text-[28px] text-[#111827] mb-1" style={{ letterSpacing: '-0.03em' }}>Contactos</h2>
+      <h2 className="font-extrabold text-[28px] text-[#0A2A5C] mb-1" style={{ letterSpacing: '-0.03em' }}>Contactos</h2>
       <p className="text-[15px] text-gray-500 mb-5">Busca a cualquier persona registrada y escríbele directamente.</p>
 
       <div className="flex items-center gap-2.5 px-4 h-14 rounded-[18px] mb-5"
-        style={{ background: '#F8FAFC', border: '1px solid #E5E7EB' }}>
+        style={{ background: '#ffffff', boxShadow: '0 6px 20px rgba(0,71,171,0.08)' }}>
         <Search size={18} color="#9CA3AF" />
         <input
           value={query}
           onChange={e => handleQueryChange(e.target.value)}
           placeholder="Buscar por nombre, empresa o ciudad..."
           className="flex-1 bg-transparent text-[16px] focus:outline-none"
-          style={{ color: '#111827' }}
+          style={{ color: '#0A2A5C' }}
         />
       </div>
 
@@ -79,17 +79,17 @@ export default function ContactsPage() {
             const isContacting = contactingId === user.id
             return (
               <div key={user.id} className="flex items-center gap-3 bg-white rounded-2xl p-3.5"
-                style={{ boxShadow: '0 2px 10px rgba(17,24,39,0.05)' }}>
+                style={{ boxShadow: '0 6px 20px rgba(0,71,171,0.08)' }}>
                 <UserAvatar seed={user.id} avatarUrl={user.avatar_url} size={44} />
                 <div className="min-w-0 flex-1 cursor-pointer" onClick={() => navigate(`/u/${user.id}`)}>
-                  <p className="text-[15px] font-bold text-[#111827] truncate">{publicName(user)}</p>
+                  <p className="text-[15px] font-extrabold text-[#0A2A5C] truncate">{publicName(user)}</p>
                   <p className="text-[13px] text-gray-500 truncate">
                     {[user.company_name, user.city].filter(Boolean).join(' · ') || 'Sin más información'}
                   </p>
                 </div>
                 <button onClick={() => handleStartChat(user)} disabled={isContacting} aria-label="Enviar mensaje"
                   className="w-11 h-11 rounded-2xl flex items-center justify-center flex-shrink-0 transition-all active:scale-95 disabled:opacity-60"
-                  style={{ background: '#F0F4FB', color: '#0047AB' }}>
+                  style={{ background: 'linear-gradient(135deg,#0047AB,#2C6BD4)', color: '#fff', boxShadow: '0 4px 12px rgba(0,71,171,0.25)' }}>
                   {isContacting ? <Loader2 size={18} className="animate-spin" /> : <MessageSquareText size={18} />}
                 </button>
               </div>

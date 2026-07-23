@@ -13,10 +13,10 @@ function Pill({ label, active, onClick }) {
   return (
     <button
       onClick={onClick}
-      className="px-4 py-2 rounded-full text-[12px] font-semibold border transition-all flex-shrink-0"
+      className="px-4 py-2 rounded-[12px] text-[12px] font-bold transition-all flex-shrink-0"
       style={active
-        ? { background: '#0047AB', color: '#ffffff', border: '1.5px solid #0047AB' }
-        : { background: '#FFFFFF', color: '#3A5590', border: '1.5px solid #D6E2F5' }}
+        ? { background: 'linear-gradient(135deg,#0047AB,#2C6BD4)', color: '#ffffff', boxShadow: '0 4px 12px rgba(0,71,171,0.25)' }
+        : { background: '#FFFFFF', color: '#5578AD', boxShadow: '0 3px 10px rgba(0,71,171,0.06)' }}
     >
       {label}
     </button>
@@ -25,17 +25,17 @@ function Pill({ label, active, onClick }) {
 
 function Section({ title, value, open, onToggle, children }) {
   return (
-    <div style={{ borderBottom: '1px solid #D6E2F5' }}>
+    <div>
       {title && (
         <button
           onClick={onToggle}
           className="w-full flex items-center justify-center relative px-3 py-2.5"
         >
-          <span className="text-[11px] font-semibold" style={{ color: '#0047AB' }}>{title}</span>
+          <span className="text-[11px] font-extrabold" style={{ color: '#0047AB' }}>{title}</span>
           <span className="flex items-center gap-1.5 absolute right-3">
             {value && <span className="text-[10px] font-bold" style={{ color: '#2C6BD4' }}>{value}</span>}
             <ChevronDown size={13}
-              style={{ color: '#3A5590', transition: 'transform 0.3s ease', transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }} />
+              style={{ color: '#8FA3C7', transition: 'transform 0.3s ease', transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }} />
           </span>
         </button>
       )}
@@ -92,18 +92,18 @@ export default function FilterBar({ filters, setFilters, autoFocusSearch = false
     <div className="mb-2 px-2">
 
       {/* Accordion D2 (Filtros) */}
-      <div className="rounded-xl overflow-hidden mb-2" style={{ background: '#ffffff', border: '1.5px solid #D6E2F5' }}>
+      <div className="rounded-[18px] overflow-hidden mb-2.5" style={{ background: '#ffffff', boxShadow: '0 6px 20px rgba(0,71,171,0.08)' }}>
 
-        {/* Header navy */}
-        <div className="flex items-center justify-center relative px-3 py-3.5" style={{ background: '#0047AB' }}>
-          <span className="text-[11px] font-bold flex items-center gap-1.5" style={{ color: '#6B87B8', letterSpacing: '0.1em' }}>
+        {/* Header con gradiente */}
+        <div className="flex items-center justify-center relative px-3 py-3.5" style={{ background: 'linear-gradient(135deg,#0047AB,#2C6BD4)' }}>
+          <span className="text-[11px] font-extrabold flex items-center gap-1.5" style={{ color: 'rgba(255,255,255,0.92)', letterSpacing: '0.1em' }}>
             ¿Qué quieres ver hoy?
           </span>
           {hasFilters && (
             <button
               onClick={() => { setFilters({}); setOpenSec('categoria') }}
               className="absolute right-3 text-[10px] font-bold hover:opacity-80"
-              style={{ color: '#2C6BD4' }}>
+              style={{ color: '#fff' }}>
               Limpiar
             </button>
           )}
@@ -161,32 +161,32 @@ export default function FilterBar({ filters, setFilters, autoFocusSearch = false
       </div>
 
       {/* Toggle: Publicaciones / Personas */}
-      <div className="flex gap-2 mb-2">
+      <div className="flex gap-2 mb-2.5">
         <button
-          className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-full text-[12px] font-bold transition-all"
-          style={{ background: '#0047AB', color: '#fff', border: '1.5px solid #0047AB' }}>
+          className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-[12px] text-[12px] font-extrabold transition-all"
+          style={{ background: 'linear-gradient(135deg,#0047AB,#2C6BD4)', color: '#fff', boxShadow: '0 4px 12px rgba(0,71,171,0.25)' }}>
           <FileText size={14} /> Publicaciones
         </button>
         <button
           onClick={() => navigate('/contacts')}
-          className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-full text-[12px] font-bold transition-all"
-          style={{ background: '#fff', color: '#3A5590', border: '1.5px solid #D6E2F5' }}>
+          className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-[12px] text-[12px] font-bold transition-all"
+          style={{ background: '#fff', color: '#5578AD', boxShadow: '0 3px 10px rgba(0,71,171,0.06)' }}>
           <Users size={14} /> Personas
         </button>
       </div>
 
       {/* Buscador */}
       <div className="relative">
-        <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2" style={{ color: '#6B87B8' }} />
+        <Search size={15} className="absolute left-4 top-1/2 -translate-y-1/2" style={{ color: '#8FA3C7' }} />
         <input
           ref={searchRef}
           value={filters.search || ''}
           onChange={e => set('search', e.target.value)}
-          placeholder="Busca lo que necesitas..."
-          className="w-full pl-10 pr-9 py-2 rounded-full text-[13px] focus:outline-none transition-colors"
-          style={{ background: '#ffffff', border: '1.5px solid #D6E2F5', color: '#0047AB' }}
-          onFocus={e => e.currentTarget.style.borderColor = '#0047AB'}
-          onBlur={e => e.currentTarget.style.borderColor = '#D6E2F5'}
+          placeholder="Busca productos, servicios, personas..."
+          className="w-full pl-11 pr-9 py-3 rounded-[16px] text-[13px] font-medium focus:outline-none transition-shadow"
+          style={{ background: '#ffffff', border: 'none', color: '#0A2A5C', boxShadow: '0 6px 20px rgba(0,71,171,0.08)' }}
+          onFocus={e => e.currentTarget.style.boxShadow = '0 6px 20px rgba(0,71,171,0.08), 0 0 0 3px rgba(0,71,171,0.15)'}
+          onBlur={e => e.currentTarget.style.boxShadow = '0 6px 20px rgba(0,71,171,0.08)'}
         />
         {filters.search && (
           <button onClick={() => set('search', '')} className="absolute right-3 top-1/2 -translate-y-1/2">

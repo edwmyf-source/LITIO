@@ -188,13 +188,13 @@ export default function UserProfilePage() {
       </button>
 
       {/* Tarjeta de perfil premium */}
-      <div className="rounded-3xl overflow-hidden mb-5" style={{ boxShadow: '0 4px 24px rgba(17,24,39,0.06)' }}>
+      <div className="rounded-3xl overflow-hidden mb-5" style={{ boxShadow: '0 12px 36px rgba(0,71,171,0.14)' }}>
 
         {/* ── Portada degradada ── */}
         <div className="relative" style={{ height: 150 }}>
           {coverUrl
             ? <img src={coverUrl} alt="" className="w-full h-full object-cover" />
-            : <div className="w-full h-full" style={{ background: 'linear-gradient(160deg, #0047AB, #000000)' }} />
+            : <div className="w-full h-full" style={{ background: 'linear-gradient(135deg, #0047AB 0%, #2C6BD4 70%, #4C82F0 100%)' }} />
           }
           {uploadingCover && (
             <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
@@ -237,7 +237,7 @@ export default function UserProfilePage() {
                   onClick={() => avatarInputRef.current?.click()}
                   disabled={uploadingAvatar}
                   className="absolute bottom-1 right-1 w-8 h-8 rounded-full border-2 border-white flex items-center justify-center transition-colors disabled:opacity-50"
-                  style={{ background: '#0047AB' }}
+                  style={{ background: 'linear-gradient(135deg,#0047AB,#2C6BD4)' }}
                   aria-label="Cambiar foto de perfil">
                   <Camera size={14} className="text-white" />
                 </button>
@@ -258,7 +258,7 @@ export default function UserProfilePage() {
                 className="flex items-center gap-1.5 text-[14px] font-semibold px-6 h-11 rounded-2xl transition-all disabled:opacity-60 active:scale-95"
                 style={isFollowing
                   ? { border: '1px solid #0047AB', color: '#0047AB', background: '#fff' }
-                  : { background: '#0047AB', color: '#fff', boxShadow: '0 8px 20px rgba(15,92,87,0.28)' }}>
+                  : { background: 'linear-gradient(135deg,#0047AB,#2C6BD4)', color: '#fff', boxShadow: '0 8px 20px rgba(0,71,171,0.3)' }}>
                 {loadingFollow
                   ? <Spinner size={15} />
                   : isFollowing
@@ -269,7 +269,7 @@ export default function UserProfilePage() {
             )}
           </div>
 
-          <p className="text-[22px] font-extrabold text-[#111827] leading-tight" style={{ letterSpacing: '-0.02em' }}>{displayName}</p>
+          <p className="text-[22px] font-extrabold text-[#0A2A5C] leading-tight" style={{ letterSpacing: '-0.02em' }}>{displayName}</p>
           {profile.company_name && <p className="text-[15px] text-gray-500 mt-0.5">{profile.company_name}</p>}
           {profile.city && (
             <p className="flex items-center gap-1 text-[14px] text-gray-400 mt-1.5">
@@ -279,16 +279,16 @@ export default function UserProfilePage() {
 
           {/* Stat cards */}
           <div className="grid grid-cols-3 gap-3 mt-5">
-            <div className="rounded-2xl py-4 text-center" style={{ background: '#F8FAFC' }}>
-              <div className="text-[22px] font-extrabold text-[#111827]" style={{ letterSpacing: '-0.02em' }}>{posts.length}</div>
+            <div className="rounded-2xl py-4 text-center" style={{ background: '#F4F7FD' }}>
+              <div className="text-[22px] font-extrabold text-[#0A2A5C]" style={{ letterSpacing: '-0.02em' }}>{posts.length}</div>
               <div className="text-[12px] text-gray-500 mt-0.5 font-medium">Publicaciones</div>
             </div>
-            <div className="rounded-2xl py-4 text-center" style={{ background: '#F8FAFC' }}>
-              <div className="text-[22px] font-extrabold text-[#111827]" style={{ letterSpacing: '-0.02em' }}>{counts.followers}</div>
+            <div className="rounded-2xl py-4 text-center" style={{ background: '#F4F7FD' }}>
+              <div className="text-[22px] font-extrabold text-[#0A2A5C]" style={{ letterSpacing: '-0.02em' }}>{counts.followers}</div>
               <div className="text-[12px] text-gray-500 mt-0.5 font-medium">Seguidores</div>
             </div>
-            <div className="rounded-2xl py-4 text-center" style={{ background: '#F8FAFC' }}>
-              <div className="text-[22px] font-extrabold text-[#111827]" style={{ letterSpacing: '-0.02em' }}>{counts.following}</div>
+            <div className="rounded-2xl py-4 text-center" style={{ background: '#F4F7FD' }}>
+              <div className="text-[22px] font-extrabold text-[#0A2A5C]" style={{ letterSpacing: '-0.02em' }}>{counts.following}</div>
               <div className="text-[12px] text-gray-500 mt-0.5 font-medium">Siguiendo</div>
             </div>
           </div>

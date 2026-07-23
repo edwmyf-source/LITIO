@@ -184,7 +184,7 @@ function ChatThread({ conversation, userId, myProfile }) {
 
       {/* Header */}
       <div className="flex items-center gap-3 px-4 py-3 flex-shrink-0"
-        style={{ background: '#ffffff', borderBottom: '1px solid #D6E2F5' }}>
+        style={{ background: '#ffffff', boxShadow: '0 4px 14px rgba(0,71,171,0.06)' }}>
         <div className="w-9 h-9 rounded-full flex items-center justify-center text-[12px] font-bold text-white flex-shrink-0"
           style={{ background: '#0047AB' }}>
           {otherName.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase()}
@@ -199,8 +199,8 @@ function ChatThread({ conversation, userId, myProfile }) {
       {conversation.posts && (
         <button onClick={() => navigate('/feed', { state: { scrollToPostId: conversation.posts.id } })}
           className="mx-4 mt-2 mb-1 flex-shrink-0 flex items-start gap-2.5 px-3.5 py-3 rounded-2xl text-left transition-all active:scale-[0.98] w-[calc(100%-2rem)]"
-          style={{ background: '#F8FAFC', border: '1px solid #E5E7EB' }}>
-          <span className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: '#0047AB' }}>
+          style={{ background: 'linear-gradient(135deg,#EBF1FC,#F4F7FD)' }}>
+          <span className="w-9 h-9 rounded-[12px] flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: 'linear-gradient(135deg,#0047AB,#2C6BD4)', boxShadow: '0 3px 8px rgba(0,71,171,0.25)' }}>
             <MessageSquareText size={16} color="#fff" />
           </span>
           <div className="min-w-0 flex-1">
@@ -208,9 +208,9 @@ function ChatThread({ conversation, userId, myProfile }) {
               <span className="text-[11px] font-bold uppercase tracking-wide" style={{ color: '#0047AB' }}>
                 {CATEGORY_MAP[conversation.posts.category]?.label || conversation.posts.category}
               </span>
-              <span className="text-[11px]" style={{ color: '#9CA3AF' }}>· Ver publicación</span>
+              <span className="text-[11px] font-semibold" style={{ color: '#8FA3C7' }}>· Ver publicación</span>
             </div>
-            <p className="text-[13px] font-semibold leading-snug line-clamp-2" style={{ color: '#111827' }}>
+            <p className="text-[13px] font-bold leading-snug line-clamp-2" style={{ color: '#33456B' }}>
               {[conversation.posts.title, conversation.posts.content].filter(Boolean).join(' — ').slice(0, 90)}
             </p>
           </div>
@@ -218,7 +218,7 @@ function ChatThread({ conversation, userId, myProfile }) {
       )}
 
       {/* Mensajes */}
-      <div className="flex-1 overflow-y-auto px-4 py-4" style={{ background: '#FFFFFF' }}>
+      <div className="flex-1 overflow-y-auto px-4 py-4" style={{ background: 'linear-gradient(175deg,#F7FAFE,#FDFDFF)' }}>
         {loading ? (
           <div className="flex justify-center py-6"><Spinner size={20} /></div>
         ) : messages.length === 0 ? (
@@ -228,10 +228,10 @@ function ChatThread({ conversation, userId, myProfile }) {
             <div key={day}>
               {/* Separador de fecha */}
               <div className="flex items-center gap-2 my-4">
-                <div className="flex-1 h-px" style={{ background: '#D6E2F5' }} />
+                <div className="flex-1 h-px" style={{ background: '#E4EDFB' }} />
                 <span className="text-[10px] font-medium px-3 py-1 rounded-full capitalize"
-                  style={{ background: '#D6E2F5', color: '#3A5590' }}>{day}</span>
-                <div className="flex-1 h-px" style={{ background: '#D6E2F5' }} />
+                  style={{ background: '#EBF1FC', color: '#5578AD' }}>{day}</span>
+                <div className="flex-1 h-px" style={{ background: '#E4EDFB' }} />
               </div>
 
               <div className="flex flex-col gap-1.5">
@@ -245,20 +245,20 @@ function ChatThread({ conversation, userId, myProfile }) {
                       <div style={{ maxWidth: '75%' }}>
                         <div className="px-4 py-3 text-[15px] leading-relaxed whitespace-pre-wrap break-words"
                           style={{
-                            background: isMine ? '#0047AB' : '#ffffff',
-                            color: isMine ? '#ffffff' : '#111827',
+                            background: isMine ? 'linear-gradient(135deg,#0047AB,#2C6BD4)' : '#ffffff',
+                            color: isMine ? '#ffffff' : '#33456B',
                             borderRadius: isMine
-                              ? isLast ? '22px 22px 7px 22px' : '22px'
-                              : isLast ? '22px 22px 22px 7px' : '22px',
-                            border: isMine ? 'none' : '1px solid #F3F4F6',
-                            boxShadow: isMine ? '0 4px 12px rgba(15,92,87,0.2)' : '0 2px 10px rgba(17,24,39,0.04)',
-                            fontWeight: 400,
+                              ? isLast ? '19px 19px 6px 19px' : '19px'
+                              : isLast ? '19px 19px 19px 6px' : '19px',
+                            border: 'none',
+                            boxShadow: isMine ? '0 5px 14px rgba(0,71,171,0.22)' : '0 5px 16px rgba(0,71,171,0.09)',
+                            fontWeight: 500,
                           }}>
                           {msg.content}
                         </div>
                         {isLast && (
-                          <div className={`text-[11px] mt-1.5 ${isMine ? 'text-right pr-1' : 'pl-1'}`}
-                            style={{ color: '#9CA3AF' }}>
+                          <div className={`text-[11px] mt-1.5 font-semibold ${isMine ? 'text-right pr-1' : 'pl-1'}`}
+                            style={{ color: '#8FA3C7' }}>
                             {new Date(msg.created_at).toLocaleTimeString('es-CO', { hour:'2-digit', minute:'2-digit' })}
                             {isMine && ' ✓✓'}
                           </div>
@@ -276,21 +276,21 @@ function ChatThread({ conversation, userId, myProfile }) {
 
       {/* Input */}
       <div className="px-4 py-3 flex-shrink-0 flex items-end gap-2.5"
-        style={{ background: '#ffffff', borderTop: '1px solid #F3F4F6' }}>
+        style={{ background: 'transparent' }}>
         <textarea
           value={text}
           onChange={e => setText(e.target.value)}
           placeholder="Escribe un mensaje..."
           rows={1}
           className="flex-1 px-4 py-3 text-[16px] resize-none focus:outline-none rounded-[20px]"
-          style={{ background: '#F8FAFC', border: '1px solid #E5E7EB', color: '#111827',
+          style={{ background: '#ffffff', border: 'none', boxShadow: '0 4px 14px rgba(0,71,171,0.08)', color: '#0A2A5C', fontWeight: 500,
             maxHeight: 110, lineHeight: 1.4 }}
           onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend() } }}
           onInput={e => { e.target.style.height = 'auto'; e.target.style.height = e.target.scrollHeight + 'px' }}
         />
         <button onClick={handleSend} disabled={!text.trim() || sending}
           className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 transition-all active:scale-95 disabled:opacity-40"
-          style={{ background: '#0047AB', boxShadow: '0 6px 16px rgba(15,92,87,0.3)' }}>
+          style={{ background: 'linear-gradient(135deg,#0047AB,#2C6BD4)', boxShadow: '0 6px 16px rgba(0,71,171,0.3)' }}>
           {sending ? <Spinner size={16} color="#fff" /> : <Send size={18} color="#fff" />}
         </button>
       </div>
@@ -337,11 +337,11 @@ export default function ChatsPage() {
 
   return (
     <div className="page-enter flex overflow-hidden rounded-2xl"
-      style={{ height: 'calc(100vh - 140px)', background: '#ffffff', border: '1px solid #D6E2F5' }}>
+      style={{ height: 'calc(100vh - 140px)', background: '#ffffff', boxShadow: '0 8px 28px rgba(0,71,171,0.09)' }}>
 
       {/* Bandeja */}
       <div className={`md:w-[300px] md:border-r flex-shrink-0 overflow-hidden flex flex-col ${active ? 'hidden md:flex' : 'w-full flex'}`}
-        style={{ borderColor: '#D6E2F5' }}>
+        style={{ borderColor: '#EBF1FC' }}>
         {loading ? (
           <div className="p-4 space-y-3">{[1,2,3].map(i => <div key={i} className="skeleton h-16" />)}</div>
         ) : (
@@ -355,7 +355,7 @@ export default function ChatsPage() {
         {active ? (
           <>
             <div className="md:hidden flex items-center gap-2 px-4 py-3 flex-shrink-0"
-              style={{ borderBottom: '1px solid #D6E2F5', background: '#ffffff' }}>
+              style={{ background: '#ffffff' }}>
               <button onClick={() => setActive(null)} className="p-1 rounded-lg"
                 style={{ color: '#0047AB' }}>
                 <ArrowLeft size={20} />
