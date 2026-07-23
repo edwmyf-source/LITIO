@@ -218,7 +218,7 @@ function ChatThread({ conversation, userId, myProfile }) {
       )}
 
       {/* Mensajes */}
-      <div className="flex-1 overflow-y-auto px-4 py-4" style={{ background: 'linear-gradient(175deg,#F7FAFE,#FDFDFF)' }}>
+      <div className="flex-1 overflow-y-auto px-4 py-4" style={{ background: '#E4EBF7' }}>
         {loading ? (
           <div className="flex justify-center py-6"><Spinner size={20} /></div>
         ) : messages.length === 0 ? (
@@ -251,7 +251,7 @@ function ChatThread({ conversation, userId, myProfile }) {
                               ? isLast ? '19px 19px 6px 19px' : '19px'
                               : isLast ? '19px 19px 19px 6px' : '19px',
                             border: 'none',
-                            boxShadow: isMine ? '0 5px 14px rgba(0,71,171,0.22)' : '0 5px 16px rgba(0,71,171,0.09)',
+                            boxShadow: isMine ? '0 5px 14px rgba(0,71,171,0.25)' : '0 6px 18px rgba(0,71,171,0.13)',
                             fontWeight: 500,
                           }}>
                           {msg.content}

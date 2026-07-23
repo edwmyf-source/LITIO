@@ -188,7 +188,7 @@ export default function UserProfilePage() {
       </button>
 
       {/* Tarjeta de perfil premium */}
-      <div className="rounded-3xl overflow-hidden mb-5" style={{ boxShadow: '0 12px 36px rgba(0,71,171,0.14)' }}>
+      <div className="rounded-3xl overflow-hidden mb-5" style={{ boxShadow: '0 12px 36px rgba(0,71,171,0.18)' }}>
 
         {/* ── Portada degradada ── */}
         <div className="relative" style={{ height: 150 }}>
@@ -295,7 +295,7 @@ export default function UserProfilePage() {
         </div>
       </div>
 
-      <h3 className="text-[13px] font-bold text-gray-500 uppercase tracking-wider mb-3.5 px-1">Publicaciones</h3>
+      <h3 className="text-[10px] font-extrabold uppercase mb-3 px-2" style={{ color: '#5578AD', letterSpacing: '0.12em' }}>Publicaciones</h3>
       {posts.length === 0 ? (
         <div className="text-center py-12 text-gray-400 text-[15px]">Sin publicaciones aún.</div>
       ) : (

@@ -58,7 +58,7 @@ export default function ContactsPage() {
       <p className="text-[15px] text-gray-500 mb-5">Busca a cualquier persona registrada y escríbele directamente.</p>
 
       <div className="flex items-center gap-2.5 px-4 h-14 rounded-[18px] mb-5"
-        style={{ background: '#ffffff', boxShadow: '0 6px 20px rgba(0,71,171,0.08)' }}>
+        style={{ background: '#ffffff', boxShadow: '0 8px 24px rgba(0,71,171,0.12)' }}>
         <Search size={18} color="#9CA3AF" />
         <input
           value={query}
@@ -79,7 +79,7 @@ export default function ContactsPage() {
             const isContacting = contactingId === user.id
             return (
               <div key={user.id} className="flex items-center gap-3 bg-white rounded-2xl p-3.5"
-                style={{ boxShadow: '0 6px 20px rgba(0,71,171,0.08)' }}>
+                style={{ boxShadow: '0 8px 24px rgba(0,71,171,0.12)' }}>
                 <UserAvatar seed={user.id} avatarUrl={user.avatar_url} size={44} />
                 <div className="min-w-0 flex-1 cursor-pointer" onClick={() => navigate(`/u/${user.id}`)}>
                   <p className="text-[15px] font-extrabold text-[#0A2A5C] truncate">{publicName(user)}</p>

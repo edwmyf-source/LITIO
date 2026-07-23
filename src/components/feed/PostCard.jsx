@@ -184,7 +184,7 @@ export default memo(function PostCard({ post, onContact, contactingId, blockedUs
   const goToProfile = () => navigate(`/u/${post.author_id}`)
 
   return (
-    <div className="rounded-[22px] overflow-hidden bg-white" style={{ boxShadow: '0 8px 28px rgba(0,71,171,0.09)' }} id={`post-${post.id}`}>
+    <div className="rounded-[22px] overflow-hidden bg-white" style={{ boxShadow: '0 10px 30px rgba(0,71,171,0.14)' }} id={`post-${post.id}`}>
 
       <div className="px-5 pt-5 pb-4">
 

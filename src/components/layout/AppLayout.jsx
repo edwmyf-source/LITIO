@@ -94,7 +94,7 @@ export default function AppLayout() {
 
       {/* ── Topbar móvil fija ── */}
       <div className="md:hidden fixed top-0 left-0 right-0 z-40 flex items-center gap-2.5 px-4 h-14"
-        style={{ background: 'rgba(250,251,255,0.88)', backdropFilter: 'blur(18px)', WebkitBackdropFilter: 'blur(18px)' }}>
+        style={{ background: 'rgba(228,235,247,0.95)', backdropFilter: 'blur(18px)', WebkitBackdropFilter: 'blur(18px)' }}>
         <div className="w-8 h-8 rounded-[12px] flex items-center justify-center flex-shrink-0"
           style={{ background: 'linear-gradient(135deg,#0047AB,#2C6BD4)', boxShadow: '0 4px 12px rgba(0,71,171,0.3)' }}>
           <span className="text-white font-extrabold leading-none" style={{ fontSize: 12 }}>Co</span>
@@ -150,7 +150,7 @@ export default function AppLayout() {
         )}
 
         <div className="mx-4 mb-4 h-[68px] rounded-[24px] flex items-center justify-around px-2"
-          style={{ background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', boxShadow: '0 10px 32px rgba(0,71,171,0.15)', pointerEvents: 'auto' }}>
+          style={{ background: '#FFFFFF', boxShadow: '0 12px 36px rgba(0,71,171,0.22)', pointerEvents: 'auto' }}>
 
           {/* Feed */}
           {(() => { const active = currentTab === '/feed'; return (

@@ -369,7 +369,7 @@ export default function FeedPage() {
               {SORT_OPTIONS.map(opt => { const Icon = opt.icon; return (
                 <button key={opt.value} onClick={() => setSort(opt.value)}
                   className={`flex items-center gap-1 px-3 py-1.5 text-[11px] font-medium transition-colors ${sort === opt.value ? 'text-white' : 'text-ink-500 hover:bg-ink-50'}`}
-                  style={sort === opt.value ? { background: '#0047AB' } : {}}>
+                  style={sort === opt.value ? { background: 'linear-gradient(135deg,#0047AB,#2C6BD4)' } : {}}>
                   <Icon size={12} />{opt.label}
                 </button>
               )})}
@@ -417,17 +417,18 @@ export default function FeedPage() {
             Hola {name.split(' ')[0]} — <span className="font-extrabold" style={{ color: '#0A2A5C' }}>{loading ? '...' : `${posts.filter(p => !blockedUsers.includes(p.author_id)).length} novedades`}</span> hoy
           </p>
         </div>
+        <div className="text-[10px] font-extrabold px-2 pb-1.5" style={{ color: '#5578AD', letterSpacing: '0.12em' }}>FILTROS</div>
         <ErrorBoundary><FilterBar filters={filters} setFilters={setFilters} autoFocusSearch={focusSearch} /></ErrorBoundary>
         <BannerCarousel />
-        <div className="flex items-center justify-between mb-4 mt-1 px-1">
-          <span className="text-[14px] font-extrabold" style={{ color: '#0A2A5C' }}>
-            {loading ? '...' : `${posts.filter(p => !blockedUsers.includes(p.author_id)).length} publicaciones`}
+        <div className="flex items-center justify-between mb-3 mt-2 px-2">
+          <span className="text-[10px] font-extrabold" style={{ color: '#5578AD', letterSpacing: '0.12em' }}>
+            {loading ? 'PUBLICACIONES' : `PUBLICACIONES · ${posts.filter(p => !blockedUsers.includes(p.author_id)).length}`}
           </span>
-          <div className="flex bg-white rounded-2xl overflow-hidden" style={{ border: '1px solid #E5E7EB' }}>
+          <div className="flex bg-white rounded-2xl overflow-hidden" style={{ boxShadow: '0 4px 14px rgba(0,71,171,0.1)' }}>
             {SORT_OPTIONS.map(opt => { const Icon = opt.icon; return (
               <button key={opt.value} onClick={() => setSort(opt.value)}
                 className={`flex items-center gap-1 px-3.5 py-2 text-[13px] font-semibold transition-colors ${sort === opt.value ? 'text-white' : 'text-gray-500 hover:bg-gray-50'}`}
-                style={sort === opt.value ? { background: '#0047AB' } : {}}>
+                style={sort === opt.value ? { background: 'linear-gradient(135deg,#0047AB,#2C6BD4)' } : {}}>
                 <Icon size={14} />{opt.label}
               </button>
             )})}
