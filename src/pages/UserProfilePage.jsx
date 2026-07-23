@@ -22,21 +22,23 @@ function MiniPostCard({ post, onContact, contactingId }) {
   const isContacting = contactingId === post.id
 
   return (
-    <div className="bg-white border border-ink-200 rounded-xl px-3.5 py-3 hover:shadow-sm transition-shadow">
-      <div className="flex items-center justify-between gap-2 mb-2">
-        {catLabel && (
-          <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-brand-500/10 text-brand-700 leading-none">
-            {catLabel}
+    <div className="rounded-[18px] overflow-hidden bg-white" style={{ boxShadow: '0 8px 24px rgba(0,71,171,0.09)' }}>
+      <div className="px-4 pt-3.5 pb-3">
+        <div className="flex items-center gap-2 mb-2">
+          {catLabel && (
+            <span className="flex-shrink-0 px-2.5 py-1 rounded-[9px] text-[11px] font-extrabold" style={{ background: '#EBF1FC', color: '#0047AB' }}>
+              {catLabel}
+            </span>
+          )}
+          <span className="text-[10px] font-semibold ml-auto" style={{ color: '#8FA3C7' }}>{timeAgo(post.created_at)}</span>
+        </div>
+        <p className="text-[13px] leading-relaxed mb-2.5 whitespace-pre-wrap break-words line-clamp-4 font-medium" style={{ color: '#33456B' }}>
+          {wallText}
+        </p>
+        <div className="flex items-center gap-2">
+          <span className="flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-[9px]" style={{ background: '#F4F7FD', color: '#5578AD' }}>
+            <MessageCircle size={12} />{post.comment_count || 0}
           </span>
-        )}
-        <span className="text-[10px] text-ink-400 ml-auto">{timeAgo(post.created_at)}</span>
-      </div>
-      <p className="text-[13px] text-ink-800 leading-relaxed mb-2.5 whitespace-pre-wrap break-words line-clamp-4">
-        {wallText}
-      </p>
-      <div className="flex items-center justify-between pt-2 border-t border-ink-100">
-        <div className="flex items-center gap-3 text-[11px] text-ink-400">
-          <span className="flex items-center gap-1"><MessageCircle size={12} />{post.comment_count || 0}</span>
         </div>
       </div>
     </div>
@@ -299,7 +301,7 @@ export default function UserProfilePage() {
       {posts.length === 0 ? (
         <div className="text-center py-12 text-gray-400 text-[15px]">Sin publicaciones aún.</div>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-2">
           {posts.map(post => (
             <MiniPostCard key={post.id} post={post} onContact={handleContact} contactingId={contactingPost} />
           ))}
