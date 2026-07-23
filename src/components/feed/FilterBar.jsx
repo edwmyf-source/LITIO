@@ -1,6 +1,5 @@
-import { Search, X, ChevronDown, Users, FileText } from 'lucide-react'
+import { Search, X, ChevronDown } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import {
   MARKETPLACE_TABS,
   TIENDA_CATS,
@@ -56,7 +55,6 @@ function Section({ title, value, open, onToggle, children }) {
 
 export default function FilterBar({ filters, setFilters, autoFocusSearch = false }) {
   const [openSecs, setOpenSecs] = useState(new Set(['categoria']))
-  const navigate = useNavigate()
   const searchRef = useRef(null)
 
   useEffect(() => {
@@ -158,21 +156,6 @@ export default function FilterBar({ filters, setFilters, autoFocusSearch = false
           </Section>
         )}
 
-      </div>
-
-      {/* Toggle: Publicaciones / Personas */}
-      <div className="flex gap-2 mb-2.5">
-        <button
-          className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-[12px] text-[12px] font-extrabold transition-all"
-          style={{ background: 'linear-gradient(135deg,#0047AB,#2C6BD4)', color: '#fff', boxShadow: '0 4px 12px rgba(0,71,171,0.25)' }}>
-          <FileText size={14} /> Publicaciones
-        </button>
-        <button
-          onClick={() => navigate('/contacts')}
-          className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-[12px] text-[12px] font-bold transition-all"
-          style={{ background: '#fff', color: '#5578AD', boxShadow: '0 3px 10px rgba(0,71,171,0.06)' }}>
-          <Users size={14} /> Personas
-        </button>
       </div>
 
       {/* Buscador */}

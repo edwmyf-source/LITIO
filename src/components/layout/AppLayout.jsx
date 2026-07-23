@@ -70,7 +70,6 @@ export default function AppLayout() {
 
   const profileMenuItems = [
     { label: 'Mensajes', icon: MessageSquare, path: '/chats' },
-    { label: 'Contactos', icon: Users, path: '/contacts' },
     { label: 'Alertas',  icon: Bell,          path: '/notifications', badge: unreadCount },
     { label: 'Mi perfil', icon: User, path: myId ? `/u/${myId}` : '/profile' },
     { label: '¿Cuánto sabes?', icon: FlaskConical, path: '/quimica' },
@@ -192,6 +191,15 @@ export default function AppLayout() {
               className="flex flex-col items-center gap-1 flex-1 active:scale-95 transition-transform" aria-label="Buscar">
               <Search size={22} style={{ color: active ? '#0047AB' : '#8FA3C7' }} strokeWidth={active ? 2.4 : 2} />
               <span className="text-[11px] font-semibold" style={{ color: active ? '#0047AB' : '#8FA3C7' }}>Buscar</span>
+            </button>
+          )})()}
+
+          {/* Personas */}
+          {(() => { const active = currentTab === '/contacts'; return (
+            <button onClick={() => navigate('/contacts')}
+              className="flex flex-col items-center gap-1 flex-1 active:scale-95 transition-transform" aria-label="Personas">
+              <Users size={22} style={{ color: active ? '#0047AB' : '#8FA3C7' }} strokeWidth={active ? 2.4 : 2} />
+              <span className="text-[11px] font-semibold" style={{ color: active ? '#0047AB' : '#8FA3C7' }}>Personas</span>
             </button>
           )})()}
 
