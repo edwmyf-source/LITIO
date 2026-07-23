@@ -16,7 +16,7 @@ function Pill({ label, active, onClick, size = 'sm' }) {
       onClick={onClick}
       aria-pressed={active}
       className={`transition-all flex-shrink-0 font-extrabold ${
-        lg ? 'px-[18px] py-[11px] rounded-[14px] text-[13px]' : 'px-[13px] py-[8px] rounded-[11px] text-[12px]'}`}
+        lg ? 'px-[18px] py-[6px] rounded-[13px] text-[13px]' : 'px-[13px] py-[4px] rounded-[10px] text-[12px]'}`}
       style={active
         ? { background: 'linear-gradient(135deg,#0B2E68,#1A5AC8)', color: '#ffffff',
             boxShadow: lg
@@ -36,7 +36,7 @@ function Section({ title, value, open, onToggle, children }) {
       {title && (
         <button
           onClick={onToggle}
-          className="w-full flex items-center justify-between px-4 pt-3.5 pb-1"
+          className="w-full flex items-center justify-between px-4 pt-[7px] pb-[2px]"
         >
           <span className="text-[10px] font-extrabold uppercase"
             style={{ color: '#8FA3C7', letterSpacing: '0.12em' }}>{title}</span>
@@ -53,7 +53,7 @@ function Section({ title, value, open, onToggle, children }) {
         transition: 'grid-template-rows 0.3s cubic-bezier(0.4,0,0.2,1)',
       }}>
         <div style={{ overflow: 'hidden' }}>
-          <div className="px-4 pb-3.5 pt-2.5 flex flex-wrap gap-2">
+          <div className="px-4 pb-[7px] pt-[5px] flex flex-wrap gap-1.5">
             {children}
           </div>
         </div>
@@ -124,10 +124,10 @@ export default function FilterBar({ filters, setFilters, autoFocusSearch = false
       </div>
 
       {/* Accordion D2 (Filtros) */}
-      <div className="rounded-[18px] overflow-hidden mb-2.5 mt-[13px] mx-2" style={{ background: '#ffffff', boxShadow: '0 6px 20px rgba(0,71,171,0.08)' }}>
+      <div className="rounded-[18px] overflow-hidden mb-2 mt-[9px] mx-2" style={{ background: '#ffffff', boxShadow: '0 6px 20px rgba(0,71,171,0.08)' }}>
 
         {hasFilters && (
-          <div className="flex justify-end px-3 pt-3 pb-0.5">
+          <div className="flex justify-end px-3 pt-2 pb-0.5">
             <button
               onClick={() => { setFilters({}); setOpenSec('categoria') }}
               className="text-[12px] font-bold hover:opacity-80"
@@ -153,7 +153,7 @@ export default function FilterBar({ filters, setFilters, autoFocusSearch = false
         {/* Sección: Subcategoría (solo si el tab tiene sub-opciones) */}
         {tab === 'tienda' && (
           <Section
-            title="Cuéntanos más"
+            title="Subcategoría"
             value={filters.category ? TIENDA_CATS.find(c=>c.value===filters.category)?.label : null}
             open={openSecs.has('subcategoria')}
             onToggle={() => toggle('subcategoria')}
@@ -173,7 +173,7 @@ export default function FilterBar({ filters, setFilters, autoFocusSearch = false
 
         {subOptions.length > 0 && tab !== 'tienda' && (
           <Section
-            title="Cuéntanos más"
+            title="Subcategoría"
             value={filters.subcategory || null}
             open={openSecs.has('subcategoria')}
             onToggle={() => toggle('subcategoria')}
